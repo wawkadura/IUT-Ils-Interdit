@@ -18,4 +18,15 @@ public class Controleur {
     private VueAventurier vueAventurier;
     private PileInondation pileInondation;
     private PileTrésor pileTresor;
+    
+    public void traiterMessage(String m){}
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+    }
+    
+    
+    
+    
+    
 }
