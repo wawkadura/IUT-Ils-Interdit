@@ -21,7 +21,8 @@ public class Controleur {
     
     public void traiterMessage(String m){}
     public static void main(String[] args) {
-        // TODO code application logic here
+        // TODO code application logic here 
+    Ingenieur Joueur1 = new Ingenieur("wesh","");
         
     }
     

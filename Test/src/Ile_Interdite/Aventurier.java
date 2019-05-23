@@ -15,13 +15,13 @@ import java.util.ArrayList;
         
 public abstract class Aventurier {
     private String nom;
-    private int actions;
+    private int actions= 3;
     private Tuile tuile;
     private ArrayList<CarteTrésor> cartesEnMain = new ArrayList<>();
     
-    Aventurier(String nom, int actions) {
+    Aventurier(String nom, Tuile tuile ) {
         this.setNom(nom);
-        this.setActions(actions);
+        this.setTuile(tuile);
     }
 
     public String getNom() {
@@ -51,6 +51,11 @@ public abstract class Aventurier {
     public void donner(CarteTrésor carte, Aventurier joueur) {
         
     }
+
+    public void setTuile(Tuile tuile) {
+        this.tuile = tuile;
+    }
+    
     
     public void gagnerTresor(Tuile tuile) {
         

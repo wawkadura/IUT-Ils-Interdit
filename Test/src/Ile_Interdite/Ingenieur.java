@@ -11,8 +11,8 @@ package Ile_Interdite;
  */
 public class Ingenieur extends Aventurier {
     
-    Ingenieur(String nom, int actions) {
-        super(nom, actions);
+    Ingenieur(String nom ,Tuile tuile ) {
+        super(nom,tuile);
     }
     
     @Override
