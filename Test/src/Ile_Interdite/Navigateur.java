@@ -11,8 +11,8 @@ package Ile_Interdite;
  */
 public class Navigateur extends Aventurier {
     
-    Navigateur(String nom, int actions) {
-        super(nom, actions);
+    Navigateur(String nom, Tuile tuile) {
+        super(nom, tuile);
     }
     
     @Override

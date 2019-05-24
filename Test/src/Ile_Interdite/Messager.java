@@ -11,8 +11,8 @@ package Ile_Interdite;
  */
 public class Messager extends Aventurier {
     
-    Messager(String nom, int actions) {
-        super(nom, actions);
+    Messager(String nom, Tuile tuile) {
+        super(nom, tuile);
     }
     
     @Override

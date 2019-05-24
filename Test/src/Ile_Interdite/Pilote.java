@@ -13,8 +13,8 @@ public class Pilote extends Aventurier {
     
     private boolean utilise;
     
-    Pilote(String nom, int actions) {
-        super(nom, actions);
+    Pilote(String nom, Tuile tuile) {
+        super(nom, tuile);
         setUtilise(false);
     }
 

@@ -11,8 +11,8 @@ package Ile_Interdite;
  */
 public class Plongeur extends Aventurier {
     
-    Plongeur(String nom, int actions) {
-        super(nom, actions);
+    Plongeur(String nom, Tuile tuile) {
+        super(nom, tuile);
     }
     
     @Override

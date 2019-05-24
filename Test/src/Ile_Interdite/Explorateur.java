@@ -11,8 +11,8 @@ package Ile_Interdite;
  */
 public class Explorateur extends Aventurier {
     
-    Explorateur(String nom, int actions) {
-        super(nom, actions);
+    Explorateur(String nom, Tuile tuile) {
+        super(nom, tuile);
     }
     
     @Override
