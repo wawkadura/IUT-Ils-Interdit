@@ -10,6 +10,7 @@ package Ile_Interdite;
  * @author peyrinfl
  */
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Controleur {
 
@@ -74,9 +75,22 @@ public class Controleur {
                 c = 0;
                 l++;
             }
-
+            
         }
+    }
         //demander combien de joueur veux jouer de 2 a 4
+        public void nbJoueur() { 
+            int nbJoueur = 10;
+        
+            while (nbJoueur < 2 && nbJoueur > 4) {
+                System.out.println("Il vous faut un minimum de 2 et maximum de 4 joueurs pour jouer !");
+                System.out.println("Combien de joueurs veulent jouer ? : ");
+                Scanner nb = new Scanner(System.in);
+                nbJoueur = nb.nextInt();
+            }
+            System.out.println("Vous avez inscrit " + nbJoueur + "joueurs.");
+            System.out.println("La partie peut se lancer !");   
+        }
         // donner aleatoirement des roles
         // donner aleatoirement des tuile
         Coordonnees C = new Coordonnees(2,2);
