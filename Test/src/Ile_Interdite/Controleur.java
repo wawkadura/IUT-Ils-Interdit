@@ -91,6 +91,21 @@ public class Controleur {
         Explorateur Joueur2 = new Explorateur("Joueur2", tuile2);
         Pilote Joueur3 = new Pilote("Joueur3", tuile3);
         Plongeur Joueur4 = new Plongeur("Joueur4", tuile4);
+        
+        // loup du jeu (tant que personne est mort et que les tresor sont tous disponible et que les joueur ont pas gagnier )
+        //loup du tour selon les action while action >0
+        //demander quelle action faire :
+            //assecher 
+            //deplacer 
+            //rien faire 
+            //donner (si il est sur la meme cas d'un autre joueur )
+            //chercher (si il est sur une tuile a tresor )
+            //Activer Competence
+            //activer une carte (si il en a)
+        //faire
+        //faire piocher les joueur dans la pile a tresor 
+        
+        
 
     }
 
