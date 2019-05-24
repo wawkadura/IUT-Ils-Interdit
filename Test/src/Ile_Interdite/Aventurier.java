@@ -19,7 +19,7 @@ public abstract class Aventurier {
     private Tuile tuile;
     private ArrayList<CarteTrésor> cartesEnMain = new ArrayList<>();
     
-    Aventurier(String nom, Tuile tuile ) {
+    Aventurier(String nom, Tuile tuile) {
         this.setNom(nom);
         this.setTuile(tuile);
     }
