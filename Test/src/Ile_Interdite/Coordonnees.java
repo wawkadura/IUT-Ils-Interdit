@@ -15,7 +15,11 @@ public class Coordonnees {
     private int y;
 
     public Coordonnees(int x, int y) {
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
+    }
+
+    public void afficherCoord() {
+        System.out.println("("+this.x+","+this.y+")");
     }
 }
