@@ -25,4 +25,9 @@ public class Grille {
     public void addTuile(Tuile tuile) {
      this.tuiles.put(tuile.getCoordonnee(), tuile);
     }
+
+    public HashMap<Coordonnees, Tuile> getTuiles() {
+        return tuiles;
+    }
+    
 }

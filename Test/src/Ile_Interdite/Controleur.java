@@ -31,18 +31,44 @@ public class Controleur {
         Grille grille = new Grille(niv);
         for (int i = 0; i < 36; i++) {// Creation de la Grille
             Coordonnees C = new Coordonnees(l, c);
-            if (c==2 && l==0){LieuDeTresor tuile = new LieuDeTresor(C,"coup");}   //coup
-            else if (c==3 && l==0){LieuDeTresor tuile = new LieuDeTresor(C,"coup");} // feu
-            else if (c==0 && l==2){LieuDeTresor tuile = new LieuDeTresor(C,"coup");} //coup
-            else if (c==0 && l==3){LieuDeTresor tuile = new LieuDeTresor(C,"coup");}
-            else if (c==5 && l==2){LieuDeTresor tuile = new LieuDeTresor(C,"coup");} //feu
-            else if (c==5 && l==3){LieuDeTresor tuile = new LieuDeTresor(C,"coup");} //
-            else if (c==2 && l==5){LieuDeTresor tuile = new LieuDeTresor(C,"coup");}
-            else if (c==3 && l==5){LieuDeTresor tuile = new LieuDeTresor(C,"coup");}
-            else{
+            if (c == 2 && l == 0) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
+                grille.addTuile(tuile);
+            } //coup
+            else if (c == 3 && l == 0) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
+                grille.addTuile(tuile);
+            }//feu
+            else if (c == 0 && l == 2) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
+                grille.addTuile(tuile);
+            }//coup
+            else if (c == 0 && l == 3) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
+                grille.addTuile(tuile);
+            }//lion
+            else if (c == 5 && l == 2) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
+                grille.addTuile(tuile);
+            }//feu
+            else if (c == 5 && l == 3) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
+                grille.addTuile(tuile);
+            }//oeuf
+            else if (c == 2 && l == 5) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
+                grille.addTuile(tuile);
+            }//lion
+            else if (c == 3 && l == 5) {
+                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
+                grille.addTuile(tuile);
+            }//oeuf
             
-            Tuile tuile = new Tuile(C);
-            grille.addTuile(tuile);
+            //tuile heliport a faire aleatoirement
+            else {
+
+                Tuile tuile = new Tuile(C);
+                grille.addTuile(tuile);
             }
             if (c == 6) {
                 c = 0;
@@ -52,7 +78,9 @@ public class Controleur {
         }
         //demander combien de joueur veux jouer de 2 a 4
         // donner aleatoirement des roles
-        Ingenieur Joueur1 = new Ingenieur("Joueur1", "");
+        // donner aleatoirement des tuile
+        Tuile tuile = grille.
+        Ingenieur Joueur1 = new Ingenieur("Joueur1", );
         Explorateur Joueur2 = new Explorateur("Joueur2", "");
         Pilote Joueur3 = new Pilote("Joueur3", "");
         Plongeur Joueur4 = new Plongeur("Joueur4", "");
