@@ -15,8 +15,15 @@ import java.util.ArrayList;
 public class Tuile {
     
     private String nom;
-    private int x;
-    private int y;
+    private Coordonnees C ;
     private ArrayList<Aventurier> aventuriers = new ArrayList<>();
+    
+    public Tuile (Coordonnees C){
+        this.C=C;
+    }
+
+    public Coordonnees getCoordonnee() {
+        return C;
+    }
     
 }

@@ -13,7 +13,16 @@ package Ile_Interdite;
 import java.util.HashMap;     
         
 public class Grille {
+
+    
     
     private int nivEau;
-    // private HashMap<int x, int y> tuiles = new HashMap<>();
+    private HashMap<Coordonnees, Tuile >  tuiles = new HashMap<Coordonnees, Tuile>();
+    public Grille (int niv){
+        this.nivEau=niv;
+    }
+    
+    public void addTuile(Tuile tuile) {
+     this.tuiles.put(tuile.getCoordonnee(), tuile);
+    }
 }

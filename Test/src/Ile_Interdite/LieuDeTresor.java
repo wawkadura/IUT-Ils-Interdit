@@ -9,8 +9,13 @@ package Ile_Interdite;
  *
  * @author peyrinfl
  */
-public class LieuDeTrésor extends Tuile {
+public class LieuDeTresor extends Tuile {
     
     private String type;
+
+    public LieuDeTresor(Coordonnees C , String type) {
+        super(C);
+        this.type=type;
+    }
 
 }
