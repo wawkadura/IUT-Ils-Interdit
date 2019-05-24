@@ -79,11 +79,18 @@ public class Controleur {
         //demander combien de joueur veux jouer de 2 a 4
         // donner aleatoirement des roles
         // donner aleatoirement des tuile
-        Tuile tuile = grille.
-        Ingenieur Joueur1 = new Ingenieur("Joueur1", );
-        Explorateur Joueur2 = new Explorateur("Joueur2", "");
-        Pilote Joueur3 = new Pilote("Joueur3", "");
-        Plongeur Joueur4 = new Plongeur("Joueur4", "");
+        Coordonnees C = new Coordonnees(2,2);
+        Coordonnees C2 = new Coordonnees(3,2);
+        Coordonnees C3 = new Coordonnees(4,2);
+        Coordonnees C4 = new Coordonnees(0,2);
+        Tuile tuile = grille.getTuiles().get(C);
+        Tuile tuile2 = grille.getTuiles().get(C);
+        Tuile tuile3 = grille.getTuiles().get(C);
+        Tuile tuile4 = grille.getTuiles().get(C);
+        Ingenieur Joueur1 = new Ingenieur("Joueur1",tuile );
+        Explorateur Joueur2 = new Explorateur("Joueur2", tuile2);
+        Pilote Joueur3 = new Pilote("Joueur3", tuile3);
+        Plongeur Joueur4 = new Plongeur("Joueur4", tuile4);
 
     }
 
