@@ -19,7 +19,16 @@ public class Coordonnees {
         this.y = y;
     }
 
-    public void afficherCoord() {
-        System.out.println("("+this.x+","+this.y+")");
+    public String afficherCoord() {
+        return ("("+this.x+","+this.y+")");
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+    
 }

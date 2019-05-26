@@ -13,6 +13,10 @@ public class Héliport extends Tuile {
     
     private boolean depart;
 
+    public Héliport(Coordonnees C) {
+        super(C);
+    }
+
     public boolean isDepart() {
         return depart;
     }

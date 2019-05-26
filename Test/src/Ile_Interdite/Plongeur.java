@@ -16,7 +16,7 @@ public class Plongeur extends Aventurier {
     }
     
     @Override
-    public void deplacer(int x, int y) {
+    public void deplacer(Grille g) {
         
     }
 }

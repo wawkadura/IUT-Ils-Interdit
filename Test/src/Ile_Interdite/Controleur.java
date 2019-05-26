@@ -22,6 +22,18 @@ public class Controleur {
 
     public void traiterMessage(String m) {
     }
+    public void nbJoueur() { 
+            int nbJoueur = 10;
+        
+            while (nbJoueur < 2 && nbJoueur > 4) {
+                System.out.println("Il vous faut un minimum de 2 et maximum de 4 joueurs pour jouer !");
+                System.out.println("Combien de joueurs veulent jouer ? : ");
+                Scanner nb = new Scanner(System.in);
+                nbJoueur = nb.nextInt();
+            }
+            System.out.println("Vous avez inscrit " + nbJoueur + "joueurs.");
+            System.out.println("La partie peut se lancer !");   
+        }
 
     public static void main(String[] args) {
         // TODO code application logic here 
@@ -77,20 +89,9 @@ public class Controleur {
             }
             
         }
-    }
+    
         //demander combien de joueur veux jouer de 2 a 4
-        public void nbJoueur() { 
-            int nbJoueur = 10;
         
-            while (nbJoueur < 2 && nbJoueur > 4) {
-                System.out.println("Il vous faut un minimum de 2 et maximum de 4 joueurs pour jouer !");
-                System.out.println("Combien de joueurs veulent jouer ? : ");
-                Scanner nb = new Scanner(System.in);
-                nbJoueur = nb.nextInt();
-            }
-            System.out.println("Vous avez inscrit " + nbJoueur + "joueurs.");
-            System.out.println("La partie peut se lancer !");   
-        }
         // donner aleatoirement des roles
         // donner aleatoirement des tuile
         Coordonnees C = new Coordonnees(2,2);
@@ -98,14 +99,18 @@ public class Controleur {
         Coordonnees C3 = new Coordonnees(4,2);
         Coordonnees C4 = new Coordonnees(0,2);
         Tuile tuile = grille.getTuiles().get(C);
-        Tuile tuile2 = grille.getTuiles().get(C);
-        Tuile tuile3 = grille.getTuiles().get(C);
-        Tuile tuile4 = grille.getTuiles().get(C);
-        Ingenieur Joueur1 = new Ingenieur("Joueur1",tuile );
+        Tuile tuile2 = grille.getTuiles().get(C2);
+        Tuile tuile3 = grille.getTuiles().get(C3);
+        Tuile tuile4 = grille.getTuiles().get(C4);
+        
+        Ingenieur Joueur1 = new Ingenieur("Joueur1",grille.getTuiles().get(C) );
+        System.out.println("depart"+Joueur1.getTuile().getCoordonnee().afficherCoord()); // nullpointerException a corriger
         Explorateur Joueur2 = new Explorateur("Joueur2", tuile2);
         Pilote Joueur3 = new Pilote("Joueur3", tuile3);
         Plongeur Joueur4 = new Plongeur("Joueur4", tuile4);
-        
+        Joueur1.deplacer(grille);
+        Joueur1.tourTermine();
+        System.out.println("fin"+Joueur1.getTuile().getCoordonnee().afficherCoord()); 
         // loup du jeu (tant que personne est mort et que les tresor sont tous disponible et que les joueur ont pas gagnier )
         //loup du tour selon les action while action >0
         //demander quelle action faire :
@@ -122,5 +127,6 @@ public class Controleur {
         
 
     }
-
 }
+
+
