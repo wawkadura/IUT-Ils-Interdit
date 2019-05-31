@@ -16,7 +16,7 @@ public class Tuile {
     private String nom;
     private Coordonnees C;
     private ArrayList<Aventurier> aventuriers = new ArrayList<>();
-    private int etat = 0; //0 assecher , 1 innonder, 2
+    private int etat = 0; //0 assecher , 1 innonder, 2 manquant
 
     public Tuile(Coordonnees C) {
         this.C = C;
@@ -26,8 +26,10 @@ public class Tuile {
         return C;
     }
 
-    public int getEtat() {
-        return etat;
+    public String getEtat() {
+        if  (this.etat==2){return "manquant";}
+        if  (this.etat==1){return "innonder";}
+        else{return "assecher";}
     }
 
     public void setEtat(int etat) {
@@ -42,4 +44,8 @@ public class Tuile {
         aventuriers.remove(A);
     }
 
+    public ArrayList<Aventurier> getAventuriers() {
+        return aventuriers;
+    }
+    
 }

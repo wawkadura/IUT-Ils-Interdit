@@ -11,6 +11,7 @@ package Ile_Interdite;
  */
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public abstract class Aventurier {
 
@@ -31,7 +32,6 @@ public abstract class Aventurier {
     public Tuile getTuile() {
         return tuile;
     }
-    
 
     public int getActions() {
         return actions;
@@ -46,71 +46,37 @@ public abstract class Aventurier {
     }
 
     public void deplacer(Grille g) {
-        Boolean droite = false, haut = false, gauche = false, bas = false; // pour l'affectation aprés le choix de l'utilisateur 
-        int num = 0; // nombre de tuiles disponible
-        Coordonnees TuileGauche = new Coordonnees(this.tuile.getCoordonnee().getX() - 1, this.tuile.getCoordonnee().getY()); //gauche
-        Coordonnees TuileDroite = new Coordonnees(this.tuile.getCoordonnee().getX() + 1, this.tuile.getCoordonnee().getY()); //droite
-        Coordonnees TuileEnHaut = new Coordonnees(this.tuile.getCoordonnee().getX() - 1, this.tuile.getCoordonnee().getY() - 1); //haut
-        Coordonnees TuileEnBas = new Coordonnees(this.tuile.getCoordonnee().getX(), this.tuile.getCoordonnee().getY() + 1); //bas
-        if (g.getTuiles().get(TuileGauche) != null) {
-            if (g.getTuiles().get(TuileGauche).getEtat() != 2) {
-                System.out.println(num + " - " + "Tuile de droite disponible de coordonnees : " + TuileDroite.afficherCoord());
-                num++;
-                gauche = true;
+        System.out.println(this.getTuile().getCoordonnee().afficherCoord());
+        TreeMap<Coordonnees, Tuile> tuilesVoisines = g.getTuilesVoisines(getTuile());
+        ArrayList<Tuile> Choix = new ArrayList<>();
+        int numero = 0;
+        for (Tuile T : tuilesVoisines.values()) {
+                if (!T.getEtat().equals("manquant")) {
+                    numero++;
+                    System.out.print(numero + " - Tuile disponible au coordonnees : " + T.getCoordonnee().afficherCoord());
+                    System.out.print(" Contenant : ");
+                    for (Aventurier A : T.getAventuriers()) {
+                        System.out.print(A.getNom()+" ");
+                    } 
+                    System.out.println(" , Etat : "+ T.getEtat());
+                    Choix.add(T);
+                }
             }
-        }
-        if (g.getTuiles().get(TuileDroite) != null) {
-            if (g.getTuiles().get(TuileDroite).getEtat() != 2) {
-                System.out.println(num + " - " + "Tuile de droite disponible de coordonnees : " + TuileDroite.afficherCoord());
-                num++;
-                droite = true;
-            }
-        }
-        if (g.getTuiles().get(TuileEnHaut) != null) {
-            if (g.getTuiles().get(TuileEnHaut).getEtat() != 2) {
-                System.out.println(num + " - " + "Tuile au dessus disponible de coordonnees : " + TuileEnHaut.afficherCoord());
-                num++;
-                haut = true;
-            }
-        }
-        if (g.getTuiles().get(TuileEnBas) != null) {
-            if (g.getTuiles().get(TuileEnBas).getEtat() != 2) {
-                System.out.println(num + " - " + "Tuile en dessous disponible de coordonnees : " + TuileEnBas.afficherCoord());
-                num++;
-                bas = true;
-            }
-        }
-        System.out.println("Sur quelle Tuile de 1 à " + num + " voulez vous vous deplacer ? (0 pour annuler) : ");
+        System.out.println("Sur quelle Tuile de 1 à " + numero + " voulez vous vous deplacer ? (0 pour annuler) : ");
         Scanner scn = new Scanner(System.in);
 
         int dir = scn.nextInt();
-        while (dir < 0 || dir > num) {
-            System.out.println("Veuillez tapper une tuile Disponible de 1 à " + num + " (0 pour annuler):");
+        while (dir < 0 || dir > numero) {
+            System.out.print("Veuillez tapper une tuile Disponible de 1 à " + numero + " (0 pour annuler):");
         }
-        if (dir != 0) {
-            if (gauche && dir == 1) {
-                this.tuile = g.getTuiles().get(TuileGauche);
-            }
-            if (droite && !gauche && dir == 1
-                    || droite && dir == 2) {
-                this.tuile = g.getTuiles().get(TuileDroite);
-            }
-            if (haut && !droite && !gauche && dir == 1
-                    || haut && (!droite || !gauche) && dir == 2
-                    || haut && dir == 3) {
-                this.tuile = g.getTuiles().get(TuileEnHaut);
-            }
-            if (bas && dir == 4
-                    || bas && (!haut || !droite || !gauche) && dir == 3
-                    || bas && ((!haut && !gauche) || (!haut && !droite) || (!gauche && !droite)) && dir == 2
-                    || bas && !haut && !gauche && !droite && dir == 1) {
-                this.tuile = g.getTuiles().get(TuileEnBas);
-                g.getTuiles().get(TuileEnBas).addAventurier(this);
-                g.getTuiles().get(this.tuile).suppAventurier(this);
-                this.actions=this.actions -1;
-            }
-        } else {
+
+        if (dir == 0) {
             System.out.println("Annulation du deplacement...");
+        } else {
+            g.getTuiles().get(this.tuile.getCoordonnee()).suppAventurier(this);
+            this.tuile = g.getTuiles().get(Choix.get(dir - 1).getCoordonnee());
+            g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()).addAventurier(this);
+            this.actions = this.actions - 1;
         }
 
     }

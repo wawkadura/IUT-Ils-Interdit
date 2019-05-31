@@ -5,11 +5,13 @@
  */
 package Ile_Interdite;
 
+import java.util.Comparator;
+
 /**
  *
  * @author wawve
  */
-public class Coordonnees {
+public class Coordonnees implements Comparable<Coordonnees> {
 
     private int x;
     private int y;
@@ -31,4 +33,9 @@ public class Coordonnees {
         return y;
     }
     
+
+    @Override
+    public int compareTo(Coordonnees c) {
+          return afficherCoord().compareTo(c.afficherCoord());
+    }
 }
