@@ -10,14 +10,8 @@ package Ile_Interdite;
  * @author peyrinfl
  */
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class Controleur {
 
@@ -93,6 +87,7 @@ public class Controleur {
             else {
 
                 Tuile tuile = new Tuile(C);
+                tuile.setEtat(1);
                 grille.addTuile(tuile);
             }
             c++;
@@ -102,13 +97,9 @@ public class Controleur {
             }
 
         }
-        grille.AfficherGrille();
 
-        //test area ////////////////////////////////////////////////////////////////
+        //parametrage ////////////////////////////////////////////////////////////////
         
-        
-        
-        //test area ////////////////////////////////////////////////////////////////
         
         Coordonnees C = new Coordonnees(2, 3);
         Coordonnees C2 = new Coordonnees(3, 2);
@@ -119,44 +110,84 @@ public class Controleur {
         Explorateur J2 = new Explorateur("Florent", grille.getTuiles().get(C2));
         Pilote J3 = new Pilote("Walid", grille.getTuiles().get(C3));
         Plongeur J4 = new Plongeur("Amine", grille.getTuiles().get(C4));
+        
         ArrayList<Aventurier> Joueurs = new ArrayList<>();
         Joueurs.add(J1);
         Joueurs.add(J2);
         Joueurs.add(J3);
         Joueurs.add(J4);
+
+        //parametrage ////////////////////////////////////////////////////////////////
+        grille.AfficherGrille();
         ////////////////////////////////////////COMMENCEMENT DE LA PARTIE////////////////////////////////////////////////////////
+        System.out.println("____________________________________________________________");
+        System.out.println("                        TOUR 1                              ");
+        System.out.println("____________________________________________________________");
+        System.out.println("");
         for (Aventurier A : Joueurs) {
+            //****************************DEBUT********************************************
             while (A.getActions() > 0 && !A.isTourTerminer()) {
-                System.out.println(A.getNom() + " : (" + A.getActions() + " actions restants ) ");
+                System.out.println(A.getFonction() + " " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
                 System.out.println("");
                 System.out.println("1- se Deplacer");
+                if (A.getFonction().equalsIgnoreCase("navigateur")) {
+                    System.out.println("1.2- Deplacer un autre joueur (spécial) ");
+                }
                 System.out.println("2- assecher une tuile");
                 System.out.println("3- terminer le tour");
-                System.out.println("Veuillez choisir une action (1/2/3): ");
+                System.out.print("Veuillez choisir une action (1/2/3): ");
 
                 Scanner scn = new Scanner(System.in);
-                int rep = scn.nextInt();
+                double rep = scn.nextInt();
 
                 while (rep < 1 || rep > 3) {
-                    System.out.println("Veuillez choisir une action (1/2/3): ");
+                    System.out.print("Veuillez choisir une action (1/2/3): ");
+                    rep = scn.nextInt();
                 }
+                //**********************DEPLACEMENT***********************************************************************
                 if (rep == 1) {
-                    if (A.getNom().equals("Florent")) {
-                        System.out.println("Qui voulez vous dplacer : ");
-                        //for blabla 
-                    } else {
+                    if (A.getFonction().equals("navigateur")) { //deplacement special navigateur
+                        System.out.println("Aventuriers : ");
+                        int select = 1;
+                        for (Aventurier A2 : Joueurs) {
+                            if (!A2.getFonction().equals(A.getFonction())) {
+                                System.out.println(select + "- " + A2.getNom() + " " + A2.getTuile().getCoordonnee().afficherCoord());
+                            }
+                            select++;
+                        }
+                        System.out.print("Qui voulez vous deplacer ?: ");
+                        Scanner selc = new Scanner(System.in);
+                        int Av = selc.nextInt();
+                        while (Av < 1 || Av > 3) {
+                            System.out.print("Qui voulez vous deplacer ? (1 a" + select + ") :");
+                            Av = selc.nextInt();
+                        }
+                        Joueurs.get(Av - 1).deplacer(grille);
+                    } else { //deplacement normal
                         A.deplacer(grille);
                     }
+
                 }
+                //**********************DEPLACEMENT***********************************************************************
+
+                //**********************ASSECHEMENT***********************************************************************
                 if (rep == 2) {
+                    A.assecher(grille);
                 }
+                //**********************ASSECHEMENT***********************************************************************
+
                 if (rep == 3) {
-                    A.tourTermine();
+                    A.setTerminer(true);
                 }
+
                 grille.AfficherGrille();
             }
+            A.tourTermine();
             A.Reset();
+            //****************************FIN********************************************
         }
-
+        System.out.println("____________________________________________________________");
+        System.out.println("                        FIN TOUR 1                              ");
+        System.out.println("____________________________________________________________");
     }
 }

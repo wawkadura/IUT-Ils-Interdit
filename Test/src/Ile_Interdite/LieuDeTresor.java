@@ -17,5 +17,6 @@ public class LieuDeTresor extends Tuile {
         super(C);
         this.type=type;
     }
+    
 
 }

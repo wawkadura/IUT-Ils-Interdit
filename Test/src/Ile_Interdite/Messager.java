@@ -19,4 +19,8 @@ public class Messager extends Aventurier {
     public void donner(CarteTrésor carte, Aventurier joueur) {
         
     }
+    @Override
+    public String getFonction() {
+        return "messager";
+    }
 }

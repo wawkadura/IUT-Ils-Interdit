@@ -19,18 +19,23 @@ public class Navigateur extends Aventurier {
 
     public void faireDeplacer(Grille g, Aventurier A) {
         A.deplacer(g);
-        A.tourTermine();
-        System.out.println("voulez vous le deplacer encore une fois ? (oui/non)");
+        A.Reset();
+        System.out.print("voulez vous le deplacer encore une fois ? (oui/non)");
         Scanner scn = new Scanner(System.in);
 
         String rep = scn.next();
         while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
-            System.out.println("voulez vous le deplacer encore une fois ? (oui/non)");
+            System.out.print("voulez vous le deplacer encore une fois ? (oui/non)");
+             rep = scn.next();
         }
         if (rep.equalsIgnoreCase("oui")) {
             A.deplacer(g);
-            A.tourTermine();
+            A.Reset();
         }
         else {}
+    }
+    @Override
+    public String getFonction() {
+        return "navigateur";
     }
 }

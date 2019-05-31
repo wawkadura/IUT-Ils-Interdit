@@ -5,6 +5,8 @@
  */
 package Ile_Interdite;
 
+import java.util.Scanner;
+
 /**
  *
  * @author peyrinfl
@@ -16,7 +18,25 @@ public class Ingenieur extends Aventurier {
     }
     
     @Override
-    public void assecher(Tuile tuile) {
+    public void assecher(Grille g) {
+        super.assecher(g);
+        super.setActions(super.getActions()+1);
+        System.out.print("(Special)Voulez vous assecher une autre tuile ?(oui/non): ");
+        Scanner scn = new Scanner(System.in);
+
+        String rep = scn.next();
+        while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
+            System.out.print("(Special)Voulez vous assecher une autre tuile ?(oui/non): ");
+             rep = scn.next();
+        }
+        if (rep.equalsIgnoreCase("oui")) {
+            super.assecher(g);
+        }
+        else {super.setActions(super.getActions()-1);}
         
+    }
+    @Override
+    public String getFonction() {
+        return "ingenieur";
     }
 }

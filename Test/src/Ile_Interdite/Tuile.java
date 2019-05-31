@@ -41,7 +41,8 @@ public class Tuile {
     }
 
     public void suppAventurier(Aventurier A) {
-        aventuriers.remove(A);
+        if (aventuriers.contains(A)){
+        aventuriers.remove(A);}
     }
 
     public ArrayList<Aventurier> getAventuriers() {
