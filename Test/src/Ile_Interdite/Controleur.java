@@ -9,6 +9,7 @@ package Ile_Interdite;
  *
  * @author peyrinfl
  */
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -101,52 +102,61 @@ public class Controleur {
             }
 
         }
-        for (Tuile T : grille.getTuiles().values()) {
-            System.out.print(T.getCoordonnee().afficherCoord());
-            for (Aventurier A : T.getAventuriers()) {
-                System.out.print("Contenant : ");
-                System.out.print(A.getNom());
-            }
-            System.out.println("");
-            
-        }
+        grille.AfficherGrille();
 
         //test area ////////////////////////////////////////////////////////////////
+        
+        
+        
         //test area ////////////////////////////////////////////////////////////////
-        //demander combien de joueur veux jouer de 2 a 4
-        // donner aleatoirement des roles
-        // donner aleatoirement des tuile
+        
         Coordonnees C = new Coordonnees(2, 3);
         Coordonnees C2 = new Coordonnees(3, 2);
         Coordonnees C3 = new Coordonnees(3, 5);
         Coordonnees C4 = new Coordonnees(4, 1);
 
-        Ingenieur Joueur1 = new Ingenieur("Joueur1", grille.getTuiles().get(C));
-        Explorateur Joueur2 = new Explorateur("Joueur2", grille.getTuiles().get(C2));
-        Pilote Joueur3 = new Pilote("Joueur3", grille.getTuiles().get(C3));
-        Plongeur Joueur4 = new Plongeur("Joueur4", grille.getTuiles().get(C4));
+        Ingenieur J1 = new Ingenieur("César", grille.getTuiles().get(C));
+        Explorateur J2 = new Explorateur("Florent", grille.getTuiles().get(C2));
+        Pilote J3 = new Pilote("Walid", grille.getTuiles().get(C3));
+        Plongeur J4 = new Plongeur("Amine", grille.getTuiles().get(C4));
+        ArrayList<Aventurier> Joueurs = new ArrayList<>();
+        Joueurs.add(J1);
+        Joueurs.add(J2);
+        Joueurs.add(J3);
+        Joueurs.add(J4);
+        ////////////////////////////////////////COMMENCEMENT DE LA PARTIE////////////////////////////////////////////////////////
+        for (Aventurier A : Joueurs) {
+            while (A.getActions() > 0 && !A.isTourTerminer()) {
+                System.out.println(A.getNom() + " : (" + A.getActions() + " actions restants ) ");
+                System.out.println("");
+                System.out.println("1- se Deplacer");
+                System.out.println("2- assecher une tuile");
+                System.out.println("3- terminer le tour");
+                System.out.println("Veuillez choisir une action (1/2/3): ");
 
-        Joueur3.deplacer(grille);
-        Joueur3.tourTermine();
-        System.out.println("fin" + Joueur3.getTuile().getCoordonnee().afficherCoord());
-        //loup du tour selon les action while action >0
-        //demander quelle action faire :
-        //assecher 
-        //deplacer 
-        //rien faire 
-        //donner (si il est sur la meme cas d'un autre joueur )
-        //chercher (si il est sur une tuile a tresor )
-        //Activer Competence
-        //activer une carte (si il en a)
-        //faire
-        //faire piocher les joueur dans la pile a tresor 
-        for (Tuile T : grille.getTuiles().values()) {
-            System.out.println(T.getCoordonnee().afficherCoord());
-            for (Aventurier A : T.getAventuriers()) {
-                System.out.print("Contenant : ");
-                System.out.print(A.getNom());
+                Scanner scn = new Scanner(System.in);
+                int rep = scn.nextInt();
+
+                while (rep < 1 || rep > 3) {
+                    System.out.println("Veuillez choisir une action (1/2/3): ");
+                }
+                if (rep == 1) {
+                    if (A.getNom().equals("Florent")) {
+                        System.out.println("Qui voulez vous dplacer : ");
+                        //for blabla 
+                    } else {
+                        A.deplacer(grille);
+                    }
+                }
+                if (rep == 2) {
+                }
+                if (rep == 3) {
+                    A.tourTermine();
+                }
+                grille.AfficherGrille();
             }
-
+            A.Reset();
         }
+
     }
 }

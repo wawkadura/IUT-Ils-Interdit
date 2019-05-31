@@ -19,6 +19,7 @@ public abstract class Aventurier {
     private int actions = 3;
     private Tuile tuile;
     private ArrayList<CarteTrésor> cartesEnMain = new ArrayList<>();
+    private boolean tourTerminer = false;
 
     Aventurier(String nom, Tuile tuile) {
         this.setNom(nom);
@@ -51,17 +52,17 @@ public abstract class Aventurier {
         ArrayList<Tuile> Choix = new ArrayList<>();
         int numero = 0;
         for (Tuile T : tuilesVoisines.values()) {
-                if (!T.getEtat().equals("manquant")) {
-                    numero++;
-                    System.out.print(numero + " - Tuile disponible au coordonnees : " + T.getCoordonnee().afficherCoord());
-                    System.out.print(" Contenant : ");
-                    for (Aventurier A : T.getAventuriers()) {
-                        System.out.print(A.getNom()+" ");
-                    } 
-                    System.out.println(" , Etat : "+ T.getEtat());
-                    Choix.add(T);
+            if (!T.getEtat().equals("manquant")) {
+                numero++;
+                System.out.print(numero + " - Tuile disponible au coordonnees : " + T.getCoordonnee().afficherCoord());
+                System.out.print(" Contenant : ");
+                for (Aventurier A : T.getAventuriers()) {
+                    System.out.print(A.getNom() + " ");
                 }
+                System.out.println(" , Etat : " + T.getEtat());
+                Choix.add(T);
             }
+        }
         System.out.println("Sur quelle Tuile de 1 à " + numero + " voulez vous vous deplacer ? (0 pour annuler) : ");
         Scanner scn = new Scanner(System.in);
 
@@ -97,9 +98,18 @@ public abstract class Aventurier {
 
     }
 
-    public void tourTermine() {
-        setActions(3);
+    public boolean isTourTerminer() {
+        return tourTerminer;
+    }
 
+    public void tourTermine() {
+        System.out.println("Tour de "+getNom()+" Terminer ! ");
+        tourTerminer = true;
+    }
+
+    public void Reset() {
+        setActions(3);
+        tourTerminer = false;
     }
 
 }

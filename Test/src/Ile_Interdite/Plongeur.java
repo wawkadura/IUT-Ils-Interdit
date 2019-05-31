@@ -38,7 +38,6 @@ public class Plongeur extends Aventurier {
             }
         System.out.println("Sur quelle Tuile de 1 à " + numero + " voulez vous vous deplacer ? (0 pour annuler) : ");
         Scanner scn = new Scanner(System.in);
-
         int dir = scn.nextInt();
         while (dir < 0 || dir > numero) {
             System.out.print("Veuillez tapper une tuile Disponible de 1 à " + numero + " (0 pour annuler):");

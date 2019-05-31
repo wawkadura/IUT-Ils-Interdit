@@ -92,4 +92,18 @@ public class Grille {
         return tuilesVoisines;
 
     }
+
+    public void AfficherGrille() {
+        System.out.println("///////////////////////Grille///////////////////////////// ");
+        for (Tuile T : this.getTuiles().values()) {
+            System.out.print("Tuile" + T.getCoordonnee().afficherCoord());
+            for (Aventurier A : T.getAventuriers()) {
+                System.out.print("Contenant : ");
+                System.out.print(A.getNom());
+            }
+            System.out.println(", Etat " + T.getEtat());
+
+        }
+        System.out.println("///////////////////////Grille///////////////////////////// ");
+    }
 }
