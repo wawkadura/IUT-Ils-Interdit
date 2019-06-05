@@ -13,29 +13,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Controleur {
+public class Controleur implements Observateur{
 
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
     private VueAventurier vue;
 
-    public void traiterMessage(String m) {
+    public void gererDeplacement(String m) {
+    }
+    @Override
+    public void traiterMessage(Message m) {
     }
 
-
-    /*public void nbJoueur() {
-        int nbJoueur = 10;
-
-        while (nbJoueur < 2 && nbJoueur > 4) {
-            System.out.println("Il vous faut un minimum de 2 et maximum de 4 joueurs pour jouer !");
-            System.out.println("Combien de joueurs veulent jouer ? : ");
-            Scanner nb = new Scanner(System.in);
-            nbJoueur = nb.nextInt();
-        }
-        System.out.println("Vous avez inscrit " + nbJoueur + "joueurs.");
-        System.out.println("La partie peut se lancer !");
-    }
-     */
     public Controleur() {
         // TODO code application logic here 
         int l = 0;// ligne
@@ -98,17 +87,17 @@ public class Controleur {
         }
 
         //parametrage ////////////////////////////////////////////////////////////////
-        Coordonnees C = new Coordonnees(2, 3);
-        Coordonnees C2 = new Coordonnees(3, 2);
-        Coordonnees C3 = new Coordonnees(3, 5);
-        Coordonnees C4 = new Coordonnees(4, 1);
-        Coordonnees C5 = new Coordonnees(3, 1);
+        Coordonnees C  = new Coordonnees(1, 1);
+        Coordonnees C2 = new Coordonnees(2, 2);
+        Coordonnees C3 = new Coordonnees(4, 4);
+        Coordonnees C4 = new Coordonnees(3, 3);
+        Coordonnees C5 = new Coordonnees(0, 3);
 
         Ingenieur J1 = new Ingenieur("César", grille.getTuiles().get(C));
         Explorateur J2 = new Explorateur("Florent", grille.getTuiles().get(C2));
         Pilote J3 = new Pilote("Walid", grille.getTuiles().get(C3));
         Plongeur J4 = new Plongeur("Amine", grille.getTuiles().get(C4));
-        Navigateur J5 = new Navigateur("Jean", grille.getTuiles().get(C5));
+        Navigateur J5 = new Navigateur("Remy", grille.getTuiles().get(C5));
 
         Joueurs.add(J1);
         Joueurs.add(J2);
@@ -127,7 +116,7 @@ public class Controleur {
             //****************************DEBUT********************************************
             while (A.getActions() > 0 && !A.isTourTerminer()) {
                 System.out.print(A.getFonction());
-                System.out.println( " " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
+                System.out.println(" " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
                 System.out.println("");
                 System.out.println("1- se Deplacer");
                 if (A.getFonction().equalsIgnoreCase("navigateur")) {
@@ -139,7 +128,7 @@ public class Controleur {
                 Scanner scn = new Scanner(System.in);
                 String rep = scn.next();
 
-                while (!rep.equalsIgnoreCase("1")&& !rep.equalsIgnoreCase("2") && !rep.equalsIgnoreCase("3") && !rep.equalsIgnoreCase("1.2")) {
+                while (!rep.equalsIgnoreCase("1") && !rep.equalsIgnoreCase("2") && !rep.equalsIgnoreCase("3") && !rep.equalsIgnoreCase("1.2")) {
                     System.out.print("Veuillez choisir une action (1/2/3): ");
                     rep = scn.next();
                 }
@@ -190,4 +179,6 @@ public class Controleur {
         System.out.println("                        FIN TOUR 1                              ");
         System.out.println("____________________________________________________________");
     }
+
+    
 }

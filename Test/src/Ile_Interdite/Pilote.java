@@ -22,7 +22,7 @@ public class Pilote extends Aventurier {
         setUtilise(false);
     }
 
-    public boolean isUtilise() {
+    public boolean CompetanceUtiliser() {
         return utilise;
     }
 
@@ -32,7 +32,7 @@ public class Pilote extends Aventurier {
 
     @Override
     public void deplacer(Grille g) {
-        if (!isUtilise()) {
+        if (!CompetanceUtiliser()) {
             System.out.println(this.getTuile().getCoordonnee().afficherCoord());
             TreeMap<Coordonnees, Tuile> tuilesVoisines = g.getTuiles();
             ArrayList<Tuile> Choix = new ArrayList<>();
