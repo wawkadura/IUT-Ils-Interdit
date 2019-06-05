@@ -37,6 +37,6 @@ public class Ingenieur extends Aventurier {
     }
     @Override
     public String getFonction() {
-        return "ingenieur";
+        return "\u001B[31m"+"ingenieur";
     }
 }

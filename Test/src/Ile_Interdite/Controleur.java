@@ -16,15 +16,14 @@ import java.util.Scanner;
 public class Controleur {
 
     private Grille grille;
-    private HashMap<String, Aventurier> joueurs = new HashMap<String, Aventurier>();
-    private VueAventurier vueAventurier;
-    private PileInondation pileInondation;
-    private PileTrésor pileTresor;
+    ArrayList<Aventurier> Joueurs = new ArrayList<>();
+    private VueAventurier vue;
 
     public void traiterMessage(String m) {
     }
 
-    public void nbJoueur() {
+
+    /*public void nbJoueur() {
         int nbJoueur = 10;
 
         while (nbJoueur < 2 && nbJoueur > 4) {
@@ -36,14 +35,14 @@ public class Controleur {
         System.out.println("Vous avez inscrit " + nbJoueur + "joueurs.");
         System.out.println("La partie peut se lancer !");
     }
-
-    public static void main(String[] args) {
+     */
+    public Controleur() {
         // TODO code application logic here 
         int l = 0;// ligne
         int c = 0;//colonne
         int niv = 1;//demander aux joueurs
 
-        Grille grille = new Grille(niv);
+        grille = new Grille(niv);
         for (int i = 0; i < 36; i++) {// Creation de la Grille
             Coordonnees C = new Coordonnees(l, c);
 
@@ -99,23 +98,23 @@ public class Controleur {
         }
 
         //parametrage ////////////////////////////////////////////////////////////////
-        
-        
         Coordonnees C = new Coordonnees(2, 3);
         Coordonnees C2 = new Coordonnees(3, 2);
         Coordonnees C3 = new Coordonnees(3, 5);
         Coordonnees C4 = new Coordonnees(4, 1);
+        Coordonnees C5 = new Coordonnees(3, 1);
 
         Ingenieur J1 = new Ingenieur("César", grille.getTuiles().get(C));
         Explorateur J2 = new Explorateur("Florent", grille.getTuiles().get(C2));
         Pilote J3 = new Pilote("Walid", grille.getTuiles().get(C3));
         Plongeur J4 = new Plongeur("Amine", grille.getTuiles().get(C4));
-        
-        ArrayList<Aventurier> Joueurs = new ArrayList<>();
+        Navigateur J5 = new Navigateur("Jean", grille.getTuiles().get(C5));
+
         Joueurs.add(J1);
         Joueurs.add(J2);
         Joueurs.add(J3);
         Joueurs.add(J4);
+        Joueurs.add(J5);
 
         //parametrage ////////////////////////////////////////////////////////////////
         grille.AfficherGrille();
@@ -127,7 +126,8 @@ public class Controleur {
         for (Aventurier A : Joueurs) {
             //****************************DEBUT********************************************
             while (A.getActions() > 0 && !A.isTourTerminer()) {
-                System.out.println(A.getFonction() + " " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
+                System.out.print(A.getFonction());
+                System.out.println( " " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
                 System.out.println("");
                 System.out.println("1- se Deplacer");
                 if (A.getFonction().equalsIgnoreCase("navigateur")) {
@@ -136,17 +136,17 @@ public class Controleur {
                 System.out.println("2- assecher une tuile");
                 System.out.println("3- terminer le tour");
                 System.out.print("Veuillez choisir une action (1/2/3): ");
-
                 Scanner scn = new Scanner(System.in);
-                double rep = scn.nextInt();
+                String rep = scn.next();
 
-                while (rep < 1 || rep > 3) {
+                while (!rep.equalsIgnoreCase("1")&& !rep.equalsIgnoreCase("2") && !rep.equalsIgnoreCase("3") && !rep.equalsIgnoreCase("1.2")) {
                     System.out.print("Veuillez choisir une action (1/2/3): ");
-                    rep = scn.nextInt();
+                    rep = scn.next();
                 }
+
                 //**********************DEPLACEMENT***********************************************************************
-                if (rep == 1) {
-                    if (A.getFonction().equals("navigateur")) { //deplacement special navigateur
+                if (rep.equalsIgnoreCase("1") || rep.equalsIgnoreCase("1.2")) {
+                    if (rep.equalsIgnoreCase("1.2")) { //deplacement special navigateur
                         System.out.println("Aventuriers : ");
                         int select = 1;
                         for (Aventurier A2 : Joueurs) {
@@ -171,12 +171,12 @@ public class Controleur {
                 //**********************DEPLACEMENT***********************************************************************
 
                 //**********************ASSECHEMENT***********************************************************************
-                if (rep == 2) {
+                if (rep.equalsIgnoreCase("2")) {
                     A.assecher(grille);
                 }
                 //**********************ASSECHEMENT***********************************************************************
 
-                if (rep == 3) {
+                if (rep.equalsIgnoreCase("3")) {
                     A.setTerminer(true);
                 }
 

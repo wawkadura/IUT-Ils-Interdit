@@ -36,6 +36,6 @@ public class Navigateur extends Aventurier {
     }
     @Override
     public String getFonction() {
-        return "navigateur";
+        return "\u001B[33m"+"navigateur";
     }
 }

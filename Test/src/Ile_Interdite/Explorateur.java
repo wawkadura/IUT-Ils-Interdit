@@ -104,6 +104,6 @@ public class Explorateur extends Aventurier {
     }
     @Override
     public String getFonction() {
-        return "explorateur";
+        return "\u001B[32m"+"explorateur";
     }
 } 
