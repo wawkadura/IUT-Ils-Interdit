@@ -21,7 +21,6 @@ public class Navigateur extends Aventurier {
     public void faireDeplacer(Grille g, Aventurier A) {
 
         A.deplacer(g);
-        System.out.println(A.getActions());
         if (A.getActions() < 3) {
             A.Reset();
             System.out.print("voulez vous le deplacer encore une fois ? (oui/non)");

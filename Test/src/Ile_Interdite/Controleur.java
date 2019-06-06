@@ -24,7 +24,6 @@ public class Controleur /*implements Observateur*/ {
     public void traiterMessage(Message m) {
     }
      */
-
     public Controleur() {
         int l = 0;// ligne
         int c = 0;//colonne
@@ -78,7 +77,7 @@ public class Controleur /*implements Observateur*/ {
                 grille.addTuile(tuile);
             } else if (c == 3 && l == 2) { // tuile manquant
                 Tuile tuile = new Tuile(C);
-                tuile.setEtat(2);    
+                tuile.setEtat(2);
                 grille.addTuile(tuile);
             } else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
                     || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
@@ -132,7 +131,7 @@ public class Controleur /*implements Observateur*/ {
                 System.out.println(" " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
                 System.out.println("");
                 System.out.println("1- se Deplacer");
-                if (A.getFonction().equalsIgnoreCase("\u001B[33m"+"navigateur")) {
+                if (A.getFonction().equalsIgnoreCase("\u001B[33m" + "navigateur")) {
                     System.out.println("1.2- Deplacer un autre joueur (spécial) ");
                 }
                 System.out.println("2- assecher une tuile");
@@ -153,18 +152,22 @@ public class Controleur /*implements Observateur*/ {
                         int select = 1;
                         for (Aventurier A2 : Joueurs) {
                             if (!A2.getFonction().equals(A.getFonction())) {
-                                System.out.println("\u001B[30m"+select + "- " + A2.getFonction()+" " + A2.getNom()+" " + A2.getTuile().getCoordonnee().afficherCoord());
+                                System.out.println("\u001B[30m" + select + "- " + A2.getFonction() + " " + A2.getNom() + " " + A2.getTuile().getCoordonnee().afficherCoord());
+
+                            } else {
+                                select--;
                             }
                             select++;
                         }
                         System.out.print("Qui voulez vous deplacer ?: ");
                         Scanner selc = new Scanner(System.in);
                         int Av = selc.nextInt();
-                        while (Av < 1 || Av > 3) {
-                            System.out.print("Qui voulez vous deplacer ? (1 a" + select + ") :");
+                        while (Av < 1 || Av > 4) {
+                            System.out.print("Qui voulez vous deplacer ? (1 à " + select + ") :");
                             Av = selc.nextInt();
                         }
-                        A.faireDeplacer(grille,Joueurs.get(Av - 1));
+                        
+                        A.faireDeplacer(grille, Joueurs.get(Av - 1));
                     } else { //deplacement normal
                         A.deplacer(grille);
                     }

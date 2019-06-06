@@ -84,6 +84,6 @@ public class Pilote extends Aventurier {
 
     @Override
     public String getFonction() {
-        return "\u001B[34m"+"pilot";
+        return "\u001B[34m"+"pilote";
     }
 }

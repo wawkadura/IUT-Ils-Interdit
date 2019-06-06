@@ -12,31 +12,36 @@ import java.util.Scanner;
  * @author peyrinfl
  */
 public class Ingenieur extends Aventurier {
-    
-    Ingenieur(String nom ,Tuile tuile ) {
-        super(nom,tuile);
+
+    Ingenieur(String nom, Tuile tuile) {
+        super(nom, tuile);
     }
-    
+
     @Override
     public void assecher(Grille g) {
+        int actions = getActions();
         super.assecher(g);
-        super.setActions(super.getActions()+1);
-        System.out.print("(Special)Voulez vous assecher une autre tuile ?(oui/non): ");
-        Scanner scn = new Scanner(System.in);
-
-        String rep = scn.next();
-        while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
+        if (actions > getActions()) {
+            super.setActions(super.getActions() + 1);
             System.out.print("(Special)Voulez vous assecher une autre tuile ?(oui/non): ");
-             rep = scn.next();
+            Scanner scn = new Scanner(System.in);
+
+            String rep = scn.next();
+            while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
+                System.out.print("(Special)Voulez vous assecher une autre tuile ?(oui/non): ");
+                rep = scn.next();
+            }
+            if (rep.equalsIgnoreCase("oui")) {
+                super.assecher(g);
+            } else {
+                super.setActions(super.getActions() - 1);
+            }
+
         }
-        if (rep.equalsIgnoreCase("oui")) {
-            super.assecher(g);
-        }
-        else {super.setActions(super.getActions()-1);}
-        
     }
+
     @Override
     public String getFonction() {
-        return "\u001B[31m"+"ingenieur";
+        return "\u001B[31m" + "ingenieur";
     }
 }
