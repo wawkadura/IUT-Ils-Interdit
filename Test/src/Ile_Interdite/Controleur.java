@@ -13,20 +13,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Controleur implements Observateur{
+public class Controleur /*implements Observateur*/ {
 
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
     private VueAventurier vue;
 
-    public void gererDeplacement(String m) {
-    }
+    /*
     @Override
     public void traiterMessage(Message m) {
     }
+     */
 
     public Controleur() {
-        // TODO code application logic here 
         int l = 0;// ligne
         int c = 0;//colonne
         int niv = 1;//demander aux joueurs
@@ -67,7 +66,21 @@ public class Controleur implements Observateur{
                 LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
                 grille.addTuile(tuile);
             }//oeuf
-            else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
+            else if (c == 2 && l == 2) { // tuile normal
+                Tuile tuile = new Tuile(C);
+                grille.addTuile(tuile);
+            } else if (c == 3 && l == 3) { // tuile normal
+                Tuile tuile = new Tuile(C);
+                grille.addTuile(tuile);
+            } else if (c == 2 && l == 3) { // tuile manquant
+                Tuile tuile = new Tuile(C);
+                tuile.setEtat(2);
+                grille.addTuile(tuile);
+            } else if (c == 3 && l == 2) { // tuile manquant
+                Tuile tuile = new Tuile(C);
+                tuile.setEtat(2);    
+                grille.addTuile(tuile);
+            } else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
                     || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
                     || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
                     || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
@@ -75,7 +88,7 @@ public class Controleur implements Observateur{
             else {
 
                 Tuile tuile = new Tuile(C);
-                tuile.setEtat(1);
+                tuile.setEtat(1);                 // le reste des tuiles sont cree inonder
                 grille.addTuile(tuile);
             }
             c++;
@@ -87,7 +100,7 @@ public class Controleur implements Observateur{
         }
 
         //parametrage ////////////////////////////////////////////////////////////////
-        Coordonnees C  = new Coordonnees(1, 1);
+        Coordonnees C = new Coordonnees(1, 1);
         Coordonnees C2 = new Coordonnees(2, 2);
         Coordonnees C3 = new Coordonnees(4, 4);
         Coordonnees C4 = new Coordonnees(3, 3);
@@ -119,7 +132,7 @@ public class Controleur implements Observateur{
                 System.out.println(" " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
                 System.out.println("");
                 System.out.println("1- se Deplacer");
-                if (A.getFonction().equalsIgnoreCase("navigateur")) {
+                if (A.getFonction().equalsIgnoreCase("\u001B[33m"+"navigateur")) {
                     System.out.println("1.2- Deplacer un autre joueur (spécial) ");
                 }
                 System.out.println("2- assecher une tuile");
@@ -140,7 +153,7 @@ public class Controleur implements Observateur{
                         int select = 1;
                         for (Aventurier A2 : Joueurs) {
                             if (!A2.getFonction().equals(A.getFonction())) {
-                                System.out.println(select + "- " + A2.getNom() + " " + A2.getTuile().getCoordonnee().afficherCoord());
+                                System.out.println("\u001B[30m"+select + "- " + A2.getFonction()+" " + A2.getNom()+" " + A2.getTuile().getCoordonnee().afficherCoord());
                             }
                             select++;
                         }
@@ -151,7 +164,7 @@ public class Controleur implements Observateur{
                             System.out.print("Qui voulez vous deplacer ? (1 a" + select + ") :");
                             Av = selc.nextInt();
                         }
-                        Joueurs.get(Av - 1).deplacer(grille);
+                        A.faireDeplacer(grille,Joueurs.get(Av - 1));
                     } else { //deplacement normal
                         A.deplacer(grille);
                     }
@@ -180,5 +193,4 @@ public class Controleur implements Observateur{
         System.out.println("____________________________________________________________");
     }
 
-    
 }

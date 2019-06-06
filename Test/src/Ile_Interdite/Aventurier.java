@@ -168,4 +168,8 @@ public abstract class Aventurier {
         return null;
     }
 
+    public void faireDeplacer(Grille g, Aventurier A) {
+       
+    }
+
 }

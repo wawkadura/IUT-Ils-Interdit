@@ -16,11 +16,11 @@ import java.util.Scanner;
     private Controleur C = new Controleur();
 
     public VueAventurier() {
-        Controleur C = new Controleur(); 
+        
     }
     public static void main(String[] args) {
         // TODO code application logic here
-        VueAventurier vueAv = new VueAventurier();
+        Controleur C = new Controleur(); 
     }
 
     private Observateur observateur;
