@@ -23,12 +23,12 @@ public class Navigateur extends Aventurier {
         A.deplacer(g);
         if (A.getActions() < 3) {
             A.Reset();
-            System.out.print("voulez vous le deplacer encore une fois ? (oui/non)");
+            System.out.print("Voulez-vous le déplacer encore une fois ? (oui/non)");
             Scanner scn = new Scanner(System.in);
 
             String rep = scn.next();
             while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
-                System.out.print("voulez vous le deplacer encore une fois ? (oui/non)");
+                System.out.print("Voulez-vous le déplacer encore une fois ? (oui/non)");
                 rep = scn.next();
             }
 
@@ -45,6 +45,6 @@ public class Navigateur extends Aventurier {
 
     @Override
     public String getFonction() {
-        return "\u001B[33m" + "navigateur";
+        return "\u001B[33m" + "Navigateur";
     }
 }

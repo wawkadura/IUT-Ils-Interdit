@@ -27,9 +27,9 @@ public class Tuile {
     }
 
     public String getEtat() {
-        if  (this.etat==2){return "manquant";}
-        if  (this.etat==1){return "innonder";}
-        else{return "assecher";}
+        if  (this.etat==2){return "Manquante";}
+        if  (this.etat==1){return "Innondée";}
+        else{return "Assechée";}
     }
 
     public void setEtat(int etat) {

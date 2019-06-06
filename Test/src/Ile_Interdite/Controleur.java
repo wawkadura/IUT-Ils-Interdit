@@ -13,17 +13,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Controleur /*implements Observateur*/ {
+public class Controleur implements Observateur {
 
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
     private VueAventurier vue;
 
-    /*
+    
     @Override
     public void traiterMessage(Message m) {
     }
-     */
+     
     public Controleur() {
         int l = 0;// ligne
         int c = 0;//colonne
@@ -109,7 +109,7 @@ public class Controleur /*implements Observateur*/ {
         Explorateur J2 = new Explorateur("Florent", grille.getTuiles().get(C2));
         Pilote J3 = new Pilote("Walid", grille.getTuiles().get(C3));
         Plongeur J4 = new Plongeur("Amine", grille.getTuiles().get(C4));
-        Navigateur J5 = new Navigateur("Remy", grille.getTuiles().get(C5));
+        Navigateur J5 = new Navigateur("Rémi", grille.getTuiles().get(C5));
 
         Joueurs.add(J1);
         Joueurs.add(J2);
@@ -128,14 +128,14 @@ public class Controleur /*implements Observateur*/ {
             //****************************DEBUT********************************************
             while (A.getActions() > 0 && !A.isTourTerminer()) {
                 System.out.print(A.getFonction());
-                System.out.println(" " + A.getNom() + " : (" + A.getActions() + " actions restants ) ");
+                System.out.println(" " + A.getNom() + " : (" + A.getActions() + " actions restantes ) ");
                 System.out.println("");
-                System.out.println("1- se Deplacer");
+                System.out.println("1- Se Déplacer");
                 if (A.getFonction().equalsIgnoreCase("\u001B[33m" + "navigateur")) {
-                    System.out.println("1.2- Deplacer un autre joueur (spécial) ");
+                    System.out.println("1.2- Déplacer un autre joueur (spécial) ");
                 }
-                System.out.println("2- assecher une tuile");
-                System.out.println("3- terminer le tour");
+                System.out.println("2- Assécher une tuile");
+                System.out.println("3- Terminer le tour");
                 System.out.print("Veuillez choisir une action (1/2/3): ");
                 Scanner scn = new Scanner(System.in);
                 String rep = scn.next();
@@ -159,11 +159,11 @@ public class Controleur /*implements Observateur*/ {
                             }
                             select++;
                         }
-                        System.out.print("Qui voulez vous deplacer ?: ");
+                        System.out.print("Qui voulez-vous déplacer ?: ");
                         Scanner selc = new Scanner(System.in);
                         int Av = selc.nextInt();
                         while (Av < 1 || Av > 4) {
-                            System.out.print("Qui voulez vous deplacer ? (1 à " + select + ") :");
+                            System.out.print("Qui voulez-vous déplacer ? (1 à " + select + ") :");
                             Av = selc.nextInt();
                         }
                         

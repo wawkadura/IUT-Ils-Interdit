@@ -23,12 +23,12 @@ public class Ingenieur extends Aventurier {
         super.assecher(g);
         if (actions > getActions()) {
             super.setActions(super.getActions() + 1);
-            System.out.print("(Special)Voulez vous assecher une autre tuile ?(oui/non): ");
+            System.out.print("(Spécial) Voulez-vous assécher une autre tuile ?(oui/non): ");
             Scanner scn = new Scanner(System.in);
 
             String rep = scn.next();
             while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
-                System.out.print("(Special)Voulez vous assecher une autre tuile ?(oui/non): ");
+                System.out.print("(Spécial) Voulez-vous assécher une autre tuile ?(oui/non): ");
                 rep = scn.next();
             }
             if (rep.equalsIgnoreCase("oui")) {
@@ -42,6 +42,6 @@ public class Ingenieur extends Aventurier {
 
     @Override
     public String getFonction() {
-        return "\u001B[31m" + "ingenieur";
+        return "\u001B[31m" + "Ingénieur";
     }
 }

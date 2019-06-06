@@ -39,9 +39,9 @@ public class Pilote extends Aventurier {
             int numero = 0;
             for (Tuile T : tuilesVoisines.values()) {
                 if (!T.getCoordonnee().afficherCoord().equals(super.getTuile().getCoordonnee().afficherCoord())) {
-                    if (!T.getEtat().equals("manquant")) {
+                    if (!T.getEtat().equals("Manquante")) {
                         numero++;
-                        System.out.print(numero + " - Tuile disponible au coordonnees : " + T.getCoordonnee().afficherCoord());
+                        System.out.print(numero + " - Tuile disponible aux coordonnées : " + T.getCoordonnee().afficherCoord());
                         System.out.print(" Contenant : ");
                         for (Aventurier A : T.getAventuriers()) {
                             System.out.print(A.getNom() + " ");
@@ -51,17 +51,17 @@ public class Pilote extends Aventurier {
                     }
                 }
             }
-            System.out.print("Sur quelle Tuile de 1 à " + numero + " voulez vous vous deplacer ? (0 pour annuler) : ");
+            System.out.print("Sur quelle tuile de 1 à " + numero + " voulez-vous vous déplacer ? (0 pour annuler) : ");
             Scanner scn = new Scanner(System.in);
 
             int dir = scn.nextInt();
             while (dir < 0 || dir > numero) {
-                System.out.print("Veuillez tapper une tuile Disponible de 1 à " + numero + " (0 pour annuler):");
+                System.out.print("Veuillez taper une tuile disponible de 1 à " + numero + " (0 pour annuler):");
                 dir = scn.nextInt();
             }
 
             if (dir == 0) {
-                System.out.println("Annulation du deplacement...");
+                System.out.println("Annulation du déplacement...");
             } else {
                // g.getTuiles().get(super.getTuile().getCoordonnee()).suppAventurier(this);
                 super.setTuile(g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()));
@@ -84,6 +84,6 @@ public class Pilote extends Aventurier {
 
     @Override
     public String getFonction() {
-        return "\u001B[34m"+"pilote";
+        return "\u001B[34m"+"Pilote";
     }
 }

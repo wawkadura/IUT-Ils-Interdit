@@ -28,7 +28,7 @@ public class Explorateur extends Aventurier {
         for (Tuile T : tuilesVoisines.values()) {
                 if (!T.getEtat().equals("manquant")) {
                     numero++;
-                    System.out.print(numero + " - Tuile disponible au coordonnees : " + T.getCoordonnee().afficherCoord());
+                    System.out.print(numero + " - Tuile disponible aux coordonnées : " + T.getCoordonnee().afficherCoord());
                     System.out.print(" Contenant : ");
                     for (Aventurier A : T.getAventuriers()) {
                         System.out.print(A.getNom()+" ");
@@ -37,17 +37,17 @@ public class Explorateur extends Aventurier {
                     Choix.add(T);
                 }
             }
-        System.out.print("Sur quelle Tuile de 1 à " + numero + " voulez vous vous deplacer ? (0 pour annuler) : ");
+        System.out.print("Sur quelle tuile de 1 à " + numero + " voulez-vous vous déplacer ? (0 pour annuler) : ");
         Scanner scn = new Scanner(System.in);
 
         int dir = scn.nextInt();
         while (dir < 0 || dir > numero) {
-            System.out.print("Veuillez tapper une tuile Disponible de 1 à " + numero + " (0 pour annuler):");
+            System.out.print("Veuillez taper une tuile disponible de 1 à " + numero + " (0 pour annuler):");
             scn = new Scanner(System.in);
         }
 
         if (dir == 0) {
-            System.out.println("Annulation du deplacement...");
+            System.out.println("Annulation du déplacement...");
         } else {
            // g.getTuiles().get(super.getTuile().getCoordonnee()).suppAventurier(this);
             super.setTuile(g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()));
@@ -65,9 +65,9 @@ public class Explorateur extends Aventurier {
         tuilesVoisines.put(getTuile().getCoordonnee(), getTuile());
         int numero = 0;
         for (Tuile T : tuilesVoisines.values()) {
-            if (!T.getEtat().equals("manquant") && T.getEtat().equals("innonder")) {
+            if (!T.getEtat().equals("Manquante") && T.getEtat().equals("Innondée")) {
                 numero++;
-                System.out.print(numero + " - Tuile au coordonnees : " + T.getCoordonnee().afficherCoord());
+                System.out.print(numero + " - Tuile aux coordonnées : " + T.getCoordonnee().afficherCoord());
                 System.out.print(" Contenant : ");
                 for (Aventurier A : T.getAventuriers()) {
                     System.out.print(A.getNom() + " ");
@@ -78,17 +78,17 @@ public class Explorateur extends Aventurier {
 
         }
         if (!Choix.isEmpty()) {
-            System.out.print("Quelle Tuile de 1 à " + numero + " voulez vous assecher ? (0 pour annuler) : ");
+            System.out.print("Quelle tuile de 1 à " + numero + " voulez-vous assécher ? (0 pour annuler) : ");
             Scanner scn = new Scanner(System.in);
 
             int dir = scn.nextInt();
             while (dir < 0 || dir > numero) {
-                System.out.print("Veuillez tapper une tuile innonder de 1 à " + numero + " (0 pour annuler):");
+                System.out.print("Veuillez taper une tuile innondée de 1 à " + numero + " (0 pour annuler):");
                 dir = scn.nextInt();
             }
 
             if (dir == 0) {
-                System.out.println("Annulation de l'assechement...");
+                System.out.println("Annulation de l'asséchement...");
             } else {
                 // g.getTuiles().get(this.tuile.getCoordonnee()).suppAventurier(this);
                 g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()).setEtat(0);
@@ -97,13 +97,13 @@ public class Explorateur extends Aventurier {
                 super.setActions(super.getActions()-1);
             }
         } else {
-            System.out.println("aucune tuile voisine peux etre assecher");
+            System.out.println("Aucune tuile voisine peux être asséchée");
         }
 
         
     }
     @Override
     public String getFonction() {
-        return "\u001B[32m"+"explorateur";
+        return "\u001B[32m"+"Explorateur";
     }
 } 
