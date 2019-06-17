@@ -41,6 +41,7 @@ public class Controleur implements Observateur {
 
         grille = new Grille(niv);
 
+        // Création de la liste des coordonnées possibles
         ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
         coordonneesPossibles.add(new Coordonnees(0, 2));
         coordonneesPossibles.add(new Coordonnees(0, 3));
@@ -70,6 +71,8 @@ public class Controleur implements Observateur {
         // Placement des trésors
         Random random = new Random();
 
+        // On choisit un index au hasard dans la liste, puis on crée un nouveau trésor à ces coordonnées. Ensuite on supprime les coordonnées associées afin
+        // qu'un autre trésor ne soit pas positionné au même endroit
         int aleatoire = random.nextInt(coordonneesPossibles.size());
         Coordonnees coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
         LieuDeTresor coup1 = new LieuDeTresor(coordonneesAleatoires, "Calice de l'Onde");
