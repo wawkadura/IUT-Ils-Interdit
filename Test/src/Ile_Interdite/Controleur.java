@@ -24,15 +24,15 @@ import java.util.Scanner;
 
 public class Controleur implements Observateur {
 
+    private VueAventurier ihm;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
     private VueAventurier vue;
 
-    
     @Override
     public void traiterMessage(Message m) {
     }
-     
+
     public Controleur() {
         int l = 0;// ligne
         int c = 0;//colonne
@@ -104,8 +104,11 @@ public class Controleur implements Observateur {
                 c = 0;
                 l++;
             }
-
         }
+        
+        ihm = new VueAventurier();
+        ihm.addObservateur(this);
+        ihm.afficher();
 
         //parametrage ////////////////////////////////////////////////////////////////
         Coordonnees C = new Coordonnees(1, 1);
@@ -175,7 +178,7 @@ public class Controleur implements Observateur {
                             System.out.print("Qui voulez-vous déplacer ? (1 à " + select + ") :");
                             Av = selc.nextInt();
                         }
-                        
+
                         A.faireDeplacer(grille, Joueurs.get(Av - 1));
                     } else { //deplacement normal
                         A.deplacer(grille);

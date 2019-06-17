@@ -5,11 +5,23 @@
  */
 package Ile_Interdite.IHM;
 
+import Ile_Interdite.IHM.Message;
+import Ile_Interdite.IHM.Observateur;
+
 /**
  *
  * @author laurillau
  */
-public interface Observe {
-    public void addObservateur(Observateur o);    
-    public void notifierObservateur(Message m);
+public class Observe {
+    
+    private Observateur observateur;
+    
+    public void addObservateur(Observateur o) {
+        this.observateur = o;
+    }    
+    public void notifierObservateur(Message m) {
+        if (observateur != null) {
+            observateur.traiterMessage(m);
+        }
+    }
 }

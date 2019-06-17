@@ -105,7 +105,13 @@ public class Grille {
                 
                 System.out.print(A.getNom()+"  ");
             }
-            System.out.println(" (Etat " + T.getEtat()+")");
+            System.out.print(" (Etat " + T.getEtat()+")");
+            if(T.getType() != null) {
+            System.out.println(" Trésor contenu : " + T.getType());
+            }
+            else {
+                System.out.println("");
+            }
 
         }
         System.out.println("///////////////////////Grille///////////////////////////// ");

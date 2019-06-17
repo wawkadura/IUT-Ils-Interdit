@@ -50,4 +50,8 @@ public class Tuile {
         return aventuriers;
     }
     
+    public String getType() {
+        return null;
+    }
+    
 }
