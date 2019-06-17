@@ -7,33 +7,34 @@ package Ile_Interdite;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JFrame;
 
 /**
  *
  * @author peyrinfl
  */
-    public class VueAventurier implements Observe {
-    private Controleur C = new Controleur();
+public class VueAventurier extends Observe {
+
+    private JFrame fenetre;
+
 
     public VueAventurier() {
+        fenetre = new JFrame("Ile Interdite");
+        
+        for (int i = 0; i < 36; i++) {
+        
+        
+        }
+        
         
     }
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Controleur C = new Controleur(); 
-    }
-
-    private Observateur observateur;
-
-    @Override
-    public void addObservateur(Observateur o) {
-        this.observateur = o;
-    }
-
-    @Override
-    public void notifierObservateur(Message m) {
-        if (observateur != null) {
-            observateur.traiterMessage(m);
-        }
+        
+ 
+    
+    public void afficher() {
+        //permet d'afficher la fenetre du jeu
+        fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        fenetre.setSize(1500, 900);
+        fenetre.setVisible(true);
     }
 }
