@@ -9,18 +9,19 @@ package Ile_Interdite;
  *
  * @author peyrinfl
  */
+import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Aventuriers.Explorateur;
+import Ile_Interdite.Aventuriers.Ingenieur;
+import Ile_Interdite.Aventuriers.Navigateur;
+import Ile_Interdite.Aventuriers.Pilote;
+import Ile_Interdite.Aventuriers.Plongeur;
 import Ile_Interdite.IHM.Message;
 import Ile_Interdite.IHM.Observateur;
 import Ile_Interdite.IHM.VueAventurier;
-import Ile_Interdite.Aventuriers.Navigateur;
-import Ile_Interdite.Aventuriers.Plongeur;
-import Ile_Interdite.Aventuriers.Pilote;
-import Ile_Interdite.Aventuriers.Ingenieur;
-import Ile_Interdite.Aventuriers.Aventurier;
-import Ile_Interdite.Aventuriers.Explorateur;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Controleur implements Observateur {
 
@@ -39,6 +40,101 @@ public class Controleur implements Observateur {
         int niv = 1;//demander aux joueurs
 
         grille = new Grille(niv);
+        
+        ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
+        coordonneesPossibles.add(new Coordonnees(0,2));
+        coordonneesPossibles.add(new Coordonnees(0,3));
+        coordonneesPossibles.add(new Coordonnees(1,1));
+        coordonneesPossibles.add(new Coordonnees(1,2));
+        coordonneesPossibles.add(new Coordonnees(1,3));
+        coordonneesPossibles.add(new Coordonnees(1,4));
+        coordonneesPossibles.add(new Coordonnees(2,0));
+        coordonneesPossibles.add(new Coordonnees(2,1));
+        coordonneesPossibles.add(new Coordonnees(2,2));
+        coordonneesPossibles.add(new Coordonnees(2,3));
+        coordonneesPossibles.add(new Coordonnees(2,4));
+        coordonneesPossibles.add(new Coordonnees(2,5));
+        coordonneesPossibles.add(new Coordonnees(3,0));
+        coordonneesPossibles.add(new Coordonnees(3,1));
+        coordonneesPossibles.add(new Coordonnees(3,2));
+        coordonneesPossibles.add(new Coordonnees(3,3));
+        coordonneesPossibles.add(new Coordonnees(3,4));
+        coordonneesPossibles.add(new Coordonnees(3,5));
+        coordonneesPossibles.add(new Coordonnees(4,1));
+        coordonneesPossibles.add(new Coordonnees(4,2));
+        coordonneesPossibles.add(new Coordonnees(4,3));
+        coordonneesPossibles.add(new Coordonnees(4,4));
+        coordonneesPossibles.add(new Coordonnees(5,2));
+        coordonneesPossibles.add(new Coordonnees(5,3));
+        
+        // Placement des trésors
+        Random random = new Random();
+        
+        int aleatoire = random.nextInt(coordonneesPossibles.size()); 
+        Coordonnees coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor coup1 = new LieuDeTresor(coordonneesAleatoires, "coup1");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(coup1);
+        
+        aleatoire = random.nextInt(coordonneesPossibles.size()); 
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor coup2 = new LieuDeTresor(coordonneesAleatoires, "coup2");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(coup2);
+        
+        aleatoire = random.nextInt(coordonneesPossibles.size()); 
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor feu1 = new LieuDeTresor(coordonneesAleatoires, "feu1");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(feu1);
+        
+        aleatoire = random.nextInt(coordonneesPossibles.size());  
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor feu2 = new LieuDeTresor(coordonneesAleatoires, "feu2");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(feu2);
+        
+        aleatoire = random.nextInt(coordonneesPossibles.size());  
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor lion1 = new LieuDeTresor(coordonneesAleatoires, "lion1");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(lion1);
+        
+        aleatoire = random.nextInt(coordonneesPossibles.size());  
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor lion2 = new LieuDeTresor(coordonneesAleatoires, "lion2");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(lion2);
+        
+        aleatoire = random.nextInt(coordonneesPossibles.size());  
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor oeuf1 = new LieuDeTresor(coordonneesAleatoires, "oeuf1");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(oeuf1);
+        
+        aleatoire = random.nextInt(coordonneesPossibles.size()); 
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        LieuDeTresor oeuf2 = new LieuDeTresor(coordonneesAleatoires, "oeuf2");
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(oeuf2);
+        
+        // Placement de l'héliport   
+        aleatoire = random.nextInt(coordonneesPossibles.size()); 
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        Héliport heliport = new Héliport(coordonneesAleatoires);
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(heliport);
+        
+        // Placement des autres tuiles
+        while(!coordonneesPossibles.isEmpty()) {
+            aleatoire = random.nextInt(coordonneesPossibles.size()); 
+            coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+            Tuile tuile = new Tuile(coordonneesAleatoires);
+            coordonneesPossibles.remove(aleatoire);
+            grille.addTuile(tuile);
+        }
+        
+        
 //        for (int i = 0; i < 36; i++) {// Creation de la Grille
 //            Coordonnees C = new Coordonnees(l, c);
 //
