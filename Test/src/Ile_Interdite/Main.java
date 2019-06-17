@@ -3,13 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Ile_Interdite;
 
 /**
  *
- * @author laurillau
+ * @author watrinc
  */
-public interface Observateur {
-    public void traiterMessage(Message m);
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+            new Controleur();
+    }
+    
 }
