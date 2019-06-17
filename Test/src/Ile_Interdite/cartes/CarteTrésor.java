@@ -10,5 +10,6 @@ package Ile_Interdite.cartes;
  * @author peyrinfl
  */
 public class CarteTrésor {
+   
     
 }
