@@ -117,4 +117,14 @@ public class Grille {
         System.out.println("///////////////////////Grille///////////////////////////// ");
         System.out.println("");
     }
+    
+    public int getNivEau(){
+        return nivEau;
+    }
+    
+    public void setNivEau( int niv){
+        if(nivEau>0 && nivEau<5){
+            this.nivEau=niv;
+        }
+    }
 }
