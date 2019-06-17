@@ -107,7 +107,12 @@ public class Grille {
             }
             System.out.print(" (Etat " + T.getEtat()+")");
             if(T.getType() != null) {
-            System.out.println(" Trésor contenu : " + T.getType());
+                if(T.getType().equals("Héliport")) {
+                    System.out.println(" Case héliport");
+                }
+                else {
+                    System.out.println(" Trésor contenu : " + T.getType());   
+                }
             }
             else {
                 System.out.println("");

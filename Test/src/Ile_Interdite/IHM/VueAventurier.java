@@ -7,12 +7,11 @@ package Ile_Interdite.IHM;
 
 import Ile_Interdite.Grille;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -22,87 +21,77 @@ import javax.swing.JPanel;
 public class VueAventurier extends Observe {
 
     private JFrame fenetre;
-    private Grille grille;
+    private int nbJoueurs;
 
     public VueAventurier() {
         fenetre = new JFrame("Ile Interdite");
-        JPanel milieuPanel = new JPanel(new GridLayout(6,6));
-        fenetre.add(milieuPanel, BorderLayout.CENTER);
+        JPanel milieuPanel = new JPanel(new GridLayout(6, 6));
+        JPanel joueurGauche = new JPanel();
+        JPanel joueurHaut = new JPanel();
+        JPanel joueurDroit = new JPanel();
+        JPanel joueurBas = new JPanel();
 
+        JLabel joueurG = new JLabel("Walid");
+        JLabel joueurH = new JLabel("César");
+        JLabel joueurD = new JLabel("Amine");
+        JLabel joueurB = new JLabel("Florent");
+        
+        joueurGauche.add(joueurG);
+        joueurHaut.add(joueurH);
+        joueurDroit.add(joueurD);
+        joueurBas.add(joueurB);
+        
         int l = 0;// ligne
         int c = 0;//colonne
-        int niv = 1;//demander aux joueurs
+        for (int i = 0; i < 36; i++) {
 
-        for (int i = 0; i < 36; i++) {// Creation de la Grille
-
-            if (c == 2 && l == 0) {
-                JButton tuile = new JButton("coup");
-                milieuPanel.add(tuile);
-            } //coup
-            else if (c == 3 && l == 0) {
-                JButton tuile = new JButton("feu");
-                milieuPanel.add(tuile);
-            }//feu
-            else if (c == 0 && l == 2) {
-                JButton tuile = new JButton("coup");
-                milieuPanel.add(tuile);
-            }//coup
-            else if (c == 0 && l == 3) {
-                JButton tuile = new JButton("lion");
-                milieuPanel.add(tuile);
-            }//lion
-            else if (c == 5 && l == 2) {
-                JButton tuile = new JButton("feu");
-                milieuPanel.add(tuile);
-            }//feu
-            else if (c == 5 && l == 3) {
-                JButton tuile = new JButton("oeuf");
-                milieuPanel.add(tuile);
-            }//oeuf
-            else if (c == 2 && l == 5) {
-                JButton tuile = new JButton("lion");
-                milieuPanel.add(tuile);
-            }//lion
-            else if (c == 3 && l == 5) {
-                JButton tuile = new JButton("oeuf");
-                milieuPanel.add(tuile);
-            }//oeuf
-            else if (c == 2 && l == 2) { // tuile normal
+            if ((c == 0 && l == 0) || (c == 1 && l == 0) || (c == 0 && l == 1)
+                    || (c == 4 && l == 0) || (c == 5 && l == 0) || (c == 5 && l == 1)
+                    || (c == 0 && l == 4) || (c == 0 && l == 5) || (c == 1 && l == 5)
+                    || (c == 5 && l == 4) || (c == 4 && l == 5) || (c == 5 && l == 5)) {
                 JButton tuile = new JButton();
+                tuile.setEnabled(false);
+                tuile.setBackground(Color.PINK);
                 milieuPanel.add(tuile);
-            } else if (c == 3 && l == 3) { // tuile normal
-                JButton tuile = new JButton();
-                milieuPanel.add(tuile);
-            } else if (c == 2 && l == 3) { // tuile manquant
-                JButton tuile = new JButton();
-                milieuPanel.add(tuile);          
-            } else if (c == 3 && l == 2) { // tuile manquant
-                JButton tuile = new JButton();
-                milieuPanel.add(tuile);
-            } else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
-                    || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
-                    || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
-                    || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
-            } //tuile heliport a faire aleatoirement
-            else {
-
+            } else {
                 JButton tuile = new JButton();
                 milieuPanel.add(tuile);
             }
+
             c++;
+
             if (c == 6) {
                 c = 0;
                 l++;
             }
-
         }
+        
+        nbJoueurs = 4;
+        
+        fenetre.add(milieuPanel, BorderLayout.CENTER);
+        if (nbJoueurs == 4 ) {
+            fenetre.add(joueurGauche, BorderLayout.SOUTH);
+            fenetre.add(joueurHaut, BorderLayout.SOUTH);
+            fenetre.add(joueurDroit, BorderLayout.SOUTH);
+            fenetre.add(joueurBas, BorderLayout.SOUTH);
+        }
+        if (nbJoueurs == 3 ) {
+            fenetre.add(joueurGauche, BorderLayout.SOUTH);
+            fenetre.add(joueurDroit, BorderLayout.SOUTH);
+            fenetre.add(joueurBas, BorderLayout.SOUTH);
+        }
+        if (nbJoueurs == 2 ) {
+            fenetre.add(joueurGauche, BorderLayout.SOUTH);
+            fenetre.add(joueurDroit, BorderLayout.SOUTH);
+        }
+        
 
     }
 
     public void afficher() {
         //permet d'afficher la fenetre du jeu
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(1500, 900);
+        fenetre.setSize(1920, 1080);
         fenetre.setVisible(true);
     }
 }
