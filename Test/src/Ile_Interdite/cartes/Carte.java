@@ -10,5 +10,5 @@ package Ile_Interdite.cartes;
  * @author wawve
  */
 public class Carte {
-    
+    Carte(){}
 }
