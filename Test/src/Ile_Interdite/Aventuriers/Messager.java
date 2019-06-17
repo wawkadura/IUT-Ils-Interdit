@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.Aventuriers;
+
+import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Tuile;
+import Ile_Interdite.cartes.CarteTrésor;
 
 /**
  *
@@ -11,7 +15,7 @@ package Ile_Interdite;
  */
 public class Messager extends Aventurier {
     
-    Messager(String nom, Tuile tuile) {
+    public Messager(String nom, Tuile tuile) {
         super(nom, tuile);
     }
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.cartes;
 
 /**
  *
@@ -14,5 +14,10 @@ import java.util.ArrayList;
         
 public class PileInondation {
     private ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
+    private ArrayList<CarteInondation> cartesInondDefausse = new ArrayList<>();
     
+    public PileInondation(ArrayList<CarteInondation> cartesInondation) {
+        this.cartesInondation = cartesInondation;
+    }
+    public void Defausser(){}
 }

@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
-
-import java.util.ArrayList;
+package Ile_Interdite.IHM;
 
 /**
  *
- * @author peyrinfl
+ * @author laurilly
  */
-public class PileTrésor {
-    private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
+public enum TypesMessage {
+    DEPLACER,
+    ANNULER,
+    ASSECHER
 }

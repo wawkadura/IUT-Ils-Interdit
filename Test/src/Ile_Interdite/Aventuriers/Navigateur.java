@@ -3,45 +3,51 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.Aventuriers;
 
+import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Grille;
+import Ile_Interdite.Tuile;
 import java.util.Scanner;
 
 /**
  *
  * @author peyrinfl
  */
-public class Ingenieur extends Aventurier {
+public class Navigateur extends Aventurier {
 
-    Ingenieur(String nom, Tuile tuile) {
+    public Navigateur(String nom, Tuile tuile) {
         super(nom, tuile);
     }
 
     @Override
-    public void assecher(Grille g) {
-        int actions = getActions();
-        super.assecher(g);
-        if (actions > getActions()) {
-            super.setActions(super.getActions() + 1);
-            System.out.print("(Spécial) Voulez-vous assécher une autre tuile ?(oui/non): ");
+    public void faireDeplacer(Grille g, Aventurier A) {
+
+        A.deplacer(g);
+        if (A.getActions() < 3) {
+            A.Reset();
+            System.out.print("Voulez-vous le déplacer encore une fois ? (oui/non)");
             Scanner scn = new Scanner(System.in);
 
             String rep = scn.next();
             while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
-                System.out.print("(Spécial) Voulez-vous assécher une autre tuile ?(oui/non): ");
+                System.out.print("Voulez-vous le déplacer encore une fois ? (oui/non)");
                 rep = scn.next();
             }
+
             if (rep.equalsIgnoreCase("oui")) {
-                super.assecher(g);
+                A.deplacer(g);
+                A.Reset();
+                super.setActions(super.getActions() - 1);
             } else {
                 super.setActions(super.getActions() - 1);
             }
-
         }
+
     }
 
     @Override
     public String getFonction() {
-        return "\u001B[31m" + "Ingénieur";
+        return "\u001B[33m" + "Navigateur";
     }
 }

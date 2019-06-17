@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.Aventuriers;
 
+import Ile_Interdite.Coordonnees;
+import Ile_Interdite.Grille;
+import Ile_Interdite.Tuile;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -15,7 +18,7 @@ import java.util.TreeMap;
  */
 public class Explorateur extends Aventurier {
     
-    Explorateur(String nom, Tuile tuile) {
+    public Explorateur(String nom, Tuile tuile) {
         super(nom, tuile);
     }
     

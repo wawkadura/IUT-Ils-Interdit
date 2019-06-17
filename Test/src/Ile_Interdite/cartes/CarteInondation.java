@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.cartes;
 
 /**
  *
- * @author laurilly
+ * @author peyrinfl
  */
-public enum TypesMessage {
-    DEPLACER,
-    ANNULER,
-    ASSECHER
+public class CarteInondation {
+    
 }

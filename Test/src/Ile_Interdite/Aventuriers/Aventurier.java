@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.Aventuriers;
 
 /**
  *
  * @author peyrinfl
  */
+import Ile_Interdite.Coordonnees;
+import Ile_Interdite.Grille;
+import Ile_Interdite.Tuile;
+import Ile_Interdite.cartes.CarteTrésor;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -21,7 +25,7 @@ public abstract class Aventurier {
     private ArrayList<CarteTrésor> cartesEnMain = new ArrayList<>();
     private boolean terminer = false;
 
-    Aventurier(String nom, Tuile tuile) {
+    public Aventurier(String nom, Tuile tuile) {
         this.setNom(nom);
         this.tuile = tuile;
         tuile.addAventurier(this);

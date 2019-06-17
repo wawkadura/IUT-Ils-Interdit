@@ -9,6 +9,7 @@ package Ile_Interdite;
  *
  * @author peyrinfl
  */
+import Ile_Interdite.Aventuriers.Aventurier;
 import java.util.TreeMap;
 
 public class Grille {

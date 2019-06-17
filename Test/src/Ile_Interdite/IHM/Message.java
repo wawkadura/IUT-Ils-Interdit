@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.IHM;
+
+import Ile_Interdite.IHM.TypesMessage;
 
 /**
  *

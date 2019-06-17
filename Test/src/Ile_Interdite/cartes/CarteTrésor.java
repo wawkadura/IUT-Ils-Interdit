@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite;
+package Ile_Interdite.cartes;
 
 /**
  *
  * @author peyrinfl
  */
-public class CarteInondation {
+public class CarteTrésor {
     
 }
