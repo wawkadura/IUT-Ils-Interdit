@@ -25,6 +25,9 @@ import Ile_Interdite.Aventuriers.Ingenieur;
 import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
 import Ile_Interdite.cartes.CarteTrésor;
+import Ile_Interdite.cartes.Carte;
+import Ile_Interdite.cartes.Tresor;
+import Ile_Interdite.cartes.SacDeSable;
 import Ile_Interdite.cartes.PileInondation;
 import Ile_Interdite.cartes.PileTrésor;
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Controleur implements Observateur {
+
     private PileInondation pileInondation;
     private PileTrésor pileTresor;
     private VueAventurier ihm;
@@ -45,113 +49,7 @@ public class Controleur implements Observateur {
     }
 
     public Controleur() {
-        //********************************Initialisation Piles Cartes*********************************//
-              
-        
-        
-        
-        //********************************Initialisation Piles *********************************//
-        
-        int l = 0;// ligne
-        int c = 0;//colonne
-        int niv = 1;//demander aux joueurs
-
-        grille = new Grille(niv);
-        
-        ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
-        coordonneesPossibles.add(new Coordonnees(0,2));
-        coordonneesPossibles.add(new Coordonnees(0,3));
-        coordonneesPossibles.add(new Coordonnees(1,1));
-        coordonneesPossibles.add(new Coordonnees(1,2));
-        coordonneesPossibles.add(new Coordonnees(1,3));
-        coordonneesPossibles.add(new Coordonnees(1,4));
-        coordonneesPossibles.add(new Coordonnees(2,0));
-        coordonneesPossibles.add(new Coordonnees(2,1));
-        coordonneesPossibles.add(new Coordonnees(2,2));
-        coordonneesPossibles.add(new Coordonnees(2,3));
-        coordonneesPossibles.add(new Coordonnees(2,4));
-        coordonneesPossibles.add(new Coordonnees(2,5));
-        coordonneesPossibles.add(new Coordonnees(3,0));
-        coordonneesPossibles.add(new Coordonnees(3,1));
-        coordonneesPossibles.add(new Coordonnees(3,2));
-        coordonneesPossibles.add(new Coordonnees(3,3));
-        coordonneesPossibles.add(new Coordonnees(3,4));
-        coordonneesPossibles.add(new Coordonnees(3,5));
-        coordonneesPossibles.add(new Coordonnees(4,1));
-        coordonneesPossibles.add(new Coordonnees(4,2));
-        coordonneesPossibles.add(new Coordonnees(4,3));
-        coordonneesPossibles.add(new Coordonnees(4,4));
-        coordonneesPossibles.add(new Coordonnees(5,2));
-        coordonneesPossibles.add(new Coordonnees(5,3));
-        
-        // Placement des trésors
-        Random random = new Random();
-        
-        int aleatoire = random.nextInt(coordonneesPossibles.size()); 
-        Coordonnees coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor coup1 = new LieuDeTresor(coordonneesAleatoires, "coup1");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(coup1);
-        
-        aleatoire = random.nextInt(coordonneesPossibles.size()); 
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor coup2 = new LieuDeTresor(coordonneesAleatoires, "coup2");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(coup2);
-        
-        aleatoire = random.nextInt(coordonneesPossibles.size()); 
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor feu1 = new LieuDeTresor(coordonneesAleatoires, "feu1");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(feu1);
-        
-        aleatoire = random.nextInt(coordonneesPossibles.size());  
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor feu2 = new LieuDeTresor(coordonneesAleatoires, "feu2");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(feu2);
-        
-        aleatoire = random.nextInt(coordonneesPossibles.size());  
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor lion1 = new LieuDeTresor(coordonneesAleatoires, "lion1");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(lion1);
-        
-        aleatoire = random.nextInt(coordonneesPossibles.size());  
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor lion2 = new LieuDeTresor(coordonneesAleatoires, "lion2");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(lion2);
-        
-        aleatoire = random.nextInt(coordonneesPossibles.size());  
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor oeuf1 = new LieuDeTresor(coordonneesAleatoires, "oeuf1");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(oeuf1);
-        
-        aleatoire = random.nextInt(coordonneesPossibles.size()); 
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        LieuDeTresor oeuf2 = new LieuDeTresor(coordonneesAleatoires, "oeuf2");
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(oeuf2);
-        
-        // Placement de l'héliport   
-        aleatoire = random.nextInt(coordonneesPossibles.size()); 
-        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-        Héliport heliport = new Héliport(coordonneesAleatoires);
-        coordonneesPossibles.remove(aleatoire);
-        grille.addTuile(heliport);
-        
-        // Placement des autres tuiles
-        while(!coordonneesPossibles.isEmpty()) {
-            aleatoire = random.nextInt(coordonneesPossibles.size()); 
-            coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
-            Tuile tuile = new Tuile(coordonneesAleatoires);
-            coordonneesPossibles.remove(aleatoire);
-            grille.addTuile(tuile);
-        }
-        
-        
+        Initialisation();
 //        for (int i = 0; i < 36; i++) {// Creation de la Grille
 //            Coordonnees C = new Coordonnees(l, c);
 //
@@ -218,7 +116,6 @@ public class Controleur implements Observateur {
 //                l++;
 //            }
 //        }
-        
         ihm = new VueAventurier();
         ihm.addObservateur(this);
         ihm.afficher();
@@ -320,5 +217,204 @@ public class Controleur implements Observateur {
         System.out.println("                        FIN TOUR 1                              ");
         System.out.println("____________________________________________________________");
     }
+
+    public void Initialisation() {
+        //********************************Initialisation Piles Cartes*********************************//
+        ArrayList<Carte> cartes = new ArrayList<>();
+        
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
+            Tresor ct = new Tresor("La Statue du Zéphyr");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Pierre Sacrée
+            Tresor ct = new Tresor("La Pierre Sacrée");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Cristal Ardent
+            Tresor ct = new Tresor("Le Cristal Ardent");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Calice de L'onde
+            Tresor ct = new Tresor("Le Calice de L'onde");
+            cartes.add(ct);
+        }
+        SacDeSable SacS = new SacDeSable();    // 2 cartes Sac de sable 
+        SacDeSable SacS2 = new SacDeSable();
+        cartes.add(SacS);
+        cartes.add(SacS2);
+        
+        
+        
+
+    }
+
+    //********************************Initialisation Piles *********************************//
+    int l = 0;// ligne
+    int c = 0;//colonne
+    int niv = 1;//demander aux joueurs
+
+    grille  = new Grille(niv);
+
+    ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
+
+    coordonneesPossibles.add (
+
+    new Coordonnees(0, 2));
+    coordonneesPossibles.add (
+
+    new Coordonnees(0, 3));
+    coordonneesPossibles.add (
+
+    new Coordonnees(1, 1));
+    coordonneesPossibles.add (
+
+    new Coordonnees(1, 2));
+    coordonneesPossibles.add (
+
+    new Coordonnees(1, 3));
+    coordonneesPossibles.add (
+
+    new Coordonnees(1, 4));
+    coordonneesPossibles.add (
+
+    new Coordonnees(2, 0));
+    coordonneesPossibles.add (
+
+    new Coordonnees(2, 1));
+    coordonneesPossibles.add (
+
+    new Coordonnees(2, 2));
+    coordonneesPossibles.add (
+
+    new Coordonnees(2, 3));
+    coordonneesPossibles.add (
+
+    new Coordonnees(2, 4));
+    coordonneesPossibles.add (
+
+    new Coordonnees(2, 5));
+    coordonneesPossibles.add (
+
+    new Coordonnees(3, 0));
+    coordonneesPossibles.add (
+
+    new Coordonnees(3, 1));
+    coordonneesPossibles.add (
+
+    new Coordonnees(3, 2));
+    coordonneesPossibles.add (
+
+    new Coordonnees(3, 3));
+    coordonneesPossibles.add (
+
+    new Coordonnees(3, 4));
+    coordonneesPossibles.add (
+
+    new Coordonnees(3, 5));
+    coordonneesPossibles.add (
+
+    new Coordonnees(4, 1));
+    coordonneesPossibles.add (
+
+    new Coordonnees(4, 2));
+    coordonneesPossibles.add (
+
+    new Coordonnees(4, 3));
+    coordonneesPossibles.add (
+
+    new Coordonnees(4, 4));
+    coordonneesPossibles.add (
+
+    new Coordonnees(5, 2));
+    coordonneesPossibles.add (
+    new Coordonnees(5, 3));
+
+        // Placement des trésors
+        Random random = new Random();
+
+    int aleatoire = random.nextInt(coordonneesPossibles.size());
+    Coordonnees coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor coup1 = new LieuDeTresor(coordonneesAleatoires, "coup1");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (coup1);
+
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor coup2 = new LieuDeTresor(coordonneesAleatoires, "coup2");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (coup2);
+
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor feu1 = new LieuDeTresor(coordonneesAleatoires, "feu1");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (feu1);
+
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor feu2 = new LieuDeTresor(coordonneesAleatoires, "feu2");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (feu2);
+
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor lion1 = new LieuDeTresor(coordonneesAleatoires, "lion1");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (lion1);
+
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor lion2 = new LieuDeTresor(coordonneesAleatoires, "lion2");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (lion2);
+
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor oeuf1 = new LieuDeTresor(coordonneesAleatoires, "oeuf1");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (oeuf1);
+
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    LieuDeTresor oeuf2 = new LieuDeTresor(coordonneesAleatoires, "oeuf2");
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (oeuf2);
+
+    // Placement de l'héliport   
+    aleatoire  = random.nextInt(coordonneesPossibles.size());
+    coordonneesAleatoires  = coordonneesPossibles.get(aleatoire);
+    Héliport heliport = new Héliport(coordonneesAleatoires);
+
+    coordonneesPossibles.remove (aleatoire);
+
+    grille.addTuile (heliport);
+
+    // Placement des autres tuiles
+    while (!coordonneesPossibles.isEmpty () 
+        ) {
+            aleatoire = random.nextInt(coordonneesPossibles.size());
+        coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
+        Tuile tuile = new Tuile(coordonneesAleatoires);
+        coordonneesPossibles.remove(aleatoire);
+        grille.addTuile(tuile);
+    }
+
+}
 
 }
