@@ -10,5 +10,9 @@ package Ile_Interdite.cartes;
  * @author peyrinfl
  */
 public class CarteInondation {
+    private int nivEau ; 
+    public CarteInondation (){
+        
+    }
     
 }

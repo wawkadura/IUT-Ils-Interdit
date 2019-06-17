@@ -19,5 +19,9 @@ public class PileInondation {
     public PileInondation(ArrayList<CarteInondation> cartesInondation) {
         this.cartesInondation = cartesInondation;
     }
-    public void Defausser(){}
+    public void Defausser(CarteInondation ci){
+        cartesInondDefausse.add(ci);
+        cartesInondation.remove(ci);
+    }
+    public void melanger(){}
 }

@@ -9,6 +9,8 @@ package Ile_Interdite.cartes;
  *
  * @author peyrinfl
  */
-public class CarteTrésor {
+public class CarteTrésor extends Carte {
+    private String fonction ;
     
+   
 }
