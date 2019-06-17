@@ -26,7 +26,7 @@ public class Explorateur extends Aventurier {
         ArrayList<Tuile> Choix = new ArrayList<>();
         int numero = 0;
         for (Tuile T : tuilesVoisines.values()) {
-                if (!T.getEtat().equals("manquant")) {
+                if (!T.getEtat().equals("Manquante")) {
                     numero++;
                     System.out.print(numero + " - Tuile disponible aux coordonnées : " + T.getCoordonnee().afficherCoord());
                     System.out.print(" Contenant : ");
