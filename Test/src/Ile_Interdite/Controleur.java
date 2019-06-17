@@ -9,7 +9,12 @@ package Ile_Interdite;
  *
  * @author peyrinfl
  */
-
+import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Aventuriers.Explorateur;
+import Ile_Interdite.Aventuriers.Ingenieur;
+import Ile_Interdite.Aventuriers.Navigateur;
+import Ile_Interdite.Aventuriers.Pilote;
+import Ile_Interdite.Aventuriers.Plongeur;
 import Ile_Interdite.IHM.Message;
 import Ile_Interdite.IHM.Observateur;
 import Ile_Interdite.IHM.VueAventurier;
