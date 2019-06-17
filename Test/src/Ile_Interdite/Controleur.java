@@ -18,13 +18,23 @@ import Ile_Interdite.Aventuriers.Plongeur;
 import Ile_Interdite.IHM.Message;
 import Ile_Interdite.IHM.Observateur;
 import Ile_Interdite.IHM.VueAventurier;
+import Ile_Interdite.Aventuriers.Navigateur;
+import Ile_Interdite.Aventuriers.Plongeur;
+import Ile_Interdite.Aventuriers.Pilote;
+import Ile_Interdite.Aventuriers.Ingenieur;
+import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Aventuriers.Explorateur;
+import Ile_Interdite.cartes.CarteTrésor;
+import Ile_Interdite.cartes.PileInondation;
+import Ile_Interdite.cartes.PileTrésor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Random;
 
 public class Controleur implements Observateur {
-
+    private PileInondation pileInondation;
+    private PileTrésor pileTresor;
     private VueAventurier ihm;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
@@ -35,6 +45,13 @@ public class Controleur implements Observateur {
     }
 
     public Controleur() {
+        //********************************Initialisation Piles Cartes*********************************//
+              
+        
+        
+        
+        //********************************Initialisation Piles *********************************//
+        
         int l = 0;// ligne
         int c = 0;//colonne
         int niv = 1;//demander aux joueurs
