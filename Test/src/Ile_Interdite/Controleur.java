@@ -39,72 +39,72 @@ public class Controleur implements Observateur {
         int niv = 1;//demander aux joueurs
 
         grille = new Grille(niv);
-        for (int i = 0; i < 36; i++) {// Creation de la Grille
-            Coordonnees C = new Coordonnees(l, c);
-
-            if (c == 2 && l == 0) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
-                grille.addTuile(tuile);
-            } //coup
-            else if (c == 3 && l == 0) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
-                grille.addTuile(tuile);
-            }//feu
-            else if (c == 0 && l == 2) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
-                grille.addTuile(tuile);
-            }//coup
-            else if (c == 0 && l == 3) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
-                grille.addTuile(tuile);
-            }//lion
-            else if (c == 5 && l == 2) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
-                grille.addTuile(tuile);
-            }//feu
-            else if (c == 5 && l == 3) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
-                grille.addTuile(tuile);
-            }//oeuf
-            else if (c == 2 && l == 5) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
-                grille.addTuile(tuile);
-            }//lion
-            else if (c == 3 && l == 5) {
-                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
-                grille.addTuile(tuile);
-            }//oeuf
-            else if (c == 2 && l == 2) { // tuile normal
-                Tuile tuile = new Tuile(C);
-                grille.addTuile(tuile);
-            } else if (c == 3 && l == 3) { // tuile normal
-                Tuile tuile = new Tuile(C);
-                grille.addTuile(tuile);
-            } else if (c == 2 && l == 3) { // tuile manquant
-                Tuile tuile = new Tuile(C);
-                tuile.setEtat(2);
-                grille.addTuile(tuile);
-            } else if (c == 3 && l == 2) { // tuile manquant
-                Tuile tuile = new Tuile(C);
-                tuile.setEtat(2);
-                grille.addTuile(tuile);
-            } else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
-                    || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
-                    || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
-                    || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
-            } //tuile heliport a faire aleatoirement
-            else {
-
-                Tuile tuile = new Tuile(C);
-                tuile.setEtat(1);                 // le reste des tuiles sont cree inonder
-                grille.addTuile(tuile);
-            }
-            c++;
-            if (c == 6) {
-                c = 0;
-                l++;
-            }
-        }
+//        for (int i = 0; i < 36; i++) {// Creation de la Grille
+//            Coordonnees C = new Coordonnees(l, c);
+//
+//            if (c == 2 && l == 0) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
+//                grille.addTuile(tuile);
+//            } //coup
+//            else if (c == 3 && l == 0) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
+//                grille.addTuile(tuile);
+//            }//feu
+//            else if (c == 0 && l == 2) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
+//                grille.addTuile(tuile);
+//            }//coup
+//            else if (c == 0 && l == 3) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
+//                grille.addTuile(tuile);
+//            }//lion
+//            else if (c == 5 && l == 2) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
+//                grille.addTuile(tuile);
+//            }//feu
+//            else if (c == 5 && l == 3) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
+//                grille.addTuile(tuile);
+//            }//oeuf
+//            else if (c == 2 && l == 5) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
+//                grille.addTuile(tuile);
+//            }//lion
+//            else if (c == 3 && l == 5) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
+//                grille.addTuile(tuile);
+//            }//oeuf
+//            else if (c == 2 && l == 2) { // tuile normal
+//                Tuile tuile = new Tuile(C);
+//                grille.addTuile(tuile);
+//            } else if (c == 3 && l == 3) { // tuile normal
+//                Tuile tuile = new Tuile(C);
+//                grille.addTuile(tuile);
+//            } else if (c == 2 && l == 3) { // tuile manquant
+//                Tuile tuile = new Tuile(C);
+//                tuile.setEtat(2);
+//                grille.addTuile(tuile);
+//            } else if (c == 3 && l == 2) { // tuile manquant
+//                Tuile tuile = new Tuile(C);
+//                tuile.setEtat(2);
+//                grille.addTuile(tuile);
+//            } else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
+//                    || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
+//                    || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
+//                    || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
+//            } //tuile heliport a faire aleatoirement
+//            else {
+//
+//                Tuile tuile = new Tuile(C);
+//                tuile.setEtat(1);                 // le reste des tuiles sont cree inonder
+//                grille.addTuile(tuile);
+//            }
+//            c++;
+//            if (c == 6) {
+//                c = 0;
+//                l++;
+//            }
+//        }
         
         ihm = new VueAventurier();
         ihm.addObservateur(this);

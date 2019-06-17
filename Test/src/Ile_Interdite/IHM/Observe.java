@@ -5,8 +5,7 @@
  */
 package Ile_Interdite.IHM;
 
-import Ile_Interdite.IHM.Message;
-import Ile_Interdite.IHM.Observateur;
+
 
 /**
  *
