@@ -121,25 +121,6 @@ public class Controleur implements Observateur {
         ihm.afficher();
 
         //parametrage ////////////////////////////////////////////////////////////////
-        Coordonnees C = new Coordonnees(1, 1);
-        Coordonnees C2 = new Coordonnees(2, 2);
-        Coordonnees C3 = new Coordonnees(4, 4);
-        Coordonnees C4 = new Coordonnees(3, 3);
-        Coordonnees C5 = new Coordonnees(0, 3);
-
-        Ingenieur J1 = new Ingenieur("César", grille.getTuiles().get(C));
-        Explorateur J2 = new Explorateur("Florent", grille.getTuiles().get(C2));
-        Pilote J3 = new Pilote("Walid", grille.getTuiles().get(C3));
-        Plongeur J4 = new Plongeur("Amine", grille.getTuiles().get(C4));
-        Navigateur J5 = new Navigateur("Rémi", grille.getTuiles().get(C5));
-
-        Joueurs.add(J1);
-        Joueurs.add(J2);
-        Joueurs.add(J3);
-        Joueurs.add(J4);
-        Joueurs.add(J5);
-
-        //parametrage ////////////////////////////////////////////////////////////////
         grille.AfficherGrille();
         ////////////////////////////////////////COMMENCEMENT DE LA PARTIE////////////////////////////////////////////////////////
         System.out.println("____________________________________________________________");
