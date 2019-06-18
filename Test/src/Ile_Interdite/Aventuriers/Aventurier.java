@@ -146,9 +146,9 @@ public abstract class Aventurier {
     }
 
     public void gagnerTresor(Tuile tuile) {
-            if(getActions()>0 && tuile=getTuile()){
+          //  if(getActions()>0 && tuile=getTuile()){
                 
-            }
+            //}
     }
 
     public boolean isTourTerminer() {

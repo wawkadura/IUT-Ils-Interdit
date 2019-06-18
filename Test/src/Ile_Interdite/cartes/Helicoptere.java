@@ -10,5 +10,5 @@ package Ile_Interdite.cartes;
  * @author wawve
  */
 public class Helicoptere extends CarteTrésor {
-    
+    public Helicoptere(){}
 }

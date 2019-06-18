@@ -26,6 +26,9 @@ import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
 import Ile_Interdite.cartes.CarteTrésor;
 import Ile_Interdite.cartes.Carte;
+import Ile_Interdite.cartes.CarteInondation;
+import Ile_Interdite.cartes.Helicoptere;
+import Ile_Interdite.cartes.MontéeDesEaux;
 import Ile_Interdite.cartes.Tresor;
 import Ile_Interdite.cartes.SacDeSable;
 import Ile_Interdite.cartes.PileInondation;
@@ -200,31 +203,7 @@ public class Controleur implements Observateur {
     }
 
     public void Initialisation() {
-        //********************************Initialisation Piles Cartes*********************************//
-        ArrayList<Carte> cartes = new ArrayList<>();
 
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
-            Tresor ct = new Tresor("La Statue du Zéphyr");
-            cartes.add(ct);
-        }
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Pierre Sacrée
-            Tresor ct = new Tresor("La Pierre Sacrée");
-            cartes.add(ct);
-        }
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Cristal Ardent
-            Tresor ct = new Tresor("Le Cristal Ardent");
-            cartes.add(ct);
-        }
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Calice de L'onde
-            Tresor ct = new Tresor("Le Calice de L'onde");
-            cartes.add(ct);
-        }
-        SacDeSable SacS = new SacDeSable();    // 2 cartes Sac de sable 
-        SacDeSable SacS2 = new SacDeSable();
-        cartes.add(SacS);
-        cartes.add(SacS2);
-
-        //********************************Initialisation Piles *********************************//
         int l = 0;// ligne
         int c = 0;//colonne
         int niv = 1;//demander aux joueurs
@@ -342,6 +321,57 @@ public class Controleur implements Observateur {
             coordonneesPossibles.remove(aleatoire);
             grille.addTuile(tuile);
         }
+        //********************************Initialisation Piles Cartes*********************************//
+        ArrayList<CarteTrésor> cartes = new ArrayList<>();
+
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
+            Tresor ct = new Tresor("La Statue du Zéphyr");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Pierre Sacrée
+            Tresor ct = new Tresor("La Pierre Sacrée");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Cristal Ardent
+            Tresor ct = new Tresor("Le Cristal Ardent");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Calice de L'onde
+            Tresor ct = new Tresor("Le Calice de L'onde");
+            cartes.add(ct);
+        }
+        SacDeSable SacS = new SacDeSable();    // 2 cartes Sac de sable 
+        SacDeSable SacS2 = new SacDeSable();
+        cartes.add(SacS);
+        cartes.add(SacS2);
+        
+        MontéeDesEaux mde = new MontéeDesEaux();     // 3 cartes Montée Des Eaux
+        MontéeDesEaux mde2 = new MontéeDesEaux();
+        MontéeDesEaux mde3 = new MontéeDesEaux();
+        cartes.add(mde );
+        cartes.add(mde2);
+        cartes.add(mde3);
+        
+        Helicoptere H = new Helicoptere(); // 3 cartes helicoptere
+        Helicoptere H2 = new Helicoptere();
+        Helicoptere H3 = new Helicoptere();
+        cartes.add(H);
+        cartes.add(H2);
+        cartes.add(H3);
+        
+        PileTrésor PDT = new PileTrésor(cartes); // inistialiser la pile de tresor
+        ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
+        for (Coordonnees C:coordonneesPossibles ){
+            CarteInondation carteI = new CarteInondation(C);
+            cartesInondation.add(carteI);
+             
+        }
+         pileInondation= new PileInondation(cartesInondation); // inistialisation de la pile Inondation
+        
+        
+        
+
+        //********************************Initialisation Piles *********************************//
     }
 
 }

@@ -18,17 +18,25 @@ import java.util.Iterator;
 public class PileTrésor {
     private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
     private ArrayList<CarteTrésor> cartesTrésorDefaussees = new ArrayList<>();
-    
-    public void piocher(Aventurier aventurier) {
-        if(aventurier.getCartesEnMain().size() <= 5) {
-            aventurier.addCarte(cartesTrésor.get(0));
-            this.getCartesTrésor().remove(0);
-        }
+    /**
+     * @return the cartesTrésor
+     */
+    public  PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
+        
     }
-    
     public ArrayList<CarteTrésor> getCartesTrésor() {
         return cartesTrésor;
     }
+
+    
+    public void piocher( Aventurier aventurier){
+        aventurier.addCarte(cartesTrésor.get(0));
+        cartesTrésor.remove(0);
+        aventurier.addCarte(cartesTrésor.get(0));
+        cartesTrésor.remove(0);
+        
+    }
+    
     public void Defausser(CarteTrésor carte, Aventurier aventurier) {
         aventurier.getCartesEnMain().remove(carte);
         this.getCartesTrésorDefaussees().add(carte);

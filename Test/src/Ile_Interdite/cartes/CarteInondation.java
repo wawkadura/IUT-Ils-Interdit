@@ -5,14 +5,17 @@
  */
 package Ile_Interdite.cartes;
 
+import Ile_Interdite.Coordonnees;
+
 /**
  *
  * @author peyrinfl
  */
 public class CarteInondation {
     private int nivEau ; 
-    public CarteInondation (){
-        
+    private Coordonnees coordonnees ; 
+    public CarteInondation (Coordonnees C){
+        this.coordonnees=C;
     }
     
 }
