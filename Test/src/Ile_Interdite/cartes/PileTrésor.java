@@ -36,8 +36,7 @@ public class PileTrésor {
        }
        else { 
         melangerLesPiles();
-        piocher(aventurier);}
-               
+        piocher(aventurier);}             
     }
     
     public void Defausser(CarteTrésor carte, Aventurier aventurier) {

@@ -72,7 +72,7 @@ public class Controleur implements Observateur {
 
         //grille.AfficherGrille();
         //****************************************Test Area*******************************
-        if (!J1.mainIsFull()){
+        if (!J1.mainIsFull()) {
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
@@ -270,14 +270,14 @@ public class Controleur implements Observateur {
         coordonneesPossibles.remove(aleatoire);
         grille.addTuile(oeuf2);
 
-        // Placement de l'héliport   
+        // Placement aléatoire de l'héliport   
         aleatoire = random.nextInt(coordonneesPossibles.size());
         coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
         Héliport heliport = new Héliport(coordonneesAleatoires);
         coordonneesPossibles.remove(aleatoire);
         grille.addTuile(heliport);
 
-        // Placement des autres tuiles
+        // Placement aléatoire des autres tuiles
         while (!coordonneesPossibles.isEmpty()) {
             aleatoire = random.nextInt(coordonneesPossibles.size());
             coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
