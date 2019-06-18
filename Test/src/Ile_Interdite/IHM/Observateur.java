@@ -11,5 +11,5 @@ package Ile_Interdite.IHM;
  * @author laurillau
  */
 public interface Observateur {
-    public void traiterMessage(Message m);
+    public void traiterMessage(Message msg);
 }

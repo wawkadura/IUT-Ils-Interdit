@@ -18,6 +18,7 @@ import Ile_Interdite.Aventuriers.Pilote;
 import Ile_Interdite.Aventuriers.Ingenieur;
 import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
+import Ile_Interdite.IHM.VueInitialisation;
 import Ile_Interdite.cartes.CarteTrésor;
 import Ile_Interdite.cartes.Carte;
 import Ile_Interdite.cartes.CarteInondation;
@@ -36,21 +37,115 @@ public class Controleur implements Observateur {
     private PileInondation pileInondation;
     private PileTrésor pileTresor;
     private VueAventurier ihm;
+    private VueInitialisation ihmInit;
+    private int no_joueurs;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
-    private VueAventurier vue;
 
     @Override
-    public void traiterMessage(Message m) {
+    public void traiterMessage(Message message) {
+
+
+        switch (message.type) {
+            case DEMARRER_PARTIE:
+
+                no_joueurs = message.nbJoueurs;
+
+                ihm.setNbJoueurs(no_joueurs);
+                
+                
+                ihmInit.demarrerJeu();
+                
+                break;
+
+            case QUITTER:
+                
+                break;
+        }
+
     }
 
     public Controleur() {
+
         Initialisation();
 
+        ihmInit = new VueInitialisation();
+        ihmInit.addObservateur(this);
+        ihmInit.afficher();
+        
         ihm = new VueAventurier();
         ihm.addObservateur(this);
         ihm.afficher();
-
+        
+        //ihm = new VueAventurier();
+        //ihm.addObservateur(this);
+        //ihm.afficher();
+//        for (int i = 0; i < 36; i++) {// Creation de la Grille
+//            Coordonnees C = new Coordonnees(l, c);
+//
+//            if (c == 2 && l == 0) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
+//                grille.addTuile(tuile);
+//            } //coup
+//            else if (c == 3 && l == 0) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
+//                grille.addTuile(tuile);
+//            }//feu
+//            else if (c == 0 && l == 2) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
+//                grille.addTuile(tuile);
+//            }//coup
+//            else if (c == 0 && l == 3) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
+//                grille.addTuile(tuile);
+//            }//lion
+//            else if (c == 5 && l == 2) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
+//                grille.addTuile(tuile);
+//            }//feu
+//            else if (c == 5 && l == 3) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
+//                grille.addTuile(tuile);
+//            }//oeuf
+//            else if (c == 2 && l == 5) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
+//                grille.addTuile(tuile);
+//            }//lion
+//            else if (c == 3 && l == 5) {
+//                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
+//                grille.addTuile(tuile);
+//            }//oeuf
+//            else if (c == 2 && l == 2) { // tuile normal
+//                Tuile tuile = new Tuile(C);
+//                grille.addTuile(tuile);
+//            } else if (c == 3 && l == 3) { // tuile normal
+//                Tuile tuile = new Tuile(C);
+//                grille.addTuile(tuile);
+//            } else if (c == 2 && l == 3) { // tuile manquant
+//                Tuile tuile = new Tuile(C);
+//                tuile.setEtat(2);
+//                grille.addTuile(tuile);
+//            } else if (c == 3 && l == 2) { // tuile manquant
+//                Tuile tuile = new Tuile(C);
+//                tuile.setEtat(2);
+//                grille.addTuile(tuile);
+//            } else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
+//                    || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
+//                    || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
+//                    || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
+//            } //tuile heliport a faire aleatoirement
+//            else {
+//
+//                Tuile tuile = new Tuile(C);
+//                tuile.setEtat(1);                 // le reste des tuiles sont cree inonder
+//                grille.addTuile(tuile);
+//            }
+//            c++;
+//            if (c == 6) {
+//                c = 0;
+//                l++;
+//            }
+//        }
         //parametrage ////////////////////////////////////////////////////////////////
         Coordonnees C = new Coordonnees(1, 1);
         Coordonnees C2 = new Coordonnees(2, 2);

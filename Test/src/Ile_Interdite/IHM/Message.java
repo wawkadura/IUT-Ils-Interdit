@@ -5,18 +5,17 @@
  */
 package Ile_Interdite.IHM;
 
-import Ile_Interdite.IHM.TypesMessage;
+import Ile_Interdite.IHM.TypesMessages;
 
 /**
  *
  * @author laurilly
  */
 public class Message {
-    TypesMessage type;
     
-    public Message(TypesMessage type) {
-        this.type = type;
-    }
+    public TypesMessages type;
+    public int nbJoueurs;
+
     
     
 }
