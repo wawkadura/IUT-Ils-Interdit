@@ -290,7 +290,7 @@ public class Controleur implements Observateur {
                 l++;
             }
         }
-//       coordonneesPossibles.add(new Coordonnees(0, 2));
+//        coordonneesPossibles.add(new Coordonnees(0, 2));
 //        coordonneesPossibles.add(new Coordonnees(0, 3));
 //        coordonneesPossibles.add(new Coordonnees(1, 1));
 //        coordonneesPossibles.add(new Coordonnees(1, 2));
@@ -315,7 +315,7 @@ public class Controleur implements Observateur {
 //        coordonneesPossibles.add(new Coordonnees(5, 2));
 //        coordonneesPossibles.add(new Coordonnees(5, 3));
 
-        // Placement des trésors
+        // Placement aléatoire des trésors
         Random random = new Random();
 
         int aleatoire = random.nextInt(coordonneesPossibles.size());
@@ -366,14 +366,14 @@ public class Controleur implements Observateur {
         coordonneesPossibles.remove(aleatoire);
         grille.addTuile(oeuf2);
 
-        // Placement de l'héliport   
+        // Placement aléatoire de l'héliport   
         aleatoire = random.nextInt(coordonneesPossibles.size());
         coordonneesAleatoires = coordonneesPossibles.get(aleatoire);
         Héliport heliport = new Héliport(coordonneesAleatoires);
         coordonneesPossibles.remove(aleatoire);
         grille.addTuile(heliport);
 
-        // Placement des autres tuiles
+        // Placement aléatoire des autres tuiles
         while (!coordonneesPossibles.isEmpty()) {
             aleatoire = random.nextInt(coordonneesPossibles.size());
             coordonneesAleatoires = coordonneesPossibles.get(aleatoire);

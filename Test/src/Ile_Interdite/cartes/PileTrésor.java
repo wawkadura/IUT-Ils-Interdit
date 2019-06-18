@@ -21,23 +21,22 @@ public class PileTrésor {
     /**
      * @return the cartesTrésor
      */
-    public  PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
-        this.cartesTrésor=cartesTrésor;
-        melanger(this.cartesTrésor);
+    public PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
+        this.cartesTrésor = cartesTrésor;
+        melanger(cartesTrésor);
     }
     public ArrayList<CarteTrésor> getCartesTrésor() {
         return cartesTrésor;
     }
-
     
-    public void piocher( Aventurier aventurier){
-       if (!cartesTrésor.isEmpty()){
+    public void piocher(Aventurier aventurier){
+       if (!cartesTrésor.isEmpty()) {
         aventurier.addCarte(cartesTrésor.get(cartesTrésor.size()-1));
         cartesTrésor.remove(cartesTrésor.size()-1);
        }
-       else{ melangerLesPiles();            // traitement de la pile vide
-            piocher(aventurier);}
-               
+       else { 
+        melangerLesPiles();
+        piocher(aventurier);}             
     }
     
     public void Defausser(CarteTrésor carte, Aventurier aventurier) {
@@ -54,9 +53,6 @@ public class PileTrésor {
     }
     public void melangerLesPiles(){
         melanger(cartesTrésorDefaussees);
-        this.cartesTrésor.addAll(cartesTrésorDefaussees);
-        
-    }
-    
-    
+        this.cartesTrésor.addAll(cartesTrésorDefaussees);    
+    }   
 }
