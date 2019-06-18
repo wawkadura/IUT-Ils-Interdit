@@ -5,23 +5,58 @@
  */
 package Ile_Interdite.cartes;
 
+import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.cartes.PileInondation;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  *
  * @author peyrinfl
  */
 public class PileTrésor {
-
     private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
-    private ArrayList<CarteTrésor> cartesTrésorDefausser = new ArrayList<>();
-    private PileInondation pile;
-    
-    public PileTrésor(ArrayList<CarteTrésor> cartesTresor) {
-        this.cartesTrésor = cartesTresor;
+    private ArrayList<CarteTrésor> cartesTrésorDefaussees = new ArrayList<>();
+    /**
+     * @return the cartesTrésor
+     */
+    public  PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
+        this.cartesTrésor=cartesTrésor;
+        melanger(this.cartesTrésor);
     }
-    public void Defausser(Carte carte){
+    public ArrayList<CarteTrésor> getCartesTrésor() {
+        return cartesTrésor;
+    }
+
+    
+    public void piocher( Aventurier aventurier){
+       if (!cartesTrésor.isEmpty()){
+        aventurier.addCarte(cartesTrésor.get(cartesTrésor.size()-1));
+        cartesTrésor.remove(cartesTrésor.size()-1);
+       }
+       else{ melangerLesPiles();            // traitement de la pile vide
+            piocher(aventurier);}
+               
+    }
+    
+    public void Defausser(CarteTrésor carte, Aventurier aventurier) {
+        aventurier.getCartesEnMain().remove(carte);
+        this.getCartesTrésorDefaussees().add(carte);
+    }
+
+    public ArrayList<CarteTrésor> getCartesTrésorDefaussees() {
+        return cartesTrésorDefaussees;
+    }
+    
+    public void melanger(ArrayList<CarteTrésor> cartesAMelanger) {
+        Collections.shuffle(cartesAMelanger);
+    }
+    public void melangerLesPiles(){
+        melanger(cartesTrésorDefaussees);
+        this.cartesTrésor.addAll(cartesTrésorDefaussees);
         
     }
+    
+    
 }

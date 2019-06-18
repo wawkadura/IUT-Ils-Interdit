@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ile_Interdite.cartes;
+package Ile_Interdite;
 
 /**
  *
- * @author peyrinfl
+ * @author benmansa
  */
-public class CarteTrésor extends Carte {
-    private String fonction;
+public class CarteTrésor {
     
-    public String getFonction() {
-        return fonction;
-    }
 }

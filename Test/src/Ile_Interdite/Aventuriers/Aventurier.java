@@ -146,7 +146,9 @@ public abstract class Aventurier {
     }
 
     public void gagnerTresor(Tuile tuile) {
+        //  if(getActions()>0 && tuile=getTuile()){
 
+        //}
     }
 
     public boolean isTourTerminer() {
@@ -173,7 +175,20 @@ public abstract class Aventurier {
     }
 
     public void faireDeplacer(Grille g, Aventurier A) {
-       
+
+    }
+
+    public void addCarte(CarteTrésor carte) {
+        
+            this.getCartesEnMain().add(carte);
+    }
+
+    public ArrayList<CarteTrésor> getCartesEnMain() {
+        return cartesEnMain;
+    }
+
+    public boolean mainIsFull() {
+        return this.getCartesEnMain().size() >= 5;
     }
 
 }

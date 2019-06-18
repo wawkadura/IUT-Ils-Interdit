@@ -10,5 +10,14 @@ package Ile_Interdite.cartes;
  * @author wawve
  */
 public class SacDeSable extends CarteTrésor {
+    private String fonction ="Sac de Sable"; 
+
+    @Override
+    public String getFonction() {
+        return fonction;
+    }
+    
+    
+    
     
 }
