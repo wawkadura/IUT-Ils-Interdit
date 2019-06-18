@@ -24,6 +24,5 @@ public class MontéeDesEaux extends CarteTrésor {
 
     public void action(Grille grille, PileInondation pileInondation) {
         grille.setNivEau(grille.getNivEau() + 1);
-        
     }
 }
