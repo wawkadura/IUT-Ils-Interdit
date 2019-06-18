@@ -29,11 +29,11 @@ public class PileTrésor {
     }
 
     
-    public void piocher( Aventurier aventurier){
+    public void piocher(Aventurier aventurier){
         aventurier.addCarte(cartesTrésor.get(0));
-        cartesTrésor.remove(0);
+        this.getCartesTrésor().remove(0);
         aventurier.addCarte(cartesTrésor.get(0));
-        cartesTrésor.remove(0);
+        this.getCartesTrésor().remove(0);
         
     }
     
