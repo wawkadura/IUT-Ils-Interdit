@@ -179,8 +179,7 @@ public abstract class Aventurier {
     }
 
     public void addCarte(CarteTrésor carte) {
-        
-            this.getCartesEnMain().add(carte);
+       this.getCartesEnMain().add(carte);
     }
 
     public ArrayList<CarteTrésor> getCartesEnMain() {

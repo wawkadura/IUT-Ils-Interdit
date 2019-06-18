@@ -23,7 +23,7 @@ public class PileTrésor {
      */
     public PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
         this.cartesTrésor = cartesTrésor;
-        melanger(this.cartesTrésor);
+        melanger(cartesTrésor);
     }
     public ArrayList<CarteTrésor> getCartesTrésor() {
         return cartesTrésor;

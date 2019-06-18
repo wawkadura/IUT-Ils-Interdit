@@ -219,7 +219,7 @@ public class Controleur implements Observateur {
 //        coordonneesPossibles.add(new Coordonnees(5, 2));
 //        coordonneesPossibles.add(new Coordonnees(5, 3));
 
-        // Placement des trésors
+        // Placement aléatoire des trésors
         Random random = new Random();
 
         int aleatoire = random.nextInt(coordonneesPossibles.size());
