@@ -5,14 +5,18 @@
  */
 package Ile_Interdite.cartes;
 
+import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Grille;
+
 /**
  *
  * @author peyrinfl
  */
-public class CarteTrésor extends Carte {
+public abstract class CarteTrésor extends Carte {
     private String fonction;
     
     public String getFonction() {
         return fonction;
     }
+    public  void action(Grille g , Aventurier a){}
 }

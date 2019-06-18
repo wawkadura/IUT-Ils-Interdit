@@ -134,7 +134,13 @@ public abstract class Aventurier {
     }
 
     public void donner(CarteTrésor carte, Aventurier joueur) {
-
+        joueur.addCarte(carte);
+        removeCarte(carte);
+        
+    }
+    public void removeCarte(CarteTrésor carte) {
+        cartesEnMain.remove(carte);
+        
     }
 
     public void setTuile(Tuile tuile) {
@@ -188,7 +194,7 @@ public abstract class Aventurier {
     }
 
     public boolean mainIsFull() {
-        return this.getCartesEnMain().size() >= 5;
+        return this.getCartesEnMain().size() > 5;
     }
 
 }

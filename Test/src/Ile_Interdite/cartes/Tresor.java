@@ -5,6 +5,9 @@
  */
 package Ile_Interdite.cartes;
 
+import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Grille;
+
 /**
  *
  * @author wawve
@@ -23,6 +26,10 @@ public class Tresor extends CarteTrésor {
     }
     public String getType() {
         return typeTresor;
+    }
+
+    @Override
+    public void action(Grille g, Aventurier a) {
     }
     
 }

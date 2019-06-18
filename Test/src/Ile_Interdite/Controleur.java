@@ -72,7 +72,7 @@ public class Controleur implements Observateur {
 
         //grille.AfficherGrille();
         //****************************************Test Area*******************************
-        if (!J1.mainIsFull()){
+        if (!J1.mainIsFull()) {
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
@@ -80,18 +80,53 @@ public class Controleur implements Observateur {
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
-        }
-        else {
+        } else {
             System.out.println(J1.getNom() + " a " + J1.getCartesEnMain().size() + " cartes dans les mains :");
         }
+        ArrayList<CarteTrésor> ctr = J1.getCartesEnMain();
+        for (CarteTrésor c : ctr) {
+            if (c.getFonction().equals("Montée des Eaux")) {
+                //c.action();
+                pileTresor.Defausser(c, J1);
+            }
+        }
         System.out.println(J1.getNom() + " a " + J1.getCartesEnMain().size() + " cartes dans les mains :");
-        for (CarteTrésor CT : J1.getCartesEnMain()) {
-            System.out.println("\t - " + CT.getFonction());
-        }
+        afficherCarte(J1.getCartesEnMain());
         System.out.println("contenu restant de la pile carte de Tresor : (" + pileTresor.getCartesTrésor().size() + " cartes)");
-        for (CarteTrésor CT : pileTresor.getCartesTrésor()) {
-            System.out.println("\t - " + CT.getFonction());
+        afficherCarte(pileTresor.getCartesTrésor());
+        while (J1.mainIsFull()) {
+            int numcarte = 1;
+            System.out.println("Vous avez plus de 5 cartes dans la main !");
+            System.out.println("Defausser une carte :");
+            for (CarteTrésor ct : J1.getCartesEnMain()) {
+                System.out.println("\t" + numcarte + " - " + ct.getFonction());
+                numcarte++;
+            }
+            System.out.print("Quelle carte voulez vous defausser ? : ");
+            Scanner scn = new Scanner(System.in);
+
+            int dir = scn.nextInt();
+            pileTresor.Defausser(J1.getCartesEnMain().get(dir - 1), J1);
+
         }
+        System.out.println(J1.getNom() + " a " + J1.getCartesEnMain().size() + " cartes dans les mains :");
+        afficherCarte(J1.getCartesEnMain());
+        J1.donner(J1.getCartesEnMain().get(0), J2);
+        System.out.println("J1 donne une carte a J2 :");
+        System.out.println("main de J1 :");
+        afficherCarte(J1.getCartesEnMain());
+        System.out.println("main de J2 :");
+        afficherCarte(J2.getCartesEnMain());
+        System.out.println("Deck defausser :");
+        afficherCarte(pileTresor.getCartesTrésorDefaussees());
+        pileTresor.melangerLesPiles();
+        System.out.println("Deck defausser :");
+        afficherCarte(pileTresor.getCartesTrésorDefaussees());
+        System.out.println("contenu restant de la pile carte de Tresor : (" + pileTresor.getCartesTrésor().size() + " cartes)");
+        afficherCarte(pileTresor.getCartesTrésor());
+        
+        
+        
 
         //****************************************Test Area*******************************
         ////////////////////////////////////////COMMENCEMENT DE LA PARTIE////////////////////////////////////////////////////////
@@ -169,6 +204,12 @@ public class Controleur implements Observateur {
 //        System.out.println("____________________________________________________________");
 //        System.out.println("                        FIN TOUR 1                              ");
 //        System.out.println("____________________________________________________________");
+    }
+
+    public void afficherCarte(ArrayList<CarteTrésor> c) {
+        for (CarteTrésor CT : c) {
+            System.out.println("\t - " + CT.getFonction());
+        }
     }
 
     public void Initialisation() {

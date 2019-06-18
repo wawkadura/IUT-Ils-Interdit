@@ -1,5 +1,6 @@
 package Ile_Interdite.cartes;
 
+import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Grille;
 import java.util.ArrayList;
 
@@ -15,14 +16,17 @@ import java.util.ArrayList;
 public class MontéeDesEaux extends CarteTrésor {
 
     
-    private String fonction = "Montee des Eaux";
+    private String fonction = "Montée des Eaux";
 
     @Override
     public String getFonction() {
         return fonction;
     }
+    
+    
 
-    public void action(Grille grille, PileInondation pileInondation) {
-        grille.setNivEau(grille.getNivEau() + 1);
+    @Override
+    public void action(Grille g, Aventurier a) {
+        g.setNivEau(g.getNivEau() + 1);
     }
 }

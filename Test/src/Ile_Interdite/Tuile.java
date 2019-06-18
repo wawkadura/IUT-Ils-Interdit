@@ -34,7 +34,7 @@ public class Tuile {
     }
 
     public void setEtat(int etat) {
-        this.etat = etat;
+        this.etat += etat;
     }
 
     public void addAventurier(Aventurier A) {
