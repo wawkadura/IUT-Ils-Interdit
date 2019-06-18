@@ -10,7 +10,6 @@ package Ile_Interdite;
  * @author peyrinfl
  */
 public class LieuDeTresor extends Tuile {
-    
     private String type;
 
     public LieuDeTresor(Coordonnees C , String type) {

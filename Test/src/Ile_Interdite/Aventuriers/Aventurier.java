@@ -24,7 +24,8 @@ public abstract class Aventurier {
     private Tuile tuile;
     private ArrayList<CarteTrésor> cartesEnMain = new ArrayList<>();
     private boolean terminer = false;
-
+    protected static int nombreTresors;
+            
     public Aventurier(String nom, Tuile tuile) {
         this.setNom(nom);
         this.tuile = tuile;
@@ -130,7 +131,6 @@ public abstract class Aventurier {
         } else {
             System.out.println("Aucune tuile voisine peux être asséchée");
         }
-
     }
 
     public void donner(CarteTrésor carte, Aventurier joueur) {
@@ -185,8 +185,7 @@ public abstract class Aventurier {
     }
 
     public void addCarte(CarteTrésor carte) {
-        
-            this.getCartesEnMain().add(carte);
+       this.getCartesEnMain().add(carte);
     }
 
     public ArrayList<CarteTrésor> getCartesEnMain() {
