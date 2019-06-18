@@ -237,46 +237,26 @@ public class Controleur implements Observateur {
         coordonneesPossibles.add(new Coordonnees(0, 3));
         coordonneesPossibles.add(new Coordonnees(1, 1));
         coordonneesPossibles.add(new Coordonnees(1, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(1, 3));
-        coordonneesPossibles.add(
-                new Coordonnees(1, 4));
-        coordonneesPossibles.add(
-                new Coordonnees(2, 0));
-        coordonneesPossibles.add(
-                new Coordonnees(2, 1));
-        coordonneesPossibles.add(
-                new Coordonnees(2, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(2, 3));
-        coordonneesPossibles.add(
-                new Coordonnees(2, 4));
-        coordonneesPossibles.add(
-                new Coordonnees(2, 5));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 0));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 1));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 3));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 4));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 5));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 1));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 3));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 4));
-        coordonneesPossibles.add(
-                new Coordonnees(5, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(5, 3));
+        coordonneesPossibles.add(new Coordonnees(1, 3));
+        coordonneesPossibles.add(new Coordonnees(1, 4));
+        coordonneesPossibles.add(new Coordonnees(2, 0));
+        coordonneesPossibles.add(new Coordonnees(2, 1));
+        coordonneesPossibles.add(new Coordonnees(2, 2));
+        coordonneesPossibles.add(new Coordonnees(2, 3));
+        coordonneesPossibles.add(new Coordonnees(2, 4));
+        coordonneesPossibles.add(new Coordonnees(2, 5));
+        coordonneesPossibles.add(new Coordonnees(3, 0));
+        coordonneesPossibles.add(new Coordonnees(3, 1));
+        coordonneesPossibles.add(new Coordonnees(3, 2));
+        coordonneesPossibles.add(new Coordonnees(3, 3));
+        coordonneesPossibles.add(new Coordonnees(3, 4));
+        coordonneesPossibles.add(new Coordonnees(3, 5));
+        coordonneesPossibles.add(new Coordonnees(4, 1));
+        coordonneesPossibles.add(new Coordonnees(4, 2));
+        coordonneesPossibles.add(new Coordonnees(4, 3));
+        coordonneesPossibles.add(new Coordonnees(4, 4));
+        coordonneesPossibles.add(new Coordonnees(5, 2));
+        coordonneesPossibles.add(new Coordonnees(5, 3));
 
         // Placement des trésors
         Random random = new Random();
