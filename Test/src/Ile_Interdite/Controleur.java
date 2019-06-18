@@ -24,6 +24,7 @@ import Ile_Interdite.Aventuriers.Pilote;
 import Ile_Interdite.Aventuriers.Ingenieur;
 import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
+import Ile_Interdite.IHM.VueInitialisation;
 import Ile_Interdite.cartes.CarteTrésor;
 import Ile_Interdite.cartes.Carte;
 import Ile_Interdite.cartes.Tresor;
@@ -40,16 +41,49 @@ public class Controleur implements Observateur {
     private PileInondation pileInondation;
     private PileTrésor pileTresor;
     private VueAventurier ihm;
+    private VueInitialisation ihmInit;
+    private int no_joueurs;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
-    private VueAventurier vue;
 
     @Override
-    public void traiterMessage(Message m) {
+    public void traiterMessage(Message message) {
+
+
+        switch (message.type) {
+            case DEMARRER_PARTIE:
+
+                no_joueurs = message.nbJoueurs;
+
+                ihm.setNbJoueurs(no_joueurs);
+                
+                
+                ihmInit.demarrerJeu();
+                
+                break;
+
+            case QUITTER:
+                
+                break;
+        }
+
     }
 
     public Controleur() {
+
         Initialisation();
+
+        ihmInit = new VueInitialisation();
+        ihmInit.addObservateur(this);
+        ihmInit.afficher();
+        
+        ihm = new VueAventurier();
+        ihm.addObservateur(this);
+        ihm.afficher();
+        
+        //ihm = new VueAventurier();
+        //ihm.addObservateur(this);
+        //ihm.afficher();
 //        for (int i = 0; i < 36; i++) {// Creation de la Grille
 //            Coordonnees C = new Coordonnees(l, c);
 //
@@ -116,10 +150,6 @@ public class Controleur implements Observateur {
 //                l++;
 //            }
 //        }
-        ihm = new VueAventurier();
-        ihm.addObservateur(this);
-        ihm.afficher();
-
         //parametrage ////////////////////////////////////////////////////////////////
         grille.AfficherGrille();
         ////////////////////////////////////////COMMENCEMENT DE LA PARTIE////////////////////////////////////////////////////////

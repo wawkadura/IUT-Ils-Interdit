@@ -9,7 +9,9 @@ package Ile_Interdite.IHM;
  *
  * @author laurilly
  */
-public enum TypesMessage {
+public enum TypesMessages {
+    DEMARRER_PARTIE,
+    QUITTER,
     DEPLACER,
     ANNULER,
     ASSECHER
