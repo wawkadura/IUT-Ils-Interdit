@@ -134,7 +134,7 @@ public abstract class Aventurier {
     }
 
     public void donner(CarteTrésor carte, Aventurier joueur) {
-
+          
     }
 
     public void setTuile(Tuile tuile) {
@@ -146,7 +146,9 @@ public abstract class Aventurier {
     }
 
     public void gagnerTresor(Tuile tuile) {
-
+            if(getActions()>0 && tuile=getTuile()){
+                
+            }
     }
 
     public boolean isTourTerminer() {
