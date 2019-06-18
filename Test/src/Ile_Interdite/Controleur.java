@@ -27,6 +27,7 @@ import Ile_Interdite.Aventuriers.Explorateur;
 import Ile_Interdite.cartes.CarteTrésor;
 import Ile_Interdite.cartes.Carte;
 import Ile_Interdite.cartes.Helicoptere;
+import Ile_Interdite.cartes.MontéeDesEaux;
 import Ile_Interdite.cartes.Tresor;
 import Ile_Interdite.cartes.SacDeSable;
 import Ile_Interdite.cartes.PileInondation;
@@ -222,30 +223,18 @@ public class Controleur implements Observateur {
         coordonneesPossibles.add(new Coordonnees(2, 3));
         coordonneesPossibles.add(new Coordonnees(2, 4));
         coordonneesPossibles.add(new Coordonnees(2, 5));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 0));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 1));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 3));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 4));
-        coordonneesPossibles.add(
-                new Coordonnees(3, 5));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 1));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 3));
-        coordonneesPossibles.add(
-                new Coordonnees(4, 4));
-        coordonneesPossibles.add(
-                new Coordonnees(5, 2));
-        coordonneesPossibles.add(
-                new Coordonnees(5, 3));
+        coordonneesPossibles.add(new Coordonnees(3, 0));
+        coordonneesPossibles.add(new Coordonnees(3, 1));
+        coordonneesPossibles.add(new Coordonnees(3, 2));
+        coordonneesPossibles.add(new Coordonnees(3, 3));
+        coordonneesPossibles.add(new Coordonnees(3, 4));
+        coordonneesPossibles.add(new Coordonnees(3, 5));
+        coordonneesPossibles.add(new Coordonnees(4, 1));
+        coordonneesPossibles.add(new Coordonnees(4, 2));
+        coordonneesPossibles.add(new Coordonnees(4, 3));
+        coordonneesPossibles.add(new Coordonnees(4, 4));
+        coordonneesPossibles.add(new Coordonnees(5, 2));
+        coordonneesPossibles.add(new Coordonnees(5, 3));
 
         // Placement des trésors
         Random random = new Random();
@@ -355,12 +344,12 @@ public class Controleur implements Observateur {
         cartes.add(SacS);
         cartes.add(SacS2);
         
-        //MontéeDesEaux mde = new MontéeDesEaux();     / 3 cartes Montée Des Eaux
-        //MontéeDesEaux mde2 = new MontéeDesEaux();
-        //MontéeDesEaux mde3 = new MontéeDesEaux();
-        //cartes.add(mde);
-        //cartes.add(mde2);
-        //cartes.add(mde3);
+        MontéeDesEaux mde = new MontéeDesEaux();     // 3 cartes Montée Des Eaux
+        MontéeDesEaux mde2 = new MontéeDesEaux();
+        MontéeDesEaux mde3 = new MontéeDesEaux();
+        cartes.add(mde);
+        cartes.add(mde2);
+        cartes.add(mde3);
         
         Helicoptere H = new Helicoptere(); // 3 cartes helicoptere
         Helicoptere H2 = new Helicoptere();
