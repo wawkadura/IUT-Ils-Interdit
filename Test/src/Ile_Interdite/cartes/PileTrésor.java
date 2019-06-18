@@ -21,6 +21,9 @@ public class PileTrésor {
     /**
      * @return the cartesTrésor
      */
+    public  PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
+        
+    }
     public ArrayList<CarteTrésor> getCartesTrésor() {
         return cartesTrésor;
     }
@@ -61,7 +64,7 @@ public class PileTrésor {
     }
     
     public void piocher( Aventurier aventurier){
-        Iterator itr= cartesTrésor.iterator();
+        //Iterator itr= cartesTrésor.iterator();
         
         //while(itr.hasNext()){
         
