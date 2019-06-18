@@ -18,19 +18,27 @@ import java.util.Iterator;
 public class PileTrésor {
     private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
     private ArrayList<CarteTrésor> cartesTrésorDefaussees = new ArrayList<>();
-    
+    /**
+     * @return the cartesTrésor
+     */
     public PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
-        
+        this.cartesTrésor = cartesTrésor;
+        melanger(this.cartesTrésor);
     }
     public ArrayList<CarteTrésor> getCartesTrésor() {
         return cartesTrésor;
     }
 
+    
     public void piocher(Aventurier aventurier){
-        aventurier.addCarte(cartesTrésor.get(0));
-        this.getCartesTrésor().remove(0);
-        aventurier.addCarte(cartesTrésor.get(0));
-        this.getCartesTrésor().remove(0);     
+       if (!cartesTrésor.isEmpty()){
+        aventurier.addCarte(cartesTrésor.get(cartesTrésor.size()-1));
+        cartesTrésor.remove(cartesTrésor.size()-1);
+       }
+       else { 
+        melangerLesPiles();
+        piocher(aventurier);}
+               
     }
     
     public void Defausser(CarteTrésor carte, Aventurier aventurier) {
@@ -45,5 +53,8 @@ public class PileTrésor {
     public void melanger(ArrayList<CarteTrésor> cartesAMelanger) {
         Collections.shuffle(cartesAMelanger);
     }
-    
+    public void melangerLesPiles(){
+        melanger(cartesTrésorDefaussees);
+        this.cartesTrésor.addAll(cartesTrésorDefaussees);    
+    }   
 }

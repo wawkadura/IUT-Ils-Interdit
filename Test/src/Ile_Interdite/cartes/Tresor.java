@@ -10,14 +10,19 @@ package Ile_Interdite.cartes;
  * @author wawve
  */
 public class Tresor extends CarteTrésor {
-    private String type;
+    private String typeTresor;
+    private String fonction ; 
     
     public Tresor(String type){
-        this.type=type;
+        this.typeTresor=type;
+        this.fonction=type;
     }
-
+    @Override
+    public String getFonction() {
+        return fonction;
+    }
     public String getType() {
-        return type;
+        return typeTresor;
     }
     
 }

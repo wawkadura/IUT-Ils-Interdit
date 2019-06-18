@@ -11,4 +11,8 @@ package Ile_Interdite.cartes;
  */
 public class CarteTrésor extends Carte {
     private String fonction;
+    
+    public String getFonction() {
+        return fonction;
+    }
 }
