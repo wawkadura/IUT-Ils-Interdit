@@ -26,6 +26,7 @@ import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
 import Ile_Interdite.cartes.CarteTrésor;
 import Ile_Interdite.cartes.Carte;
+import Ile_Interdite.cartes.CarteInondation;
 import Ile_Interdite.cartes.Helicoptere;
 import Ile_Interdite.cartes.MontéeDesEaux;
 import Ile_Interdite.cartes.Tresor;
@@ -320,7 +321,7 @@ public class Controleur implements Observateur {
             coordonneesPossibles.remove(aleatoire);
             grille.addTuile(tuile);
         }
-                //********************************Initialisation Piles Cartes*********************************//
+        //********************************Initialisation Piles Cartes*********************************//
         ArrayList<CarteTrésor> cartes = new ArrayList<>();
 
         for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
@@ -359,9 +360,13 @@ public class Controleur implements Observateur {
         cartes.add(H3);
         
         PileTrésor PDT = new PileTrésor(cartes); // inistialiser la pile de tresor
-        
-        
-        
+        ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
+        for (Coordonnees C:coordonneesPossibles ){
+            CarteInondation carteI = new CarteInondation(C);
+            cartesInondation.add(carteI);
+             
+        }
+         pileInondation= new PileInondation(cartesInondation); // inistialisation de la pile Inondation
         
         
         

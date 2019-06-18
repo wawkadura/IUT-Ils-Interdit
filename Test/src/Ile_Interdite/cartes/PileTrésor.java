@@ -18,7 +18,6 @@ import java.util.Iterator;
 public class PileTrésor {
     private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
     private ArrayList<CarteTrésor> cartesTrésorDefaussees = new ArrayList<>();
-    private PileInondation pile;
     /**
      * @return the cartesTrésor
      */
