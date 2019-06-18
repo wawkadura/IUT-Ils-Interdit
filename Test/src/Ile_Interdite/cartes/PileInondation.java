@@ -11,6 +11,7 @@ package Ile_Interdite.cartes;
  */
         
 import java.util.ArrayList;
+import java.util.Collections;
         
 public class PileInondation {
     private ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
@@ -23,5 +24,8 @@ public class PileInondation {
         cartesInondDefausse.add(ci);
         cartesInondation.remove(ci);
     }
-    public void melanger(){}
+    
+    public void melanger(ArrayList<CarteInondation> cartesAMelanger) {
+        Collections.shuffle(cartesAMelanger);
+    }
 }

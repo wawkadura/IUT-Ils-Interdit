@@ -347,7 +347,7 @@ public class Controleur implements Observateur {
         MontéeDesEaux mde = new MontéeDesEaux();     // 3 cartes Montée Des Eaux
         MontéeDesEaux mde2 = new MontéeDesEaux();
         MontéeDesEaux mde3 = new MontéeDesEaux();
-        cartes.add(mde);
+        cartes.add(mde );
         cartes.add(mde2);
         cartes.add(mde3);
         

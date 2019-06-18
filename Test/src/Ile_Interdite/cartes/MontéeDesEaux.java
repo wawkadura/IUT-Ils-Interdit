@@ -1,7 +1,6 @@
 package Ile_Interdite.cartes;
 
 
-import Ile_Interdite.CarteTrésor;
 import Ile_Interdite.Grille;
 import java.util.ArrayList;
 
