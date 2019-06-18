@@ -25,4 +25,8 @@ public class Héliport extends Tuile {
         this.depart = depart;
     }
     
+    public String getType() {
+        return "Héliport";
+    }
+    
 }

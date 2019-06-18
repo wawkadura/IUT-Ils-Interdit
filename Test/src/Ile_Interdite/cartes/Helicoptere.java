@@ -9,6 +9,6 @@ package Ile_Interdite.cartes;
  *
  * @author wawve
  */
-public class Carte {
-    Carte(){}
+public class Helicoptere extends CarteTrésor {
+    
 }

@@ -9,6 +9,15 @@ package Ile_Interdite.cartes;
  *
  * @author wawve
  */
-public class Carte {
-    Carte(){}
+public class Tresor extends CarteTrésor {
+    private String type;
+    
+    public Tresor(String type){
+        this.type=type;
+    }
+
+    public String getType() {
+        return type;
+    }
+    
 }
