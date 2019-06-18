@@ -10,5 +10,11 @@ package Ile_Interdite.cartes;
  * @author wawve
  */
 public class Helicoptere extends CarteTrésor {
-    public Helicoptere(){}
+   
+    private String fonction ="Helicoptere"; 
+
+    @Override
+    public String getFonction() {
+        return fonction;
+    }
 }
