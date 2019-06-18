@@ -19,7 +19,7 @@ public class PileTrésor {
     private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
     private ArrayList<CarteTrésor> cartesTrésorDefaussees = new ArrayList<>();
     
-    public void piocher( Aventurier aventurier) {
+    public void piocher(Aventurier aventurier) {
         if(aventurier.getCartesEnMain().size() <= 5) {
             aventurier.addCarte(cartesTrésor.get(0));
             this.getCartesTrésor().remove(0);
