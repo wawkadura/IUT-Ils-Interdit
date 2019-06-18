@@ -15,6 +15,10 @@ public class Message {
     
     public TypesMessages type;
     public int nbJoueurs;
+    public String nom1;
+    public String nom2;
+    public String nom3;
+    public String nom4;
 
     
     

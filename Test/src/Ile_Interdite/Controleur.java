@@ -39,27 +39,29 @@ public class Controleur implements Observateur {
     private VueAventurier ihm;
     private VueInitialisation ihmInit;
     private int no_joueurs;
+    private String nom1, nom2, nom3, nom4;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
 
     @Override
     public void traiterMessage(Message message) {
 
-
         switch (message.type) {
             case DEMARRER_PARTIE:
 
                 no_joueurs = message.nbJoueurs;
-
+                nom1 = message.nom1;
+                nom2 = message.nom2;
+                nom3 = message.nom3;
+                nom4 = message.nom4;
                 ihm.setNbJoueurs(no_joueurs);
-                
-                
+                ihm.setNomJoueurs(nom1,nom2,nom3,nom4);
                 ihmInit.demarrerJeu();
-                
+
                 break;
 
             case QUITTER:
-                
+
                 break;
         }
 
@@ -72,11 +74,11 @@ public class Controleur implements Observateur {
         ihmInit = new VueInitialisation();
         ihmInit.addObservateur(this);
         ihmInit.afficher();
-        
+
         ihm = new VueAventurier();
         ihm.addObservateur(this);
         ihm.afficher();
-        
+
         //ihm = new VueAventurier();
         //ihm.addObservateur(this);
         //ihm.afficher();
@@ -167,7 +169,7 @@ public class Controleur implements Observateur {
 
         //grille.AfficherGrille();
         //****************************************Test Area*******************************
-        if (!J1.mainIsFull()){
+        if (!J1.mainIsFull()) {
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
@@ -175,8 +177,7 @@ public class Controleur implements Observateur {
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
-        }
-        else {
+        } else {
             System.out.println(J1.getNom() + " a " + J1.getCartesEnMain().size() + " cartes dans les mains :");
         }
         System.out.println(J1.getNom() + " a " + J1.getCartesEnMain().size() + " cartes dans les mains :");
