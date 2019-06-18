@@ -176,4 +176,15 @@ public abstract class Aventurier {
        
     }
 
+    public void addCarte(CarteTrésor carte) {
+        if(this.getCartesEnMain().size() <= 5) {
+            this.getCartesEnMain().add(carte);
+        }
+    }
+
+    public ArrayList<CarteTrésor> getCartesEnMain() {
+        return cartesEnMain;
+    }
+    
+    
 }
