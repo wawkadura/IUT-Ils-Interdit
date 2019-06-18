@@ -22,7 +22,7 @@ public class PileInondation {
         this.cartesInondation = cartesInondation;
     }
     public void Defausser(CarteInondation carteInondation, Aventurier aventurier) {
-        aventurier.getCartesEnMain().remove(carteInondation);
+        this.getCartesInondation().remove(carteInondation);
         this.getCartesInondDefaussees().add(carteInondation);
     }
     
@@ -33,6 +33,12 @@ public class PileInondation {
     public ArrayList<CarteInondation> getCartesInondDefaussees() {
         return cartesInondDefaussees;
     }
+
+    public ArrayList<CarteInondation> getCartesInondation() {
+        return cartesInondation;
+    }
+    
+    
     
     
 }
