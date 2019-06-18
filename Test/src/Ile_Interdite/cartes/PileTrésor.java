@@ -28,10 +28,9 @@ public class PileTrésor {
     public ArrayList<CarteTrésor> getCartesTrésor() {
         return cartesTrésor;
     }
-
     
     public void piocher(Aventurier aventurier){
-       if (!cartesTrésor.isEmpty()){
+       if (!cartesTrésor.isEmpty()) {
         aventurier.addCarte(cartesTrésor.get(cartesTrésor.size()-1));
         cartesTrésor.remove(cartesTrésor.size()-1);
        }
