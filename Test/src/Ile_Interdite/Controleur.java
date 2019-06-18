@@ -53,72 +53,7 @@ public class Controleur implements Observateur {
 
     public Controleur() {
         Initialisation();
-//        for (int i = 0; i < 36; i++) {// Creation de la Grille
-//            Coordonnees C = new Coordonnees(l, c);
-//
-//            if (c == 2 && l == 0) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
-//                grille.addTuile(tuile);
-//            } //coup
-//            else if (c == 3 && l == 0) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
-//                grille.addTuile(tuile);
-//            }//feu
-//            else if (c == 0 && l == 2) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "coup");
-//                grille.addTuile(tuile);
-//            }//coup
-//            else if (c == 0 && l == 3) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
-//                grille.addTuile(tuile);
-//            }//lion
-//            else if (c == 5 && l == 2) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "feu");
-//                grille.addTuile(tuile);
-//            }//feu
-//            else if (c == 5 && l == 3) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
-//                grille.addTuile(tuile);
-//            }//oeuf
-//            else if (c == 2 && l == 5) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "lion");
-//                grille.addTuile(tuile);
-//            }//lion
-//            else if (c == 3 && l == 5) {
-//                LieuDeTresor tuile = new LieuDeTresor(C, "oeuf");
-//                grille.addTuile(tuile);
-//            }//oeuf
-//            else if (c == 2 && l == 2) { // tuile normal
-//                Tuile tuile = new Tuile(C);
-//                grille.addTuile(tuile);
-//            } else if (c == 3 && l == 3) { // tuile normal
-//                Tuile tuile = new Tuile(C);
-//                grille.addTuile(tuile);
-//            } else if (c == 2 && l == 3) { // tuile manquant
-//                Tuile tuile = new Tuile(C);
-//                tuile.setEtat(2);
-//                grille.addTuile(tuile);
-//            } else if (c == 3 && l == 2) { // tuile manquant
-//                Tuile tuile = new Tuile(C);
-//                tuile.setEtat(2);
-//                grille.addTuile(tuile);
-//            } else if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
-//                    || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
-//                    || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
-//                    || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
-//            } //tuile heliport a faire aleatoirement
-//            else {
-//
-//                Tuile tuile = new Tuile(C);
-//                tuile.setEtat(1);                 // le reste des tuiles sont cree inonder
-//                grille.addTuile(tuile);
-//            }
-//            c++;
-//            if (c == 6) {
-//                c = 0;
-//                l++;
-//            }
-//        }
+
         ihm = new VueAventurier();
         ihm.addObservateur(this);
         ihm.afficher();
@@ -203,39 +138,54 @@ public class Controleur implements Observateur {
     }
 
     public void Initialisation() {
-
+        //********************************Initialisation Gille*********************************//
         int l = 0;// ligne
         int c = 0;//colonne
         int niv = 1;//demander aux joueurs
 
         grille = new Grille(niv);
-
         ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
-
-        coordonneesPossibles.add(new Coordonnees(0, 2));
-        coordonneesPossibles.add(new Coordonnees(0, 3));
-        coordonneesPossibles.add(new Coordonnees(1, 1));
-        coordonneesPossibles.add(new Coordonnees(1, 2));
-        coordonneesPossibles.add(new Coordonnees(1, 3));
-        coordonneesPossibles.add(new Coordonnees(1, 4));
-        coordonneesPossibles.add(new Coordonnees(2, 0));
-        coordonneesPossibles.add(new Coordonnees(2, 1));
-        coordonneesPossibles.add(new Coordonnees(2, 2));
-        coordonneesPossibles.add(new Coordonnees(2, 3));
-        coordonneesPossibles.add(new Coordonnees(2, 4));
-        coordonneesPossibles.add(new Coordonnees(2, 5));
-        coordonneesPossibles.add(new Coordonnees(3, 0));
-        coordonneesPossibles.add(new Coordonnees(3, 1));
-        coordonneesPossibles.add(new Coordonnees(3, 2));
-        coordonneesPossibles.add(new Coordonnees(3, 3));
-        coordonneesPossibles.add(new Coordonnees(3, 4));
-        coordonneesPossibles.add(new Coordonnees(3, 5));
-        coordonneesPossibles.add(new Coordonnees(4, 1));
-        coordonneesPossibles.add(new Coordonnees(4, 2));
-        coordonneesPossibles.add(new Coordonnees(4, 3));
-        coordonneesPossibles.add(new Coordonnees(4, 4));
-        coordonneesPossibles.add(new Coordonnees(5, 2));
-        coordonneesPossibles.add(new Coordonnees(5, 3));
+        for (int i = 0; i < 36; i++) {// Creation de la Grille
+            Coordonnees C = new Coordonnees(l, c);
+            if (c == 0 && l == 0 || c == 1 && l == 0 || c == 0 && l == 1
+                    || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
+                    || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
+                    || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
+            } //tuile heliport a faire aleatoirement
+            else {
+                coordonneesPossibles.add(C);
+            }
+            c++;
+            if (c == 6) {
+                c = 0;
+                l++;
+            }
+        }
+        System.out.println(coordonneesPossibles.size());
+//       coordonneesPossibles.add(new Coordonnees(0, 2));
+//        coordonneesPossibles.add(new Coordonnees(0, 3));
+//        coordonneesPossibles.add(new Coordonnees(1, 1));
+//        coordonneesPossibles.add(new Coordonnees(1, 2));
+//        coordonneesPossibles.add(new Coordonnees(1, 3));
+//        coordonneesPossibles.add(new Coordonnees(1, 4));
+//        coordonneesPossibles.add(new Coordonnees(2, 0));
+//        coordonneesPossibles.add(new Coordonnees(2, 1));
+//        coordonneesPossibles.add(new Coordonnees(2, 2));
+//        coordonneesPossibles.add(new Coordonnees(2, 3));
+//        coordonneesPossibles.add(new Coordonnees(2, 4));
+//        coordonneesPossibles.add(new Coordonnees(2, 5));
+//        coordonneesPossibles.add(new Coordonnees(3, 0));
+//        coordonneesPossibles.add(new Coordonnees(3, 1));
+//        coordonneesPossibles.add(new Coordonnees(3, 2));
+//        coordonneesPossibles.add(new Coordonnees(3, 3));
+//        coordonneesPossibles.add(new Coordonnees(3, 4));
+//        coordonneesPossibles.add(new Coordonnees(3, 5));
+//        coordonneesPossibles.add(new Coordonnees(4, 1));
+//        coordonneesPossibles.add(new Coordonnees(4, 2));
+//        coordonneesPossibles.add(new Coordonnees(4, 3));
+//        coordonneesPossibles.add(new Coordonnees(4, 4));
+//        coordonneesPossibles.add(new Coordonnees(5, 2));
+//        coordonneesPossibles.add(new Coordonnees(5, 3));
 
         // Placement des trésors
         Random random = new Random();
@@ -321,6 +271,8 @@ public class Controleur implements Observateur {
             coordonneesPossibles.remove(aleatoire);
             grille.addTuile(tuile);
         }
+        //********************************Initialisation Gille*********************************//
+
         //********************************Initialisation Piles Cartes*********************************//
         ArrayList<CarteTrésor> cartes = new ArrayList<>();
 
@@ -344,32 +296,29 @@ public class Controleur implements Observateur {
         SacDeSable SacS2 = new SacDeSable();
         cartes.add(SacS);
         cartes.add(SacS2);
-        
+
         MontéeDesEaux mde = new MontéeDesEaux();     // 3 cartes Montée Des Eaux
         MontéeDesEaux mde2 = new MontéeDesEaux();
         MontéeDesEaux mde3 = new MontéeDesEaux();
-        cartes.add(mde );
+        cartes.add(mde);
         cartes.add(mde2);
         cartes.add(mde3);
-        
+
         Helicoptere H = new Helicoptere(); // 3 cartes helicoptere
         Helicoptere H2 = new Helicoptere();
         Helicoptere H3 = new Helicoptere();
         cartes.add(H);
         cartes.add(H2);
         cartes.add(H3);
-        
+
         PileTrésor PDT = new PileTrésor(cartes); // inistialiser la pile de tresor
         ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
-        for (Coordonnees C:coordonneesPossibles ){
+        for (Coordonnees C : coordonneesPossibles) {
             CarteInondation carteI = new CarteInondation(C);
             cartesInondation.add(carteI);
-             
+
         }
-         pileInondation= new PileInondation(cartesInondation); // inistialisation de la pile Inondation
-        
-        
-        
+        pileInondation = new PileInondation(cartesInondation); // inistialisation de la pile Inondation
 
         //********************************Initialisation Piles *********************************//
     }
