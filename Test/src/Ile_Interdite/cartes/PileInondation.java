@@ -10,22 +10,29 @@ package Ile_Interdite.cartes;
  * @author peyrinfl
  */
         
+import Ile_Interdite.Aventuriers.Aventurier;
 import java.util.ArrayList;
 import java.util.Collections;
         
 public class PileInondation {
     private ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
-    private ArrayList<CarteInondation> cartesInondDefausse = new ArrayList<>();
+    private ArrayList<CarteInondation> cartesInondDefaussees = new ArrayList<>();
     
     public PileInondation(ArrayList<CarteInondation> cartesInondation) {
         this.cartesInondation = cartesInondation;
     }
-    public void Defausser(CarteInondation ci){
-        cartesInondDefausse.add(ci);
-        cartesInondation.remove(ci);
+    public void Defausser(CarteInondation carteInondation, Aventurier aventurier) {
+        aventurier.getCartesEnMain().remove(carteInondation);
+        this.getCartesInondDefaussees().add(carteInondation);
     }
     
     public void melanger(ArrayList<CarteInondation> cartesAMelanger) {
         Collections.shuffle(cartesAMelanger);
     }
+
+    public ArrayList<CarteInondation> getCartesInondDefaussees() {
+        return cartesInondDefaussees;
+    }
+    
+    
 }
