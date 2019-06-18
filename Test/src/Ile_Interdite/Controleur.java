@@ -45,21 +45,19 @@ public class Controleur implements Observateur {
     @Override
     public void traiterMessage(Message message) {
 
-
         switch (message.type) {
             case DEMARRER_PARTIE:
 
                 no_joueurs = message.nbJoueurs;
 
                 ihm.setNbJoueurs(no_joueurs);
-                
-                
+
                 ihmInit.demarrerJeu();
-                
+
                 break;
 
             case QUITTER:
-                
+
                 break;
         }
 
@@ -72,11 +70,11 @@ public class Controleur implements Observateur {
         ihmInit = new VueInitialisation();
         ihmInit.addObservateur(this);
         ihmInit.afficher();
-        
+
         ihm = new VueAventurier();
         ihm.addObservateur(this);
         ihm.afficher();
-        
+
         //ihm = new VueAventurier();
         //ihm.addObservateur(this);
         //ihm.afficher();
@@ -175,8 +173,7 @@ public class Controleur implements Observateur {
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
             pileTresor.piocher(J1);
-        }
-        else {
+        } else {
             System.out.println(J1.getNom() + " a " + J1.getCartesEnMain().size() + " cartes dans les mains :");
         }
         System.out.println(J1.getNom() + " a " + J1.getCartesEnMain().size() + " cartes dans les mains :");

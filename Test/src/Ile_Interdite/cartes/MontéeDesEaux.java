@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class MontéeDesEaux extends CarteTrésor {
 
-    
     private String fonction = "Montee des Eaux";
 
     @Override
