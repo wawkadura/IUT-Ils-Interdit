@@ -55,8 +55,10 @@ public class PileTrésor {
     public void melangerLesPiles(){
         melanger(cartesTrésorDefaussees);
         this.cartesTrésor.addAll(cartesTrésorDefaussees);
+        cartesTrésorDefaussees.clear();
         
     }
+    
     
     
 }
