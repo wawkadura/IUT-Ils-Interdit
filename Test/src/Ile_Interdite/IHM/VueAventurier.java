@@ -38,6 +38,8 @@ public class VueAventurier extends Observe {
     private JButton tuile;
     ArrayList<JButton> boutons = new ArrayList<>();
     private boolean val1, val2, val3, val4 = false;
+    private boolean deplacer;
+    private boolean Assecher;
 
     public VueAventurier() {
         fenetre = new JFrame("Ile Interdite");
@@ -64,6 +66,8 @@ public class VueAventurier extends Observe {
         seDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                deplacer=true;
+                Assecher=false;
                 Message m = new Message();
                 m.type = TypesMessages.DEPLACER;
                 m.joueurCourant = joueurCourant;
@@ -74,7 +78,12 @@ public class VueAventurier extends Observe {
         assecher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
+                deplacer=false;
+                Assecher=true;
+                Message m = new Message();
+                m.type = TypesMessages.ASSECHER;
+                m.joueurCourant = joueurCourant;
+                notifierObservateur(m);
             }
         });
         JButton donnerTresor = new JButton("Donner une carte Trésor");
@@ -167,6 +176,8 @@ public class VueAventurier extends Observe {
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.c = C;
+                        m.deplacer=deplacer;
+                        m.assecher=Assecher;
                         notifierObservateur(m);
                     }
                 });

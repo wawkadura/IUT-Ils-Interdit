@@ -17,6 +17,8 @@ public class Message {
     public TypesMessages type;
 //    public TypesMessages type2; // pour deplacement
 //    public TypesMessages type3; // pour assechement
+    public boolean deplacer;
+    public boolean assecher;
     public int nbJoueurs;
     public String joueurCourant;
     public String nom1;

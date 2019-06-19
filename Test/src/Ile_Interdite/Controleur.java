@@ -77,14 +77,29 @@ public class Controleur implements Observateur {
             case DEPLACER:
                 joueurCourant = getJoueurCourant(message.joueurCourant);
 
-                tuilesVoisines(joueurCourant);
+                tuilesVoisinesDeplacement(joueurCourant);
 
                 break;
-           case CHOIX_TUILE:
-                deplacement(message.c);
-                ihm.mettreAJourTuiles(grille.getTuiles().values());
+            case ASSECHER:
+                joueurCourant = getJoueurCourant(message.joueurCourant);
+
+                tuilesVoisinesAssechement(joueurCourant);
+
                 break;
-            
+            case CHOIX_TUILE:
+                if (message.deplacer) {
+                    deplacement(message.c);
+                    ihm.mettreAJourTuiles(grille.getTuiles().values());
+                }
+                System.out.println("Ile_Interdite.Controleur.traiterMessage()");
+                if (message.assecher) {
+                    
+                    assechement(message.c);
+                    ihm.mettreAJourTuiles(grille.getTuiles().values());
+                    grille.AfficherGrille();
+                }
+                break;
+
         }
 
     }
@@ -99,15 +114,24 @@ public class Controleur implements Observateur {
     }
 
     private void deplacement(Coordonnees c) {
-        for (Tuile t : grille.getTuiles().values()){
-            if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())){
+        for (Tuile t : grille.getTuiles().values()) {
+            if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())) {
                 joueurCourant.deplacer(t);
             }
         }
-        
+
     }
 
-    public void tuilesVoisines(Aventurier A) {
+    private void assechement(Coordonnees c) {
+        for (Tuile t : grille.getTuiles().values()) {
+            if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())) {
+                joueurCourant.assecher(t);
+                t.setEtat(0);
+            }
+        }
+    }
+
+    public void tuilesVoisinesDeplacement(Aventurier A) {
         ArrayList<Coordonnees> c = new ArrayList<>();
 
         if (A.getFonction().equalsIgnoreCase("Explorateur")) {
@@ -130,6 +154,40 @@ public class Controleur implements Observateur {
         } else {
             for (Tuile t : grille.getTuilesVoisines(A.getTuile()).values()) {
                 c.add(t.getCoordonnee());
+            }
+            A.setActions(A.getActions() - 1);
+
+        }
+
+        ihm.setTuilesDispo(c);
+
+    }
+
+    public void tuilesVoisinesAssechement(Aventurier A) {
+        ArrayList<Coordonnees> c = new ArrayList<>();
+        if (A.getTuile().getEtat().equalsIgnoreCase("Innondée")) {
+            c.add(A.getTuile().getCoordonnee());
+        }
+
+        if (A.getFonction().equalsIgnoreCase("Explorateur")) {
+            for (Tuile t : grille.getTuilesVoisinesAvecDiagonal(A.getTuile()).values()) {
+                if (t.getEtat().equalsIgnoreCase("Innondée")) {
+                    c.add(t.getCoordonnee());
+                }
+            }
+            A.setActions(A.getActions() - 1);
+        } else if (A.getFonction().equalsIgnoreCase("Ingénieur")) {
+            for (Tuile t : grille.getTuilesVoisines(A.getTuile()).values()) {
+                if (t.getEtat().equalsIgnoreCase("Innondée")) {
+                    c.add(t.getCoordonnee());
+                }
+            }
+            A.setActions(A.getActions() - 1);
+        } else {
+            for (Tuile t : grille.getTuilesVoisines(A.getTuile()).values()) {
+                if (t.getEtat().equalsIgnoreCase("Innondée")) {
+                    c.add(t.getCoordonnee());
+                }
             }
             A.setActions(A.getActions() - 1);
 
@@ -347,7 +405,7 @@ public class Controleur implements Observateur {
             } else {
 
                 Tuile tuile = new Tuile(C);
-                tuile.setEtat(0);
+                tuile.setEtat(1);
                 grille.addTuile(tuile);
             }
             c++;
