@@ -12,11 +12,11 @@ import Ile_Interdite.Grille;
  *
  * @author wawve
  */
-public class Tresor extends CarteTrésor {
+public class CarteDeTresor extends CarteTresor {
     private String typeTresor;
     private String fonction ; 
     
-    public Tresor(String type){
+    public CarteDeTresor(String type){
         this.typeTresor=type;
         this.fonction=type;
     }

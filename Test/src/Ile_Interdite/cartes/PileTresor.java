@@ -15,17 +15,17 @@ import java.util.Iterator;
  *
  * @author peyrinfl
  */
-public class PileTrésor {
-    private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
-    private ArrayList<CarteTrésor> cartesTrésorDefaussees = new ArrayList<>();
+public class PileTresor {
+    private ArrayList<CarteTresor> cartesTrésor = new ArrayList<>();
+    private ArrayList<CarteTresor> cartesTrésorDefaussees = new ArrayList<>();
     /**
      * @return the cartesTrésor
      */
-    public PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
+    public PileTresor(ArrayList<CarteTresor> cartesTrésor){
         this.cartesTrésor = cartesTrésor;
         melanger(cartesTrésor);
     }
-    public ArrayList<CarteTrésor> getCartesTrésor() {
+    public ArrayList<CarteTresor> getCartesTrésor() {
         return cartesTrésor;
     }
     
@@ -39,16 +39,16 @@ public class PileTrésor {
         piocher(aventurier);}             
     }
     
-    public void Defausser(CarteTrésor carte, Aventurier aventurier) {
+    public void Defausser(CarteTresor carte, Aventurier aventurier) {
         aventurier.getCartesEnMain().remove(carte);
         this.getCartesTrésorDefaussees().add(carte);
     }
 
-    public ArrayList<CarteTrésor> getCartesTrésorDefaussees() {
+    public ArrayList<CarteTresor> getCartesTrésorDefaussees() {
         return cartesTrésorDefaussees;
     }
     
-    public void melanger(ArrayList<CarteTrésor> cartesAMelanger) {
+    public void melanger(ArrayList<CarteTresor> cartesAMelanger) {
         Collections.shuffle(cartesAMelanger);
     }
     public void melangerLesPiles(){

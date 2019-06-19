@@ -9,11 +9,11 @@ package Ile_Interdite;
  *
  * @author peyrinfl
  */
-public class Héliport extends Tuile {
+public class Heliport extends Tuile {
     
     private boolean depart;
 
-    public Héliport(Coordonnees C) {
+    public Heliport(Coordonnees C) {
         super(C);
     }
 

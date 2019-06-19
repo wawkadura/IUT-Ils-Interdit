@@ -12,7 +12,7 @@ import Ile_Interdite.Grille;
  *
  * @author wawve
  */
-public class SacDeSable extends CarteTrésor {
+public class SacDeSable extends CarteTresor {
     private String fonction ="Sac de Sable"; 
 
     @Override

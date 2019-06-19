@@ -7,7 +7,7 @@ package Ile_Interdite.Aventuriers;
 
 import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Tuile;
-import Ile_Interdite.cartes.CarteTrésor;
+import Ile_Interdite.cartes.CarteTresor;
 
 /**
  *
@@ -20,7 +20,7 @@ public class Messager extends Aventurier {
     }
     
     @Override
-    public void donner(CarteTrésor carte, Aventurier joueur) {
+    public void donner(CarteTresor carte, Aventurier joueur) {
         
     }
     @Override

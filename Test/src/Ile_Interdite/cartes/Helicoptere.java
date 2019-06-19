@@ -12,7 +12,7 @@ import Ile_Interdite.Grille;
  *
  * @author wawve
  */
-public class Helicoptere extends CarteTrésor {
+public class Helicoptere extends CarteTresor {
    
     private String fonction ="Helicoptere"; 
 

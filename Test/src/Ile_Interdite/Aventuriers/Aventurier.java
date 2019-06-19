@@ -12,7 +12,8 @@ package Ile_Interdite.Aventuriers;
 import Ile_Interdite.Coordonnees;
 import Ile_Interdite.Grille;
 import Ile_Interdite.Tuile;
-import Ile_Interdite.cartes.CarteTrésor;
+import Ile_Interdite.cartes.CarteTresor;
+import Ile_Interdite.cartes.PileTresor;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -22,10 +23,10 @@ public abstract class Aventurier {
     private String nom;
     private int actions = 3;
     private Tuile tuile;
-    private ArrayList<CarteTrésor> cartesEnMain = new ArrayList<>();
+    private ArrayList<CarteTresor> cartesEnMain = new ArrayList<>();
     private boolean terminer = false;
-    protected static int nombreTresors;
-            
+    protected static TresorsRecupere tresors = new TresorsRecupere();
+
     public Aventurier(String nom, Tuile tuile) {
         this.setNom(nom);
         this.tuile = tuile;
@@ -133,14 +134,15 @@ public abstract class Aventurier {
         }
     }
 
-    public void donner(CarteTrésor carte, Aventurier joueur) {
+    public void donner(CarteTresor carte, Aventurier joueur) {
         joueur.addCarte(carte);
         removeCarte(carte);
-        
+
     }
-    public void removeCarte(CarteTrésor carte) {
+
+    public void removeCarte(CarteTresor carte) {
         cartesEnMain.remove(carte);
-        
+
     }
 
     public void setTuile(Tuile tuile) {
@@ -151,10 +153,56 @@ public abstract class Aventurier {
         tuile.addAventurier(this);
     }
 
-    public void gagnerTresor(Tuile tuile) {
-        //  if(getActions()>0 && tuile=getTuile()){
-
-        //}
+    public void gagnerTresor(Tuile tuile , PileTresor pilet) {
+        if (tuile.getType().equalsIgnoreCase("Pierre")) {
+            tresors.setPierre(true);
+            ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
+            for (CarteTresor ct : cartesEnMain) {
+                if (ct.getFonction().equalsIgnoreCase("Pierre")){
+                    cartesRemove.add(ct);
+                }
+            }
+            for (CarteTresor CT : cartesRemove){
+                pilet.Defausser(CT, this);
+            }
+        }
+        if (tuile.getType().equalsIgnoreCase("Cristal")) {
+            tresors.setCristal(true);
+            ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
+            for (CarteTresor ct : cartesEnMain) {
+                if (ct.getFonction().equalsIgnoreCase("Cristal")){
+                    cartesRemove.add(ct);
+                }
+            }
+            for (CarteTresor CT : cartesRemove){
+                pilet.Defausser(CT, this);
+            }
+        }
+        if (tuile.getType().equalsIgnoreCase("Calice")) {
+            tresors.setCalice(true);
+            ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
+            
+            for (CarteTresor ct : cartesEnMain) {
+                if (ct.getFonction().equalsIgnoreCase("Calice")){
+                    cartesRemove.add(ct);
+                }
+            }
+            for (CarteTresor CT : cartesRemove){
+                pilet.Defausser(CT, this);
+            }
+        }
+        if (tuile.getType().equalsIgnoreCase("Statue")) {
+            tresors.setStatue(true);
+            ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
+            for (CarteTresor ct : cartesEnMain) {
+                if (ct.getFonction().equalsIgnoreCase("Statue")){
+                    cartesRemove.add(ct);
+                }
+            }
+            for (CarteTresor CT : cartesRemove){
+                pilet.Defausser(CT, this);
+            }
+        }
     }
 
     public boolean isTourTerminer() {
@@ -184,16 +232,30 @@ public abstract class Aventurier {
 
     }
 
-    public void addCarte(CarteTrésor carte) {
-       this.getCartesEnMain().add(carte);
+    public void addCarte(CarteTresor carte) {
+        this.getCartesEnMain().add(carte);
     }
 
-    public ArrayList<CarteTrésor> getCartesEnMain() {
+    public ArrayList<CarteTresor> getCartesEnMain() {
         return cartesEnMain;
     }
 
     public boolean mainIsFull() {
         return this.getCartesEnMain().size() > 5;
+    }
+
+    public boolean isCollected(Tuile tuile) {
+        int nbCarte = 0;
+        for (CarteTresor ct : getCartesEnMain()) {
+            if (ct.getFonction().equalsIgnoreCase(tuile.getType())) {
+                nbCarte++;
+            }
+        }
+        return nbCarte >= 4;
+    }
+
+    public static TresorsRecupere getTresors() {
+        return tresors;
     }
 
 }

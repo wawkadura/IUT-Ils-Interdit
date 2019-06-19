@@ -12,7 +12,7 @@ import Ile_Interdite.Grille;
  *
  * @author peyrinfl
  */
-public abstract class CarteTrésor extends Carte {
+public abstract class CarteTresor extends Carte {
     private String fonction;
     
     public String getFonction() {

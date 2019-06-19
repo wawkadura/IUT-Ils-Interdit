@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author benmansa
  */
-public class MontéeDesEaux extends CarteTrésor {
+public class MonteeDesEaux extends CarteTresor {
 
     
     private String fonction = "Montée des Eaux";

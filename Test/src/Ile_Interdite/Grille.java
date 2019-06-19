@@ -99,6 +99,7 @@ public class Grille {
         System.out.println("");
         System.out.println("///////////////////////Grille///////////////////////////// ");
         for (Tuile T : this.getTuiles().values()) {
+            
             System.out.print("Tuile" + T.getCoordonnee().afficherCoord());
             System.out.print("Contenant : ");
             if (T.getAventuriers()==null){System.out.println("personne"); }
@@ -109,10 +110,10 @@ public class Grille {
             System.out.print(" (Etat " + T.getEtat()+")");
             if(T.getType() != null) {
                 if(T.getType().equals("Héliport")) {
-                    System.out.println(" Case héliport");
+                    System.out.print(" Case héliport");
                 }
                 else {
-                    System.out.println(" Trésor contenu : " + T.getType());   
+                    System.out.println( "\u001B[33m"+" Trésor contenu : " + T.getType() +"\u001B[33m");   
                 }
             }
             else {
@@ -154,5 +155,18 @@ public class Grille {
     
     public boolean isSubmergee() {
         return (this.getNivEau() > 8);
+    }
+    public boolean tresorIsSubmergee(){
+        int statue =0;
+        int cristal= 0; 
+        int pierre = 0; 
+        int calice =0;
+        for (Tuile t : tuiles.values()){
+            if (t.getType().equalsIgnoreCase("Statue") && t.getEtat().equalsIgnoreCase("Manquante")){ statue++;}
+            if (t.getType().equalsIgnoreCase("Cristal") && t.getEtat().equalsIgnoreCase("Manquante")){ cristal++;}
+            if (t.getType().equalsIgnoreCase("Pierre") && t.getEtat().equalsIgnoreCase("Manquante")){ pierre++;}
+            if (t.getType().equalsIgnoreCase("Calice") && t.getEtat().equalsIgnoreCase("Manquante")){ calice++;}
+        }
+        return statue==2 ||cristal == 2 ||pierre==2 ||calice==2 ;
     }
 }
