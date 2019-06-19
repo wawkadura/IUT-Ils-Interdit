@@ -5,12 +5,14 @@
  */
 package Ile_Interdite.IHM;
 
+import Ile_Interdite.Coordonnees;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,8 +30,11 @@ public class VueAventurier extends Observe {
     private JLabel joueur1, joueur2, joueur3, joueur4;
     private final Font jou = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private JButton eau;
+    private String joueurCourant;
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
+    private JButton tuile;
+    ArrayList<JButton> boutons= new ArrayList<>();
     private boolean val1, val2, val3, val4 = false;
 
     public VueAventurier() {
@@ -57,7 +62,10 @@ public class VueAventurier extends Observe {
         seDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
+                Message m = new Message();
+                m.type = TypesMessages.DEPLACER;
+                m.joueurCourant=joueurCourant;
+                notifierObservateur(m);
             }
         });
         JButton assecher = new JButton("Assécher");
@@ -145,12 +153,26 @@ public class VueAventurier extends Observe {
                 tuile.setBackground(Color.WHITE);
                 grilleMilieu.add(tuile);
             } else {
-                JButton tuile = new JButton();
+                
+                tuile = new JButton("("+l+","+c+")");
+                tuile.setEnabled(false);
+                tuile.setBackground(Color.GRAY);
+                Coordonnees C = new Coordonnees(l, c);
+                boutons.add(tuile);
+                tuile.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                          Message m = new Message();
+                          m.type2 = TypesMessages.CHOIX_TUILE;
+                          m.c = C;
+                          notifierObservateur(m);
+                    }
+                });
                 grilleMilieu.add(tuile);
             }
 
             c++;
-
+            
             if (c == 6) {
                 c = 0;
                 l++;
@@ -187,87 +209,87 @@ public class VueAventurier extends Observe {
     }
 
     public void setNomJoueurs(String nom1, String nom2, String nom3, String nom4) {
-        if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText("Joueur 2");
-            joueur3.setText("Joueur 3");
-            joueur4.setText("Joueur 4");
-        } else if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText("Joueur 2");
-            joueur3.setText("Joueur 3");
-            joueur4.setText(nom4);
-        } else if (nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+//        if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText("Joueur 4");
+//        } else if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText(nom4);
+//        } else if (nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+//            joueur1.setText(nom1);
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText("Joueur 4");
+//        } else if (nom1.isEmpty() && nom2.isEmpty() && nom4.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText(nom3);
+//            joueur4.setText("Joueur 4");
+//        } else if (nom1.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText(nom2);
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText("Joueur 4");
+//        } else if (nom1.isEmpty() && nom2.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText(nom3);
+//            joueur4.setText(nom4);
+//        } else if (nom1.isEmpty() && nom3.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText(nom2);
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText(nom4);
+//        } else if (nom1.isEmpty() && nom4.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText(nom2);
+//            joueur3.setText(nom3);
+//            joueur4.setText("Joueur 4");
+//        } else if (nom2.isEmpty() && nom3.isEmpty()) {
+//            joueur1.setText(nom1);
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText(nom4);
+//        } else if (nom2.isEmpty() && nom4.isEmpty()) {
+//            joueur1.setText(nom1);
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText(nom3);
+//            joueur4.setText("Joueur 4");
+//        } else if (nom3.isEmpty() && nom4.isEmpty()) {
+//            joueur1.setText(nom1);
+//            joueur2.setText(nom2);
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText("Joueur 4");
+//        } else if (nom1.isEmpty()) {
+//            joueur1.setText("Joueur 1");
+//            joueur2.setText(nom2);
+//            joueur3.setText(nom3);
+//            joueur4.setText(nom4);
+//        } else if (nom2.isEmpty()) {
+//            joueur1.setText(nom1);
+//            joueur2.setText("Joueur 2");
+//            joueur3.setText(nom3);
+//            joueur4.setText(nom4);
+//        } else if (nom3.isEmpty()) {
+//            joueur1.setText(nom1);
+//            joueur2.setText(nom2);
+//            joueur3.setText("Joueur 3");
+//            joueur4.setText(nom4);
+//        } else if (nom4.isEmpty()) {
+//            joueur1.setText(nom1);
+//            joueur2.setText(nom2);
+//            joueur3.setText(nom3);
+//            joueur4.setText("Joueur 4");
+//        } else {
             joueur1.setText(nom1);
-            joueur2.setText("Joueur 2");
-            joueur3.setText("Joueur 3");
-            joueur4.setText("Joueur 4");
-        } else if (nom1.isEmpty() && nom2.isEmpty() && nom4.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText("Joueur 2");
-            joueur3.setText(nom3);
-            joueur4.setText("Joueur 4");
-        } else if (nom1.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText(nom2);
-            joueur3.setText("Joueur 3");
-            joueur4.setText("Joueur 4");
-        } else if (nom1.isEmpty() && nom2.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText("Joueur 2");
-            joueur3.setText(nom3);
-            joueur4.setText(nom4);
-        } else if (nom1.isEmpty() && nom3.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText(nom2);
-            joueur3.setText("Joueur 3");
-            joueur4.setText(nom4);
-        } else if (nom1.isEmpty() && nom4.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText(nom2);
-            joueur3.setText(nom3);
-            joueur4.setText("Joueur 4");
-        } else if (nom2.isEmpty() && nom3.isEmpty()) {
-            joueur1.setText(nom1);
-            joueur2.setText("Joueur 2");
-            joueur3.setText("Joueur 3");
-            joueur4.setText(nom4);
-        } else if (nom2.isEmpty() && nom4.isEmpty()) {
-            joueur1.setText(nom1);
-            joueur2.setText("Joueur 2");
-            joueur3.setText(nom3);
-            joueur4.setText("Joueur 4");
-        } else if (nom3.isEmpty() && nom4.isEmpty()) {
-            joueur1.setText(nom1);
-            joueur2.setText(nom2);
-            joueur3.setText("Joueur 3");
-            joueur4.setText("Joueur 4");
-        } else if (nom1.isEmpty()) {
-            joueur1.setText("Joueur 1");
             joueur2.setText(nom2);
             joueur3.setText(nom3);
             joueur4.setText(nom4);
-        } else if (nom2.isEmpty()) {
-            joueur1.setText(nom1);
-            joueur2.setText("Joueur 2");
-            joueur3.setText(nom3);
-            joueur4.setText(nom4);
-        } else if (nom3.isEmpty()) {
-            joueur1.setText(nom1);
-            joueur2.setText(nom2);
-            joueur3.setText("Joueur 3");
-            joueur4.setText(nom4);
-        } else if (nom4.isEmpty()) {
-            joueur1.setText(nom1);
-            joueur2.setText(nom2);
-            joueur3.setText(nom3);
-            joueur4.setText("Joueur 4");
-        } else {
-            joueur1.setText(nom1);
-            joueur2.setText(nom2);
-            joueur3.setText(nom3);
-            joueur4.setText(nom4);
-        }
+ //       }
     }
 
     public void setDifficulte(int difficulte) {
@@ -350,6 +372,20 @@ public class VueAventurier extends Observe {
                 eau.setText("Niveau " + i + "   Mort");
                 eau.setEnabled(false);
                 monteeEauDroit.add(eau);
+            }
+        }
+    }
+    public void setJoueurCourant(String joueurCourant){
+        this.joueurCourant=joueurCourant;
+    }
+
+    public void setTuilesDispo(ArrayList<Coordonnees> c) {
+        for (Coordonnees coord : c){
+            for(JButton J : boutons){
+                if(J.getText().equalsIgnoreCase(coord.afficherCoord())){
+                    J.setBackground(Color.green);
+                    J.setEnabled(true);
+                }
             }
         }
     }

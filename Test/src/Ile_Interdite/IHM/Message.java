@@ -5,6 +5,7 @@
  */
 package Ile_Interdite.IHM;
 
+import Ile_Interdite.Coordonnees;
 import Ile_Interdite.IHM.TypesMessages;
 
 /**
@@ -14,12 +15,15 @@ import Ile_Interdite.IHM.TypesMessages;
 public class Message {
     
     public TypesMessages type;
+    public TypesMessages type2;
     public int nbJoueurs;
+    public String joueurCourant;
     public String nom1;
     public String nom2;
     public String nom3;
     public String nom4;
     public int difficulte;
+    public Coordonnees c;
 
     
     

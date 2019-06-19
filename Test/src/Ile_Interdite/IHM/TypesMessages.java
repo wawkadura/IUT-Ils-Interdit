@@ -11,7 +11,7 @@ package Ile_Interdite.IHM;
  */
 public enum TypesMessages {
     DEMARRER_PARTIE,
-    QUITTER,
+    CHOIX_TUILE,
     DEPLACER,
     ANNULER,
     ASSECHER

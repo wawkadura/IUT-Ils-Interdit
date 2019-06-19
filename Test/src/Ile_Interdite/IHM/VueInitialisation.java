@@ -31,16 +31,19 @@ public class VueInitialisation extends Observe {
     private JFrame fenetre;
     private JTextField nom1, nom2, nom3, nom4;
     private JLabel joueur1, joueur2, joueur3, joueur4;
+    private String J1, J2, J3, J4;
     private JComboBox choixPremierJoueur;
     private final Font policeTitre = new Font(Font.DIALOG, Font.BOLD, 80);
     private final Font policeLabel = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private final Font diff = new Font(Font.MONOSPACED, Font.BOLD, 20);
     private int val;
-    
 
     public VueInitialisation() {
         fenetre = new JFrame("Ile Interdite Initialisation");
-
+        J1 = "Navigateur";
+        J2 = "Explorateur";
+        J3 = "Ingenieur";
+        J4 = "Pilot";
         //////////////////////////////////////////////////////TITRE////////////////////////////////////////////////////////////
         JPanel panelTitre = new JPanel();
 
@@ -157,16 +160,105 @@ public class VueInitialisation extends Observe {
                 String no2 = nom2.getText();
                 String no3 = nom3.getText();
                 String no4 = nom4.getText();
+
+                if (no1.isEmpty() && no2.isEmpty() && no3.isEmpty() && no4.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText("Joueur 2");
+                    nom3.setText("Joueur 3");
+                    nom4.setText("Joueur 4");
+                } else if (no1.isEmpty() && no2.isEmpty() && no3.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText("Joueur 2");
+                    nom3.setText("Joueur 3");
+                    nom4.setText(no4);
+                } else if (no2.isEmpty() && no3.isEmpty() && no4.isEmpty()) {
+                    nom1.setText(no1);
+                    nom2.setText("Joueur 2");
+                    nom3.setText("Joueur 3");
+                    nom4.setText("Joueur 4");
+                } else if (no1.isEmpty() && no2.isEmpty() && no4.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText("Joueur 2");
+                    nom3.setText(no3);
+                    nom4.setText("Joueur 4");
+                } else if (no1.isEmpty() && no3.isEmpty() && no4.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText(no2);
+                    nom3.setText("Joueur 3");
+                    nom4.setText("Joueur 4");
+                } else if (no1.isEmpty() && no2.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText("Joueur 2");
+                    nom3.setText(no3);
+                    nom4.setText(no4);
+                } else if (no1.isEmpty() && no3.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText(no2);
+                    nom3.setText("Joueur 3");
+                    nom4.setText(no4);
+                } else if (no1.isEmpty() && no4.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText(no2);
+                    nom3.setText(no3);
+                    nom4.setText("Joueur 4");
+                } else if (no2.isEmpty() && no3.isEmpty()) {
+                    nom1.setText(no1);
+                    nom2.setText("Joueur 2");
+                    nom3.setText("Joueur 3");
+                    nom4.setText(no4);
+                } else if (no2.isEmpty() && no4.isEmpty()) {
+                    nom1.setText(no1);
+                    nom2.setText("Joueur 2");
+                    nom3.setText(no3);
+                    nom4.setText("Joueur 4");
+                } else if (no3.isEmpty() && no4.isEmpty()) {
+                    nom1.setText(no1);
+                    nom2.setText(no2);
+                    nom3.setText("Joueur 3");
+                    nom4.setText("Joueur 4");
+                } else if (no1.isEmpty()) {
+                    nom1.setText("Joueur 1");
+                    nom2.setText(no2);
+                    nom3.setText(no3);
+                    nom4.setText(no4);
+                } else if (no2.isEmpty()) {
+                    nom1.setText(no1);
+                    nom2.setText("Joueur 2");
+                    nom3.setText(no3);
+                    nom4.setText(no4);
+                } else if (no3.isEmpty()) {
+                    nom1.setText(no1);
+                    nom2.setText(no2);
+                    nom3.setText("Joueur 3");
+                    nom4.setText(no4);
+                } else if (no4.isEmpty()) {
+                    nom1.setText(no1);
+                    nom2.setText(no2);
+                    nom3.setText(no3);
+                    nom4.setText("Joueur 4");
+                } else {
+                    nom1.setText(no1);
+                    nom2.setText(no2);
+                    nom3.setText(no3);
+                    nom4.setText(no4);
+                }
+
+                String nno1 = nom1.getText();
+                String nno2 = nom2.getText();
+                String nno3 = nom3.getText();
+                String nno4 = nom4.getText();
+                
+               
                 
                 int difficulte = val;
 
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER_PARTIE;
                 m.nbJoueurs = (int) choixPremierJoueur.getSelectedItem();
-                m.nom1 = no1;
-                m.nom2 = no2;
-                m.nom3 = no3;
-                m.nom4 = no4;
+                m.nom1 = nno1;
+                m.nom2 = nno2;
+                m.nom3 = nno3;
+                m.nom4 = nno4;
                 m.difficulte = difficulte;
                 notifierObservateur(m);
             }
