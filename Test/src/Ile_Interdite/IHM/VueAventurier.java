@@ -113,6 +113,7 @@ public class VueAventurier extends Observe {
         }
         for (int i = 0; i < 5; i++) {
             JButton carteJoueur = new JButton("Carte");
+            carteJoueur.setEnabled(false);
             carteHaut.add(carteJoueur);
         }
 
