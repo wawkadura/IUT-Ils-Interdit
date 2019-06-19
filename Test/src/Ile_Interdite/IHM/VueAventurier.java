@@ -271,8 +271,7 @@ public class VueAventurier extends Observe {
     }
 
     public void setDifficulte(int difficulte) {
-        System.out.println(difficulte);
-        if (difficulte == 0) {
+        if (difficulte == 0 || difficulte == 1) {
             val1 = true;
         } else if (difficulte == 2) {
             val1 = true;
