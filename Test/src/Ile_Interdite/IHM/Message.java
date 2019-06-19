@@ -15,8 +15,8 @@ import Ile_Interdite.IHM.TypesMessages;
 public class Message {
     
     public TypesMessages type;
-    public TypesMessages type2;
-    public TypesMessages type3;
+//    public TypesMessages type2; // pour deplacement
+//    public TypesMessages type3; // pour assechement
     public int nbJoueurs;
     public String joueurCourant;
     public String nom1;

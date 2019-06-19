@@ -6,6 +6,7 @@
 package Ile_Interdite.IHM;
 
 import Ile_Interdite.Coordonnees;
+import Ile_Interdite.Tuile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +14,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,7 +36,7 @@ public class VueAventurier extends Observe {
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
     private JButton tuile;
-    ArrayList<JButton> boutons= new ArrayList<>();
+    ArrayList<JButton> boutons = new ArrayList<>();
     private boolean val1, val2, val3, val4 = false;
 
     public VueAventurier() {
@@ -64,7 +66,7 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent arg0) {
                 Message m = new Message();
                 m.type = TypesMessages.DEPLACER;
-                m.joueurCourant=joueurCourant;
+                m.joueurCourant = joueurCourant;
                 notifierObservateur(m);
             }
         });
@@ -153,8 +155,8 @@ public class VueAventurier extends Observe {
                 tuile.setBackground(Color.WHITE);
                 grilleMilieu.add(tuile);
             } else {
-                
-                tuile = new JButton("("+l+","+c+")");
+
+                tuile = new JButton("(" + l + "," + c + ")");
                 tuile.setEnabled(false);
                 tuile.setBackground(Color.GRAY);
                 Coordonnees C = new Coordonnees(l, c);
@@ -162,17 +164,17 @@ public class VueAventurier extends Observe {
                 tuile.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                          Message m = new Message();
-                          m.type2 = TypesMessages.CHOIX_TUILE;
-                          m.c = C;
-                          notifierObservateur(m);
+                        Message m = new Message();
+                        m.type = TypesMessages.CHOIX_TUILE;
+                        m.c = C;
+                        notifierObservateur(m);
                     }
                 });
                 grilleMilieu.add(tuile);
             }
 
             c++;
-            
+
             if (c == 6) {
                 c = 0;
                 l++;
@@ -285,11 +287,11 @@ public class VueAventurier extends Observe {
 //            joueur3.setText(nom3);
 //            joueur4.setText("Joueur 4");
 //        } else {
-            joueur1.setText(nom1);
-            joueur2.setText(nom2);
-            joueur3.setText(nom3);
-            joueur4.setText(nom4);
- //       }
+        joueur1.setText(nom1);
+        joueur2.setText(nom2);
+        joueur3.setText(nom3);
+        joueur4.setText(nom4);
+        //       }
     }
 
     public void setDifficulte(int difficulte) {
@@ -375,18 +377,47 @@ public class VueAventurier extends Observe {
             }
         }
     }
-    public void setJoueurCourant(String joueurCourant){
-        this.joueurCourant=joueurCourant;
+
+    public void setJoueurCourant(String joueurCourant) {
+        this.joueurCourant = joueurCourant;
     }
 
     public void setTuilesDispo(ArrayList<Coordonnees> c) {
-        for (Coordonnees coord : c){
-            for(JButton J : boutons){
-                if(J.getText().equalsIgnoreCase(coord.afficherCoord())){
+        for (Coordonnees coord : c) {
+            for (JButton J : boutons) {
+                if (J.getText().equalsIgnoreCase(coord.afficherCoord())) {
                     J.setBackground(Color.green);
                     J.setEnabled(true);
                 }
             }
         }
+    }
+
+    public void mettreAJourTuiles(Collection<Tuile> tuiles) {
+        for (Tuile t : tuiles) {
+            for (JButton jb : boutons) {
+                jb.setEnabled(false);
+                if (jb.getText().equalsIgnoreCase(t.getCoordonnee().afficherCoord())) {
+                    
+                    if (t.getEtat().equalsIgnoreCase("Manquante")) {
+                        jb.setBackground(Color.white);
+                    } else if (t.getEtat().equalsIgnoreCase("Innondée")) {
+                        jb.setBackground(Color.blue);
+                    } else {
+                        if (t.getType()!=null) {
+                            jb.setBackground(Color.yellow);
+                        }
+                        else { jb.setBackground(Color.ORANGE);}
+                    }
+                }
+            }
+        }
+
+    }
+    public void mettreAJourPions(){
+        
+    }
+    public void mettreAJourCartes(){
+        
     }
 }

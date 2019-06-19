@@ -25,6 +25,6 @@ public class Messager extends Aventurier {
     }
     @Override
     public String getFonction() {
-        return "messager";
+        return "Messager";
     }
 }

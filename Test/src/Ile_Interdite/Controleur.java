@@ -33,7 +33,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Controleur implements Observateur {
-    
+
     private PileInondation pileInondation;
     private PileTresor pileTresor;
     private VueAventurier ihm;
@@ -44,16 +44,16 @@ public class Controleur implements Observateur {
     private String nom1, nom2, nom3, nom4;
     private int difficulte;
     private Grille grille;
-    
+
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
     private Niveau niveau;
-    
+
     @Override
     public void traiterMessage(Message message) {
-        
+
         switch (message.type) {
             case DEMARRER_PARTIE:
-                
+
                 no_joueurs = message.nbJoueurs;
                 nom1 = message.nom1;
                 nom2 = message.nom2;
@@ -63,26 +63,30 @@ public class Controleur implements Observateur {
                 ihm.setNbJoueurs(no_joueurs);
                 ihm.setNomJoueurs(nom1, nom2, nom3, nom4);
                 ihm.setDifficulte(difficulte);
+
+                ihm.mettreAJourTuiles(grille.getTuiles().values());
                 ihmInit.demarrerJeu();
-                
+
                 J1.setNom(nom2);
                 J2.setNom(nom1);
                 J3.setNom(nom3);
                 J4.setNom(nom4);
                 ihm.setJoueurCourant(nom1);
                 break;
-            
+
             case DEPLACER:
-                joueurCourant =getJoueurCourant(message.joueurCourant);
-                
+                joueurCourant = getJoueurCourant(message.joueurCourant);
+
                 tuilesVoisines(joueurCourant);
-                
+
                 break;
-            case CHOIX_TUILE:
+           case CHOIX_TUILE:
                 deplacement(message.c);
+                ihm.mettreAJourTuiles(grille.getTuiles().values());
                 break;
+            
         }
-        
+
     }
 
     public Aventurier getJoueurCourant(String nomJoueur) {
@@ -95,29 +99,48 @@ public class Controleur implements Observateur {
     }
 
     private void deplacement(Coordonnees c) {
-       // joueurCourant.deplacer(c);
+        for (Tuile t : grille.getTuiles().values()){
+            if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())){
+                joueurCourant.deplacer(t);
+            }
+        }
+        
     }
 
     public void tuilesVoisines(Aventurier A) {
         ArrayList<Coordonnees> c = new ArrayList<>();
-        
+
         if (A.getFonction().equalsIgnoreCase("Explorateur")) {
             for (Tuile t : grille.getTuilesVoisinesAvecDiagonal(A.getTuile()).values()) {
                 c.add(t.getCoordonnee());
             }
+            A.setActions(A.getActions() - 1);
+        } else if (A.getFonction().equalsIgnoreCase("Pilot") && !A.CompetanceUtiliser()) {
+            for (Tuile t : grille.getTuilesVoisinesHelicoptere().values()) {
+                c.add(t.getCoordonnee());
+            }
+            A.setUtilise(true);
+            A.setActions(A.getActions() - 1);
+        }
+        if (A.getFonction().equalsIgnoreCase("Plongeur")) {
+            for (Tuile t : grille.getTuilesVoisinesPlongeur(A.getTuile()).values()) {
+                c.add(t.getCoordonnee());
+            }
+            A.setActions(A.getActions() - 1);
         } else {
             for (Tuile t : grille.getTuilesVoisines(A.getTuile()).values()) {
                 c.add(t.getCoordonnee());
             }
-            
+            A.setActions(A.getActions() - 1);
+
         }
-        
+
         ihm.setTuilesDispo(c);
-        
+
     }
-    
+
     public Controleur() {
-        
+
         ihmInit = new VueInitialisation();
         ihmInit.addObservateur(this);
         ihmInit.afficher();
@@ -128,13 +151,13 @@ public class Controleur implements Observateur {
         Initialisation();
         System.out.println(nom1 + " se trouve sur la tuile :" + J1.getTuile().getCoordonnee().afficherCoord());
     }
-    
+
     public void afficherCarte(ArrayList<CarteTresor> c) {
         for (CarteTresor CT : c) {
             System.out.println("\t - " + CT.getFonction());
         }
     }
-    
+
     public void commencerPartie() {
 
         //parametrage ////////////////////////////////////////////////////////////////
@@ -193,8 +216,6 @@ public class Controleur implements Observateur {
 //        System.out.println("contenu restant de la pile carte de Tresor : (" + pileTresor.getCartesTrésor().size() + " cartes)");
 //        afficherCarte(pileTresor.getCartesTrésor());
 //        
-        grille.AfficherGrille();
-
         //****************************************Test Area*******************************
         ////////////////////////////////////////COMMENCEMENT DE LA PARTIE////////////////////////////////////////////////////////
 //        System.out.println("____________________________________________________________");
@@ -285,7 +306,7 @@ public class Controleur implements Observateur {
 //        System.out.println("                        FIN TOUR 1                              ");
 //        System.out.println("____________________________________________________________");
     }
-    
+
     public void Initialisation() {
         //********************************Initialisation Gille*********************************//
         int l = 0;// ligne
@@ -294,7 +315,7 @@ public class Controleur implements Observateur {
         grille = new Grille(niv);
         for (int i = 0; i < 36; i++) {// Creation de la Grille
             Coordonnees C = new Coordonnees(l, c);
-            
+
             if (c == 2 && l == 0) {
                 LieuDeTresor tuile = new LieuDeTresor(C, "Calice");
                 grille.addTuile(tuile);
@@ -324,7 +345,7 @@ public class Controleur implements Observateur {
                     || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
                     || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
             } else {
-                
+
                 Tuile tuile = new Tuile(C);
                 tuile.setEtat(0);
                 grille.addTuile(tuile);
@@ -335,7 +356,7 @@ public class Controleur implements Observateur {
                 l++;
             }
         }
-        
+
         ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
         for (int i = 0; i < 36; i++) {// Creation de la Grille
             Coordonnees C = new Coordonnees(l, c);
@@ -357,39 +378,39 @@ public class Controleur implements Observateur {
         Coordonnees C3 = new Coordonnees(5, 3);
         Coordonnees C4 = new Coordonnees(3, 3);
         Coordonnees C5 = new Coordonnees(0, 3);
-        
+
         J1 = new Ingenieur(nom2, grille.getTuiles().get(C));
         J2 = new Explorateur(nom1, grille.getTuiles().get(C2));
         J3 = new Pilote(nom3, grille.getTuiles().get(C3));
         J4 = new Plongeur(nom4, grille.getTuiles().get(C4));
         Navigateur J5 = new Navigateur("Rémi", grille.getTuiles().get(C5));
-        
+
         Joueurs.add(J1);
         Joueurs.add(J2);
         Joueurs.add(J3);
         Joueurs.add(J4);
         Joueurs.add(J5);
-        
-        J1.addCarte(new CarteDeTresor("Calice"));
-        J1.addCarte(new CarteDeTresor("Calice"));
-        J1.addCarte(new CarteDeTresor("Calice"));
-        J1.addCarte(new CarteDeTresor("Calice"));
-        
-        J2.addCarte(new CarteDeTresor("Statue"));
-        J2.addCarte(new CarteDeTresor("Statue"));
-        J2.addCarte(new CarteDeTresor("Statue"));
-        J2.addCarte(new CarteDeTresor("Statue"));
-        
-        J3.addCarte(new CarteDeTresor("Pierre"));
-        J3.addCarte(new CarteDeTresor("Pierre"));
-        J3.addCarte(new CarteDeTresor("Pierre"));
-        J3.addCarte(new CarteDeTresor("Pierre"));
-        
-        J5.addCarte(new CarteDeTresor("Cristal"));
-        J5.addCarte(new CarteDeTresor("Cristal"));
-        J5.addCarte(new CarteDeTresor("Cristal"));
-        J5.addCarte(new CarteDeTresor("Cristal"));
 
+        J1.addCarte(new CarteDeTresor("Calice"));
+        J1.addCarte(new CarteDeTresor("Calice"));
+        J1.addCarte(new CarteDeTresor("Calice"));
+        J1.addCarte(new CarteDeTresor("Calice"));
+
+        J2.addCarte(new CarteDeTresor("Statue"));
+        J2.addCarte(new CarteDeTresor("Statue"));
+        J2.addCarte(new CarteDeTresor("Statue"));
+        J2.addCarte(new CarteDeTresor("Statue"));
+
+        J3.addCarte(new CarteDeTresor("Pierre"));
+        J3.addCarte(new CarteDeTresor("Pierre"));
+        J3.addCarte(new CarteDeTresor("Pierre"));
+        J3.addCarte(new CarteDeTresor("Pierre"));
+
+        J5.addCarte(new CarteDeTresor("Cristal"));
+        J5.addCarte(new CarteDeTresor("Cristal"));
+        J5.addCarte(new CarteDeTresor("Cristal"));
+        J5.addCarte(new CarteDeTresor("Cristal"));
+/////////////////////////////////////////////PLACEMENT DES TUILES ALEATOIREMENT///////////////////////////////////////////////////////////////
         // Placement aléatoire des trésors
 //        Random random = new Random();
 //
@@ -456,9 +477,11 @@ public class Controleur implements Observateur {
 //            coordonneesPossibles.remove(aleatoire);
 //            grille.addTuile(tuile);
 //        }
+/////////////////////////////////////////////PLACEMENT DES TUILES ALEATOIREMENT///////////////////////////////////////////////////////////////
+
         //********************************Initialisation Piles Cartes*********************************//
         ArrayList<CarteTresor> cartes = new ArrayList<>();
-        
+
         for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
             CarteDeTresor ct = new CarteDeTresor("Statue");
             cartes.add(ct);
@@ -479,7 +502,7 @@ public class Controleur implements Observateur {
         SacDeSable SacS2 = new SacDeSable();
         cartes.add(SacS);
         cartes.add(SacS2);
-        
+
         MonteeDesEaux mde = new MonteeDesEaux();     // 3 cartes Montée Des Eaux
         MonteeDesEaux mde2 = new MonteeDesEaux();
         //MontéeDesEaux mde3 = new MontéeDesEaux();
@@ -493,16 +516,16 @@ public class Controleur implements Observateur {
         cartes.add(H);
         cartes.add(H2);
         cartes.add(H3);
-        
+
         pileTresor = new PileTresor(cartes);// inistialiser la pile de tresor
 
         ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
         for (Coordonnees c1 : coordonneesPossibles) {
             CarteInondation carteI = new CarteInondation(c1);
             cartesInondation.add(carteI);
-            
+
         }
         pileInondation = new PileInondation(cartesInondation); // inistialisation de la pile Inondation
     }
-    
+
 }

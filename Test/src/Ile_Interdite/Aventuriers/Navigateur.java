@@ -15,39 +15,18 @@ import java.util.Scanner;
  * @author peyrinfl
  */
 public class Navigateur extends Aventurier {
-
+    
     public Navigateur(String nom, Tuile tuile) {
         super(nom, tuile);
-    }
-
-    @Override
-    public void faireDeplacer(Grille g, Aventurier A) {
-
-        A.deplacer(g);
-        if (A.getActions() < 3) {
-            A.Reset();
-            System.out.print("Voulez-vous le déplacer encore une fois ? (oui/non)");
-            Scanner scn = new Scanner(System.in);
-
-            String rep = scn.next();
-            while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
-                System.out.print("Voulez-vous le déplacer encore une fois ? (oui/non)");
-                rep = scn.next();
-            }
-
-            if (rep.equalsIgnoreCase("oui")) {
-                A.deplacer(g);
-                A.Reset();
-                super.setActions(super.getActions() - 1);
-            } else {
-                super.setActions(super.getActions() - 1);
-            }
-        }
-
+        super.setActions(4);
     }
 
     @Override
     public String getFonction() {
-        return "\u001B[33m" + "Navigateur";
+        return  "Navigateur";
+    }
+    public void Reset() {
+        super.setActions(4);
+        super.setTerminer(false);
     }
 }

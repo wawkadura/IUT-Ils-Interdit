@@ -53,41 +53,43 @@ public abstract class Aventurier {
         this.actions = actions;
     }
 
-    public void deplacer(Grille g) {
-        System.out.println(this.getTuile().getCoordonnee().afficherCoord());
-        TreeMap<Coordonnees, Tuile> tuilesVoisines = g.getTuilesVoisines(getTuile());
-        ArrayList<Tuile> Choix = new ArrayList<>();
-
-        int numero = 0;
-        for (Tuile T : tuilesVoisines.values()) {
-            if (!T.getEtat().equals("Manquante")) {
-                numero++;
-                System.out.print(numero + " - Tuile disponible aux coordonnées : " + T.getCoordonnee().afficherCoord());
-                System.out.print(" Contenant : ");
-                for (Aventurier A : T.getAventuriers()) {
-                    System.out.print(A.getNom() + " ");
-                }
-                System.out.println(" , Etat : " + T.getEtat());
-                Choix.add(T);
-            }
-        }
-        System.out.print("Sur quelle tuile de 1 à " + numero + " voulez-vous vous déplacer ? (0 pour annuler) : ");
-        Scanner scn = new Scanner(System.in);
-
-        int dir = scn.nextInt();
-        while (dir < 0 || dir > numero) {
-            System.out.print("Veuillez taper une tuile disponible de 1 à " + numero + " (0 pour annuler):");
-            dir = scn.nextInt();
-        }
-
-        if (dir == 0) {
-            System.out.println("Annulation du déplacement...");
-        } else {
-            // g.getTuiles().get(this.tuile.getCoordonnee()).suppAventurier(this);
-            setTuile(g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()));
-            // g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()).addAventurier(this);
-            this.actions = this.actions - 1;
-        }
+    public void deplacer(Tuile tuile) {
+        setTuile(tuile);
+        this.actions = this.actions - 1;
+//        System.out.println(this.getTuile().getCoordonnee().afficherCoord());
+//        TreeMap<Coordonnees, Tuile> tuilesVoisines = g.getTuilesVoisines(getTuile());
+//        ArrayList<Tuile> Choix = new ArrayList<>();
+//
+//        int numero = 0;
+//        for (Tuile T : tuilesVoisines.values()) {
+//            if (!T.getEtat().equals("Manquante")) {
+//                numero++;
+//                System.out.print(numero + " - Tuile disponible aux coordonnées : " + T.getCoordonnee().afficherCoord());
+//                System.out.print(" Contenant : ");
+//                for (Aventurier A : T.getAventuriers()) {
+//                    System.out.print(A.getNom() + " ");
+//                }
+//                System.out.println(" , Etat : " + T.getEtat());
+//                Choix.add(T);
+//            }
+//        }
+//        System.out.print("Sur quelle tuile de 1 à " + numero + " voulez-vous vous déplacer ? (0 pour annuler) : ");
+//        Scanner scn = new Scanner(System.in);
+//
+//        int dir = scn.nextInt();
+//        while (dir < 0 || dir > numero) {
+//            System.out.print("Veuillez taper une tuile disponible de 1 à " + numero + " (0 pour annuler):");
+//            dir = scn.nextInt();
+//        }
+//
+//        if (dir == 0) {
+//            System.out.println("Annulation du déplacement...");
+//        } else {
+//            // g.getTuiles().get(this.tuile.getCoordonnee()).suppAventurier(this);
+//            setTuile(g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()));
+//            // g.getTuiles().get(Choix.get(dir - 1).getCoordonnee()).addAventurier(this);
+//            this.actions = this.actions - 1;
+//        }
 
     }
 
@@ -153,16 +155,16 @@ public abstract class Aventurier {
         tuile.addAventurier(this);
     }
 
-    public void gagnerTresor(Tuile tuile , PileTresor pilet) {
+    public void gagnerTresor(Tuile tuile, PileTresor pilet) {
         if (tuile.getType().equalsIgnoreCase("Pierre")) {
             tresors.setPierre(true);
             ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
             for (CarteTresor ct : cartesEnMain) {
-                if (ct.getFonction().equalsIgnoreCase("Pierre")){
+                if (ct.getFonction().equalsIgnoreCase("Pierre")) {
                     cartesRemove.add(ct);
                 }
             }
-            for (CarteTresor CT : cartesRemove){
+            for (CarteTresor CT : cartesRemove) {
                 pilet.Defausser(CT, this);
             }
         }
@@ -170,24 +172,24 @@ public abstract class Aventurier {
             tresors.setCristal(true);
             ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
             for (CarteTresor ct : cartesEnMain) {
-                if (ct.getFonction().equalsIgnoreCase("Cristal")){
+                if (ct.getFonction().equalsIgnoreCase("Cristal")) {
                     cartesRemove.add(ct);
                 }
             }
-            for (CarteTresor CT : cartesRemove){
+            for (CarteTresor CT : cartesRemove) {
                 pilet.Defausser(CT, this);
             }
         }
         if (tuile.getType().equalsIgnoreCase("Calice")) {
             tresors.setCalice(true);
             ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
-            
+
             for (CarteTresor ct : cartesEnMain) {
-                if (ct.getFonction().equalsIgnoreCase("Calice")){
+                if (ct.getFonction().equalsIgnoreCase("Calice")) {
                     cartesRemove.add(ct);
                 }
             }
-            for (CarteTresor CT : cartesRemove){
+            for (CarteTresor CT : cartesRemove) {
                 pilet.Defausser(CT, this);
             }
         }
@@ -195,11 +197,11 @@ public abstract class Aventurier {
             tresors.setStatue(true);
             ArrayList<CarteTresor> cartesRemove = new ArrayList<>();
             for (CarteTresor ct : cartesEnMain) {
-                if (ct.getFonction().equalsIgnoreCase("Statue")){
+                if (ct.getFonction().equalsIgnoreCase("Statue")) {
                     cartesRemove.add(ct);
                 }
             }
-            for (CarteTresor CT : cartesRemove){
+            for (CarteTresor CT : cartesRemove) {
                 pilet.Defausser(CT, this);
             }
         }
@@ -228,10 +230,6 @@ public abstract class Aventurier {
         return null;
     }
 
-    public void faireDeplacer(Grille g, Aventurier A) {
-
-    }
-
     public void addCarte(CarteTresor carte) {
         this.getCartesEnMain().add(carte);
     }
@@ -256,6 +254,13 @@ public abstract class Aventurier {
 
     public static TresorsRecupere getTresors() {
         return tresors;
+    }
+
+    public boolean CompetanceUtiliser() { // xxxxxx pas la peine de le mettre sur le diagramme de classe
+        return false;
+    }
+
+    public void setUtilise(boolean utilise) { // xxxxxx pas la peine de le mettre sur le diagramme de classe
     }
 
 }
