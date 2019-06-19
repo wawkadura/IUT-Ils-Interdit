@@ -40,6 +40,7 @@ public class Controleur implements Observateur {
     private VueInitialisation ihmInit;
     private int no_joueurs;
     private String nom1, nom2, nom3, nom4;
+    private int difficulte;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
 
@@ -54,8 +55,10 @@ public class Controleur implements Observateur {
                 nom2 = message.nom2;
                 nom3 = message.nom3;
                 nom4 = message.nom4;
+                difficulte = message.difficulte;
                 ihm.setNbJoueurs(no_joueurs);
                 ihm.setNomJoueurs(nom1,nom2,nom3,nom4);
+                ihm.setDifficulte(difficulte);
                 ihmInit.demarrerJeu();
 
                 break;

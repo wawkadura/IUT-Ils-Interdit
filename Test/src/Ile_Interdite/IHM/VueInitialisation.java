@@ -29,14 +29,14 @@ import javax.swing.event.ChangeListener;
 public class VueInitialisation extends Observe {
 
     private JFrame fenetre;
-    private VueAventurier ihm;
-    private int no_joueurs;
     private JTextField nom1, nom2, nom3, nom4;
     private JLabel joueur1, joueur2, joueur3, joueur4;
     private JComboBox choixPremierJoueur;
     private final Font policeTitre = new Font(Font.DIALOG, Font.BOLD, 80);
     private final Font policeLabel = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private final Font diff = new Font(Font.MONOSPACED, Font.BOLD, 20);
+    private int val;
+    
 
     public VueInitialisation() {
         fenetre = new JFrame("Ile Interdite Initialisation");
@@ -144,7 +144,7 @@ public class VueInitialisation extends Observe {
         choixDifficulte.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent arg0) {
-                int val = choixDifficulte.getValue();
+                val = choixDifficulte.getValue();
             }
         });
 
@@ -157,6 +157,8 @@ public class VueInitialisation extends Observe {
                 String no2 = nom2.getText();
                 String no3 = nom3.getText();
                 String no4 = nom4.getText();
+                
+                int difficulte = val;
 
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER_PARTIE;
@@ -165,6 +167,7 @@ public class VueInitialisation extends Observe {
                 m.nom2 = no2;
                 m.nom3 = no3;
                 m.nom4 = no4;
+                m.difficulte = difficulte;
                 notifierObservateur(m);
             }
         });
