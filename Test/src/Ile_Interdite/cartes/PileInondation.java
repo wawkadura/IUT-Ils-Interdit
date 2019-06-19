@@ -52,6 +52,14 @@ public class PileInondation {
     public ArrayList<CarteInondation> getCartesInondation() {
         return cartesInondation;
     }
+    
+    public CarteInondation getCarteDuDessus() {
+        return getCartesInondation().get(0);
+    }
+    
+    
+    
+    
 
     public void melangerLesPiles() {
         melanger(cartesInondDefaussees);

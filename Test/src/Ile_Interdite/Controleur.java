@@ -45,6 +45,7 @@ public class Controleur implements Observateur {
     private Grille grille;
 
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
+    private Niveau niveau;
 
     @Override
     public void traiterMessage(Message message) {

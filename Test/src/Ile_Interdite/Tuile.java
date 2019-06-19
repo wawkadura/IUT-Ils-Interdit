@@ -28,8 +28,8 @@ public class Tuile {
     }
 
     public String getEtat() {
-        if  (this.etat==2){return "Manquante";}
-        if  (this.etat==1){return "Innondée";}
+        if  (this.etat == 2){return "Manquante";}
+        if  (this.etat == 1){return "Innondée";}
         else{return "Assechée";}
     }
 
@@ -52,6 +52,15 @@ public class Tuile {
     
     public String getType() {
         return null;
+    }
+    
+    public void augmenterEtat() {
+        if(this.etat == 0) {
+            this.setEtat(1);
+        }
+        else if(this.etat == 1) {
+            this.setEtat(2);
+        }
     }
     
 }
