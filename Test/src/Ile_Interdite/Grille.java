@@ -13,13 +13,10 @@ import Ile_Interdite.Aventuriers.Aventurier;
 import java.util.TreeMap;
 
 public class Grille {
-
-    private int nivEau;
-    private int nbPiocheInond;
+    
     private TreeMap<Coordonnees, Tuile> tuiles = new TreeMap<>();
 
-    public Grille(int niv) {
-        this.nivEau = niv;
+    public Grille() {
     }
 
     public void addTuile(Tuile tuile) {
@@ -124,35 +121,5 @@ public class Grille {
         System.out.println("");
     }
     
-    public int getNivEau(){
-        return nivEau;
-    }
-
-    public int getNbPiocheInond() {
-        return nbPiocheInond;
-    }
-
-    public void setNbPiocheInond(int nbPiocheInond) {
-        this.nbPiocheInond = nbPiocheInond;
-    }
     
-    public void setNivEau(int niv){
-            this.nivEau = niv;
-            if(niv >= 0 && niv <= 1) {
-                this.setNbPiocheInond(2);  
-            }
-            else if(niv >= 2 && niv <= 4) {
-                this.setNbPiocheInond(3);
-            }
-            else if(niv == 5 || niv == 6) {
-                this.setNbPiocheInond(4);
-            }
-            else if (niv == 7 || niv == 8) {
-                this.setNbPiocheInond(5);
-            }
-    }
-    
-    public boolean isSubmergee() {
-        return (this.getNivEau() > 8);
-    }
 }

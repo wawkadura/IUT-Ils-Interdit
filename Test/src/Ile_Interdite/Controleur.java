@@ -43,6 +43,7 @@ public class Controleur implements Observateur {
     private int difficulte;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
+    private Niveau niveau;
 
     @Override
     public void traiterMessage(Message message) {
@@ -276,7 +277,7 @@ public class Controleur implements Observateur {
         int c = 0;//colonne
         int niv = 1;//demander aux joueurs
 
-        grille = new Grille(niv);
+        grille = new Grille();
         ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
         for (int i = 0; i < 36; i++) {// Creation de la Grille
             Coordonnees C = new Coordonnees(l, c);
