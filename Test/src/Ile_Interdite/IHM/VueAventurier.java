@@ -23,7 +23,7 @@ public class VueAventurier extends Observe {
     private JFrame fenetre;
     private int nbJoueur;
     private JPanel joueurBas;
-    private JLabel joueur1, joueur2, joueur3, joueur4, caseVide;
+    private JLabel joueur1, joueur2, joueur3, joueur4;
     private final Font jou = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private JButton eau;
     private JPanel monteeEauDroit;
@@ -36,7 +36,6 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
         joueurBas = new JPanel(new GridLayout(1, 5));
 
-        caseVide = new JLabel("");
         joueur1 = new JLabel("");
         joueur1.setFont(jou);
         joueur2 = new JLabel("");
@@ -132,26 +131,22 @@ public class VueAventurier extends Observe {
     public void afficher() {
         //permet d'afficher la fenetre du jeu
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(1920, 1080);
+        fenetre.setSize(1200, 800);
         fenetre.setVisible(false);
-
     }
 
     public void setNbJoueurs(int nbJoueurs) {
         nbJoueur = nbJoueurs;
         if (nbJoueur == 4) {
-            joueurBas.add(caseVide);
             joueurBas.add(joueur1);
             joueurBas.add(joueur2);
             joueurBas.add(joueur3);
             joueurBas.add(joueur4);
         } else if (nbJoueur == 3) {
-            joueurBas.add(caseVide);
             joueurBas.add(joueur1);
             joueurBas.add(joueur2);
             joueurBas.add(joueur3);
         } else if (nbJoueur == 2) {
-            joueurBas.add(caseVide);
             joueurBas.add(joueur1);
             joueurBas.add(joueur2);
         }
@@ -259,14 +254,14 @@ public class VueAventurier extends Observe {
             val3 = true;
             val4 = true;
         }
-        
+
         for (int i = 10; i >= 1; i--) {
             if (i == 1) {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 2 cartes");
                 eau.setEnabled(false);
                 monteeEauDroit.add(eau);
-                if(val1 == true) {
+                if (val1 == true) {
                     eau.setBackground(Color.BLUE);
                 }
             } else if (i == 2) {
@@ -274,7 +269,7 @@ public class VueAventurier extends Observe {
                 eau.setText("Niveau " + i + "   Piocher 2 cartes");
                 eau.setEnabled(false);
                 monteeEauDroit.add(eau);
-                if(val1 == true & val2 == true) {
+                if (val1 == true & val2 == true) {
                     eau.setBackground(Color.BLUE);
                 }
             } else if (i == 3) {
@@ -282,7 +277,7 @@ public class VueAventurier extends Observe {
                 eau.setText("Niveau " + i + "   Piocher 3 cartes");
                 eau.setEnabled(false);
                 monteeEauDroit.add(eau);
-                if(val1 == true && val2 == true && val3 == true) {
+                if (val1 == true && val2 == true && val3 == true) {
                     eau.setBackground(Color.BLUE);
                 }
             } else if (i == 4) {
@@ -290,7 +285,7 @@ public class VueAventurier extends Observe {
                 eau.setText("Niveau " + i + "   Piocher 3 cartes");
                 eau.setEnabled(false);
                 monteeEauDroit.add(eau);
-                if(val1 == true && val2 == true && val3 == true && val4 == true) {
+                if (val1 == true && val2 == true && val3 == true && val4 == true) {
                     eau.setBackground(Color.BLUE);
                 }
             } else if (i == 5) {
