@@ -18,9 +18,7 @@ import java.util.Iterator;
 public class PileTrésor {
     private ArrayList<CarteTrésor> cartesTrésor = new ArrayList<>();
     private ArrayList<CarteTrésor> cartesTrésorDefaussees = new ArrayList<>();
-    /**
-     * @return the cartesTrésor
-     */
+
     public PileTrésor(ArrayList<CarteTrésor> cartesTrésor){
         this.cartesTrésor = cartesTrésor;
         melanger(cartesTrésor);
