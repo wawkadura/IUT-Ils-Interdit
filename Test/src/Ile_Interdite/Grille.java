@@ -42,6 +42,7 @@ public class Grille {
         Coordonnees TuileBG = new Coordonnees(tuile.getCoordonnee().getX() - 1, tuile.getCoordonnee().getY() + 1); //en bas a gauche
 
         if (this.getTuiles().get(TuileG) != null) {
+            if ((this.getTuiles().get(TuileG))
             tuilesVoisines.put(TuileG, this.getTuiles().get(TuileG));
         }
         if (this.getTuiles().get(TuileHG) != null) {

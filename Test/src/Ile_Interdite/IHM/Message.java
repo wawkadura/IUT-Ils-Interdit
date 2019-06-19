@@ -16,6 +16,7 @@ public class Message {
     
     public TypesMessages type;
     public TypesMessages type2;
+    public TypesMessages type3;
     public int nbJoueurs;
     public String joueurCourant;
     public String nom1;
