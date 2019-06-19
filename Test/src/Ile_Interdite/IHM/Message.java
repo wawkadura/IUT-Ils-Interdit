@@ -19,6 +19,7 @@ public class Message {
     public String nom2;
     public String nom3;
     public String nom4;
+    public int difficulte;
 
     
     

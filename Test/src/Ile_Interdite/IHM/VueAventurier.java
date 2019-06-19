@@ -5,9 +5,9 @@
  */
 package Ile_Interdite.IHM;
 
-import Ile_Interdite.Controleur;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,7 +24,11 @@ public class VueAventurier extends Observe {
     private int nbJoueur;
     private JPanel joueurBas;
     private JLabel joueur1, joueur2, joueur3, joueur4, caseVide;
-    private Controleur controleur;
+    private final Font jou = new Font(Font.MONOSPACED, Font.BOLD, 30);
+    private JButton eau;
+    private JPanel monteeEauDroit;
+    private JLabel monteeEau;
+    private boolean val1, val2, val3, val4 = false;
 
     public VueAventurier() {
         fenetre = new JFrame("Ile Interdite");
@@ -34,9 +38,13 @@ public class VueAventurier extends Observe {
 
         caseVide = new JLabel("");
         joueur1 = new JLabel("");
+        joueur1.setFont(jou);
         joueur2 = new JLabel("");
+        joueur2.setFont(jou);
         joueur3 = new JLabel("");
+        joueur3.setFont(jou);
         joueur4 = new JLabel("");
+        joueur4.setFont(jou);
 
         fenetre.add(joueurBas, BorderLayout.SOUTH);
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
@@ -81,46 +89,10 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////CARTES///////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////NIVEAU EAU///////////////////////////////////////////////////////////////////////
-        JPanel monteeEauDroit = new JPanel(new GridLayout(11, 1));
+        monteeEauDroit = new JPanel(new GridLayout(11, 1));
 
-        JLabel monteeEau = new JLabel("Niveau d'eau : ");
+        monteeEau = new JLabel("Niveau d'eau : ");
         monteeEauDroit.add(monteeEau);
-
-        for (int i = 10; i >= 1; i--) {
-            if (i == 1 || i == 2) {
-                JButton eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 2 cartes");
-                eau.setBackground(Color.CYAN);
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 3 || i == 4 || i == 5) {
-                JButton eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
-                eau.setBackground(Color.BLUE);
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 3 || i == 4 || i == 5) {
-                JButton eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 6 || i == 7) {
-                JButton eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 4 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 8 || i == 9) {
-                JButton eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 5 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 10) {
-                JButton eau = new JButton();
-                eau.setText("Niveau " + i + "   Mort");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            }
-        }
 
         fenetre.add(monteeEauDroit, BorderLayout.EAST);
         ////////////////////////////////////////////////////////////NIVEAU EAU/////////////////////////////////////////////////////////////////////
@@ -187,54 +159,62 @@ public class VueAventurier extends Observe {
     }
 
     public void setNomJoueurs(String nom1, String nom2, String nom3, String nom4) {
-        if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty()) {
-            joueur1.setText("Joueur 1");
-            joueur2.setText("Joueur 2");
-            joueur3.setText("Joueur 3");
-            joueur4.setText(nom4);
-        } else if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+        if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
             joueur1.setText("Joueur 1");
             joueur2.setText("Joueur 2");
             joueur3.setText("Joueur 3");
             joueur4.setText("Joueur 4");
-        } 
-        else if (nom1.isEmpty() && nom2.isEmpty()) {
+        } else if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText("Joueur 2");
+            joueur3.setText("Joueur 3");
+            joueur4.setText(nom4);
+        } else if (nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+            joueur1.setText(nom1);
+            joueur2.setText("Joueur 2");
+            joueur3.setText("Joueur 3");
+            joueur4.setText("Joueur 4");
+        } else if (nom1.isEmpty() && nom2.isEmpty() && nom4.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText("Joueur 2");
+            joueur3.setText(nom3);
+            joueur4.setText("Joueur 4");
+        } else if (nom1.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText(nom2);
+            joueur3.setText("Joueur 3");
+            joueur4.setText("Joueur 4");
+        } else if (nom1.isEmpty() && nom2.isEmpty()) {
             joueur1.setText("Joueur 1");
             joueur2.setText("Joueur 2");
             joueur3.setText(nom3);
             joueur4.setText(nom4);
-        }
-        else if (nom1.isEmpty() && nom3.isEmpty()) {
+        } else if (nom1.isEmpty() && nom3.isEmpty()) {
             joueur1.setText("Joueur 1");
             joueur2.setText(nom2);
             joueur3.setText("Joueur 3");
             joueur4.setText(nom4);
-        }
-        else if (nom1.isEmpty() && nom4.isEmpty()) {
+        } else if (nom1.isEmpty() && nom4.isEmpty()) {
             joueur1.setText("Joueur 1");
             joueur2.setText(nom2);
             joueur3.setText(nom3);
             joueur4.setText("Joueur 4");
-        }
-        else if (nom2.isEmpty() && nom3.isEmpty()) {
+        } else if (nom2.isEmpty() && nom3.isEmpty()) {
             joueur1.setText(nom1);
             joueur2.setText("Joueur 2");
             joueur3.setText("Joueur 3");
             joueur4.setText(nom4);
-        }
-        else if (nom2.isEmpty() && nom4.isEmpty()) {
+        } else if (nom2.isEmpty() && nom4.isEmpty()) {
             joueur1.setText(nom1);
             joueur2.setText("Joueur 2");
             joueur3.setText(nom3);
             joueur4.setText("Joueur 4");
-        }
-        else if (nom3.isEmpty() && nom4.isEmpty()) {
+        } else if (nom3.isEmpty() && nom4.isEmpty()) {
             joueur1.setText(nom1);
             joueur2.setText(nom2);
             joueur3.setText("Joueur 3");
             joueur4.setText("Joueur 4");
-        }
-        else if (nom1.isEmpty()) {
+        } else if (nom1.isEmpty()) {
             joueur1.setText("Joueur 1");
             joueur2.setText(nom2);
             joueur3.setText(nom3);
@@ -244,24 +224,106 @@ public class VueAventurier extends Observe {
             joueur2.setText("Joueur 2");
             joueur3.setText(nom3);
             joueur4.setText(nom4);
-        }
-        else if (nom3.isEmpty()) {
+        } else if (nom3.isEmpty()) {
             joueur1.setText(nom1);
             joueur2.setText(nom2);
             joueur3.setText("Joueur 3");
             joueur4.setText(nom4);
-        }
-        else if (nom4.isEmpty()) {
+        } else if (nom4.isEmpty()) {
             joueur1.setText(nom1);
             joueur2.setText(nom2);
             joueur3.setText(nom3);
             joueur4.setText("Joueur 4");
-        }
-        else {
+        } else {
             joueur1.setText(nom1);
             joueur2.setText(nom2);
             joueur3.setText(nom3);
             joueur4.setText(nom4);
+        }
+    }
+
+    public void setDifficulte(int difficulte) {
+        System.out.println(difficulte);
+        if (difficulte == 0) {
+            val1 = true;
+        } else if (difficulte == 2) {
+            val1 = true;
+            val2 = true;
+        } else if (difficulte == 3) {
+            val1 = true;
+            val2 = true;
+            val3 = true;
+        } else if (difficulte == 4) {
+            val1 = true;
+            val2 = true;
+            val3 = true;
+            val4 = true;
+        }
+        
+        for (int i = 10; i >= 1; i--) {
+            if (i == 1) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 2 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+                if(val1 == true) {
+                    eau.setBackground(Color.BLUE);
+                }
+            } else if (i == 2) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 2 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+                if(val1 == true & val2 == true) {
+                    eau.setBackground(Color.BLUE);
+                }
+            } else if (i == 3) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+                if(val1 == true && val2 == true && val3 == true) {
+                    eau.setBackground(Color.BLUE);
+                }
+            } else if (i == 4) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+                if(val1 == true && val2 == true && val3 == true && val4 == true) {
+                    eau.setBackground(Color.BLUE);
+                }
+            } else if (i == 5) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+            } else if (i == 6) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 4 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+            } else if (i == 7) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 4 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+            } else if (i == 8) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 5 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+            } else if (i == 9) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 5 cartes");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+            } else if (i == 10) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Mort");
+                eau.setEnabled(false);
+                monteeEauDroit.add(eau);
+            }
         }
     }
 }
