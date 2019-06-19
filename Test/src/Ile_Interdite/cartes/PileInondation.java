@@ -38,6 +38,10 @@ public class PileInondation {
         return cartesInondation;
     }
     
+    public CarteInondation getCarteDuDessus() {
+        return getCartesInondation().get(0);
+    }
+    
     
     
     

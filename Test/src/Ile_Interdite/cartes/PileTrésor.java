@@ -27,14 +27,15 @@ public class PileTrésor {
         return cartesTrésor;
     }
     
-    public void piocher(Aventurier aventurier){
-       if (!cartesTrésor.isEmpty()) {
+    public void piocher(Aventurier aventurier) {
+       if (!getCartesTrésor().isEmpty()) {
         aventurier.addCarte(cartesTrésor.get(cartesTrésor.size()-1));
         cartesTrésor.remove(cartesTrésor.size()-1);
        }
        else { 
         melangerLesPiles();
-        piocher(aventurier);}             
+        piocher(aventurier);
+       }             
     }
     
     public void Defausser(CarteTrésor carte, Aventurier aventurier) {
