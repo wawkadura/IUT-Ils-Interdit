@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,10 +54,40 @@ public class VueAventurier extends Observe {
         JPanel actionGauche = new JPanel(new GridLayout(5, 1));
 
         JButton seDeplacer = new JButton("Se déplacer");
+        seDeplacer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
         JButton assecher = new JButton("Assécher");
+        assecher.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
         JButton donnerTresor = new JButton("Donner une carte Trésor");
+        donnerTresor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
         JButton gagnerTresor = new JButton("Gagner un Trésor");
+        gagnerTresor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
         JButton compSpe = new JButton("Compétence spéciale");
+        compSpe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
 
         actionGauche.add(seDeplacer);
         actionGauche.add(assecher);
