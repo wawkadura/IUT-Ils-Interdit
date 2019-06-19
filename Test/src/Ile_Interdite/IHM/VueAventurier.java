@@ -25,18 +25,18 @@ public class VueAventurier extends Observe {
     private JPanel joueurBas;
     private JLabel joueur1, joueur2, joueur3, joueur4, caseVide;
     private Controleur controleur;
-    
+
     public VueAventurier() {
         fenetre = new JFrame("Ile Interdite");
-        
+
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
         joueurBas = new JPanel(new GridLayout(1, 5));
 
-        caseVide = new JLabel(" ");
-        joueur1 = new JLabel("Walid");
-        joueur2 = new JLabel("César");
-        joueur3 = new JLabel("Amine");
-        joueur4 = new JLabel("Florent");
+        caseVide = new JLabel("");
+        joueur1 = new JLabel("");
+        joueur2 = new JLabel("");
+        joueur3 = new JLabel("");
+        joueur4 = new JLabel("");
 
         fenetre.add(joueurBas, BorderLayout.SOUTH);
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
@@ -162,12 +162,12 @@ public class VueAventurier extends Observe {
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         fenetre.setSize(1920, 1080);
         fenetre.setVisible(false);
-        
+
     }
 
     public void setNbJoueurs(int nbJoueurs) {
-            nbJoueur = nbJoueurs;
-            if (nbJoueur == 4) {
+        nbJoueur = nbJoueurs;
+        if (nbJoueur == 4) {
             joueurBas.add(caseVide);
             joueurBas.add(joueur1);
             joueurBas.add(joueur2);
@@ -183,7 +183,85 @@ public class VueAventurier extends Observe {
             joueurBas.add(joueur1);
             joueurBas.add(joueur2);
         }
-            fenetre.setVisible(true);
+        fenetre.setVisible(true);
     }
-    
+
+    public void setNomJoueurs(String nom1, String nom2, String nom3, String nom4) {
+        if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText("Joueur 2");
+            joueur3.setText("Joueur 3");
+            joueur4.setText(nom4);
+        } else if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText("Joueur 2");
+            joueur3.setText("Joueur 3");
+            joueur4.setText("Joueur 4");
+        } 
+        else if (nom1.isEmpty() && nom2.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText("Joueur 2");
+            joueur3.setText(nom3);
+            joueur4.setText(nom4);
+        }
+        else if (nom1.isEmpty() && nom3.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText(nom2);
+            joueur3.setText("Joueur 3");
+            joueur4.setText(nom4);
+        }
+        else if (nom1.isEmpty() && nom4.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText(nom2);
+            joueur3.setText(nom3);
+            joueur4.setText("Joueur 4");
+        }
+        else if (nom2.isEmpty() && nom3.isEmpty()) {
+            joueur1.setText(nom1);
+            joueur2.setText("Joueur 2");
+            joueur3.setText("Joueur 3");
+            joueur4.setText(nom4);
+        }
+        else if (nom2.isEmpty() && nom4.isEmpty()) {
+            joueur1.setText(nom1);
+            joueur2.setText("Joueur 2");
+            joueur3.setText(nom3);
+            joueur4.setText("Joueur 4");
+        }
+        else if (nom3.isEmpty() && nom4.isEmpty()) {
+            joueur1.setText(nom1);
+            joueur2.setText(nom2);
+            joueur3.setText("Joueur 3");
+            joueur4.setText("Joueur 4");
+        }
+        else if (nom1.isEmpty()) {
+            joueur1.setText("Joueur 1");
+            joueur2.setText(nom2);
+            joueur3.setText(nom3);
+            joueur4.setText(nom4);
+        } else if (nom2.isEmpty()) {
+            joueur1.setText(nom1);
+            joueur2.setText("Joueur 2");
+            joueur3.setText(nom3);
+            joueur4.setText(nom4);
+        }
+        else if (nom3.isEmpty()) {
+            joueur1.setText(nom1);
+            joueur2.setText(nom2);
+            joueur3.setText("Joueur 3");
+            joueur4.setText(nom4);
+        }
+        else if (nom4.isEmpty()) {
+            joueur1.setText(nom1);
+            joueur2.setText(nom2);
+            joueur3.setText(nom3);
+            joueur4.setText("Joueur 4");
+        }
+        else {
+            joueur1.setText(nom1);
+            joueur2.setText(nom2);
+            joueur3.setText(nom3);
+            joueur4.setText(nom4);
+        }
+    }
 }

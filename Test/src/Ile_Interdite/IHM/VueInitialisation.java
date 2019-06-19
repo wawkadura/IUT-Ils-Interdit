@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,7 +31,9 @@ public class VueInitialisation extends Observe {
     private JFrame fenetre;
     private VueAventurier ihm;
     private int no_joueurs;
-    public JTextField nom1, nom2, nom3, nom4;
+    private JTextField nom1, nom2, nom3, nom4;
+    private JLabel joueur1, joueur2, joueur3, joueur4;
+    private JComboBox choixPremierJoueur;
     private final Font policeTitre = new Font(Font.DIALOG, Font.BOLD, 80);
     private final Font policeLabel = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private final Font diff = new Font(Font.MONOSPACED, Font.BOLD, 20);
@@ -49,30 +52,72 @@ public class VueInitialisation extends Observe {
         //////////////////////////////////////////////////////TITRE//////////////////////////////////////////////////////////// 
 
         //////////////////////////////////////////////////////VALEURS//////////////////////////////////////////////////////////  
-        JPanel panelValeurs = new JPanel(new GridLayout(4, 2));
+        JPanel panelValeurs = new JPanel(new GridLayout(5, 2));
 
-        JLabel joueur1 = new JLabel("Joueur 1 : ");
+        JLabel nb = new JLabel("Nombre de joueurs : ");
+        nb.setFont(diff);
+        choixPremierJoueur = new JComboBox(new Integer[]{2, 3, 4});
+        choixPremierJoueur.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if ((int) choixPremierJoueur.getSelectedItem() == 2) {
+                    nom3.setEnabled(false);
+                    nom4.setEnabled(false);
+                    joueur3.setEnabled(false);
+                    joueur4.setEnabled(false);
+                }
+                if ((int) choixPremierJoueur.getSelectedItem() == 3) {
+                    nom1.setEnabled(true);
+                    nom2.setEnabled(true);
+                    nom3.setEnabled(true);
+                    joueur1.setEnabled(true);
+                    joueur2.setEnabled(true);
+                    joueur3.setEnabled(true);
+                    nom4.setEnabled(false);
+                    joueur4.setEnabled(false);
+                }
+                if ((int) choixPremierJoueur.getSelectedItem() == 4) {
+                    nom1.setEnabled(true);
+                    nom2.setEnabled(true);
+                    nom3.setEnabled(true);
+                    nom4.setEnabled(true);
+                    joueur1.setEnabled(true);
+                    joueur2.setEnabled(true);
+                    joueur3.setEnabled(true);
+                    joueur4.setEnabled(true);
+                }
+            }
+        });
+
+        joueur1 = new JLabel("Joueur 1 : ");
         joueur1.setFont(policeLabel);
         joueur1.setForeground(Color.RED);
-        JLabel joueur2 = new JLabel("Joueur 2 : ");
+        joueur2 = new JLabel("Joueur 2 : ");
         joueur2.setFont(policeLabel);
         joueur2.setForeground(Color.BLUE);
-        JLabel joueur3 = new JLabel("Joueur 3 : ");
+        joueur3 = new JLabel("Joueur 3 : ");
         joueur3.setFont(policeLabel);
         joueur3.setForeground(Color.GREEN);
-        JLabel joueur4 = new JLabel("Joueur 4 : ");
+        joueur3.setEnabled(false);
+        joueur4 = new JLabel("Joueur 4 : ");
         joueur4.setFont(policeLabel);
         joueur4.setForeground(Color.MAGENTA);
+        joueur4.setEnabled(false);
 
         nom1 = new JTextField();
         nom1.setFont(policeLabel);
+        nom1.setEnabled(true);
         nom2 = new JTextField();
         nom2.setFont(policeLabel);
+        nom2.setEnabled(true);
         nom3 = new JTextField();
         nom3.setFont(policeLabel);
+        nom3.setEnabled(false);
         nom4 = new JTextField();
         nom4.setFont(policeLabel);
+        nom4.setEnabled(false);
 
+        panelValeurs.add(nb);
+        panelValeurs.add(choixPremierJoueur);
         panelValeurs.add(joueur1);
         panelValeurs.add(nom1);
         panelValeurs.add(joueur2);
@@ -99,7 +144,7 @@ public class VueInitialisation extends Observe {
         choixDifficulte.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent arg0) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                int val = choixDifficulte.getValue();
             }
         });
 
@@ -108,11 +153,18 @@ public class VueInitialisation extends Observe {
         commencer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-            
-                
+                String no1 = nom1.getText();
+                String no2 = nom2.getText();
+                String no3 = nom3.getText();
+                String no4 = nom4.getText();
+
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER_PARTIE;
-                m.nbJoueurs = no_joueurs;
+                m.nbJoueurs = (int) choixPremierJoueur.getSelectedItem();
+                m.nom1 = no1;
+                m.nom2 = no2;
+                m.nom3 = no3;
+                m.nom4 = no4;
                 notifierObservateur(m);
             }
         });

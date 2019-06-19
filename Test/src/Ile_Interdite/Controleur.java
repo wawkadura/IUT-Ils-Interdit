@@ -39,6 +39,7 @@ public class Controleur implements Observateur {
     private VueAventurier ihm;
     private VueInitialisation ihmInit;
     private int no_joueurs;
+    private String nom1, nom2, nom3, nom4;
     private Grille grille;
     ArrayList<Aventurier> Joueurs = new ArrayList<>();
 
@@ -49,9 +50,12 @@ public class Controleur implements Observateur {
             case DEMARRER_PARTIE:
 
                 no_joueurs = message.nbJoueurs;
-
+                nom1 = message.nom1;
+                nom2 = message.nom2;
+                nom3 = message.nom3;
+                nom4 = message.nom4;
                 ihm.setNbJoueurs(no_joueurs);
-
+                ihm.setNomJoueurs(nom1,nom2,nom3,nom4);
                 ihmInit.demarrerJeu();
 
                 break;
