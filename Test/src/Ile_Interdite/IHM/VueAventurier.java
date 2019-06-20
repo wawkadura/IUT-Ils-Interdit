@@ -10,6 +10,8 @@ import Ile_Interdite.Tuile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -182,19 +184,21 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////ACTIONS/////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////CARTES///////////////////////////////////////////////////////////////////////////
-        JPanel carteHaut = new JPanel(new GridLayout(2, 5));
+        JPanel carteHaut = new JPanel(new GridLayout(2, 7));
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             JLabel espace = new JLabel("");
             carteHaut.add(espace);
         }
+
         JLabel cartesJoueur = new JLabel("Cartes joueur courant : ");
         carteHaut.add(cartesJoueur);
-        for (int i = 0; i < 2; i++) {
+
+        for (int i = 0; i < 3; i++) {
             JLabel espace = new JLabel("");
             carteHaut.add(espace);
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
             JButton carteJoueur = new JButton("Carte");
             carteJoueur.setEnabled(false);
             carteHaut.add(carteJoueur);
@@ -260,6 +264,11 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
     }
 
+    public void paintComponent(Graphics g) {
+        Graphics pion = (Graphics2D) g;
+
+    }
+
     public void afficher() {
         //permet d'afficher la fenetre du jeu
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
@@ -286,87 +295,10 @@ public class VueAventurier extends Observe {
     }
 
     public void setNomJoueurs(String nom1, String nom2, String nom3, String nom4) {
-//        if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText("Joueur 4");
-//        } else if (nom1.isEmpty() && nom2.isEmpty() && nom3.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText(nom4);
-//        } else if (nom2.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
-//            joueur1.setText(nom1);
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText("Joueur 4");
-//        } else if (nom1.isEmpty() && nom2.isEmpty() && nom4.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText(nom3);
-//            joueur4.setText("Joueur 4");
-//        } else if (nom1.isEmpty() && nom3.isEmpty() && nom4.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText(nom2);
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText("Joueur 4");
-//        } else if (nom1.isEmpty() && nom2.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText(nom3);
-//            joueur4.setText(nom4);
-//        } else if (nom1.isEmpty() && nom3.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText(nom2);
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText(nom4);
-//        } else if (nom1.isEmpty() && nom4.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText(nom2);
-//            joueur3.setText(nom3);
-//            joueur4.setText("Joueur 4");
-//        } else if (nom2.isEmpty() && nom3.isEmpty()) {
-//            joueur1.setText(nom1);
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText(nom4);
-//        } else if (nom2.isEmpty() && nom4.isEmpty()) {
-//            joueur1.setText(nom1);
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText(nom3);
-//            joueur4.setText("Joueur 4");
-//        } else if (nom3.isEmpty() && nom4.isEmpty()) {
-//            joueur1.setText(nom1);
-//            joueur2.setText(nom2);
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText("Joueur 4");
-//        } else if (nom1.isEmpty()) {
-//            joueur1.setText("Joueur 1");
-//            joueur2.setText(nom2);
-//            joueur3.setText(nom3);
-//            joueur4.setText(nom4);
-//        } else if (nom2.isEmpty()) {
-//            joueur1.setText(nom1);
-//            joueur2.setText("Joueur 2");
-//            joueur3.setText(nom3);
-//            joueur4.setText(nom4);
-//        } else if (nom3.isEmpty()) {
-//            joueur1.setText(nom1);
-//            joueur2.setText(nom2);
-//            joueur3.setText("Joueur 3");
-//            joueur4.setText(nom4);
-//        } else if (nom4.isEmpty()) {
-//            joueur1.setText(nom1);
-//            joueur2.setText(nom2);
-//            joueur3.setText(nom3);
-//            joueur4.setText("Joueur 4");
-//        } else {
         joueur1.setText(nom1);
         joueur2.setText(nom2);
         joueur3.setText(nom3);
         joueur4.setText(nom4);
-        //       }
     }
 
     public void setDifficulte(int difficulte) {
