@@ -45,25 +45,25 @@ public class Grille {
         if (this.getTuiles().get(TuileG) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileG, this.getTuiles().get(TuileG));
         }
-        if (this.getTuiles().get(TuileHG) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileHG) != null && !this.getTuiles().get(TuileHG).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileHG, this.getTuiles().get(TuileHG));
         }
-        if (this.getTuiles().get(TuileH) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileH) != null && !this.getTuiles().get(TuileH).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileH, this.getTuiles().get(TuileH));
         }
-        if (this.getTuiles().get(TuileHD) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileHD) != null && !this.getTuiles().get(TuileHD).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileHD, this.getTuiles().get(TuileHD));
         }
-        if (this.getTuiles().get(TuileD) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileD) != null && !this.getTuiles().get(TuileD).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileD, this.getTuiles().get(TuileD));
         }
-        if (this.getTuiles().get(TuileBD) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileBD) != null && !this.getTuiles().get(TuileBD).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileBD, this.getTuiles().get(TuileBD));
         }
-        if (this.getTuiles().get(TuileB) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileB) != null && !this.getTuiles().get(TuileB).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileB, this.getTuiles().get(TuileB));
         }
-        if (this.getTuiles().get(TuileBG) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileBG) != null && !this.getTuiles().get(TuileBG).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileBG, this.getTuiles().get(TuileBG));
         }
 
@@ -82,13 +82,13 @@ public class Grille {
         if (this.getTuiles().get(TuileG) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileG, this.getTuiles().get(TuileG));
         }
-        if (this.getTuiles().get(TuileH) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileH) != null && !this.getTuiles().get(TuileH).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileH, this.getTuiles().get(TuileH));
         }
-        if (this.getTuiles().get(TuileD) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileD) != null && !this.getTuiles().get(TuileD).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileD, this.getTuiles().get(TuileD));
         }
-        if (this.getTuiles().get(TuileB) != null && !this.getTuiles().get(TuileG).getEtat().equalsIgnoreCase("Manquante")) {
+        if (this.getTuiles().get(TuileB) != null && !this.getTuiles().get(TuileB).getEtat().equalsIgnoreCase("Manquante")) {
             tuilesVoisines.put(TuileB, this.getTuiles().get(TuileB));
         }
         return tuilesVoisines;

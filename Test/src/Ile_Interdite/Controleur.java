@@ -69,11 +69,16 @@ public class Controleur implements Observateur {
                 ihm.mettreAJourTuiles(grille.getTuiles().values());
                 ihmInit.demarrerJeu();
 
-                J1.setNom(nom2);
-                J2.setNom(nom1);
+                J1.setNom(nom1);
+                J2.setNom(nom2);
                 J3.setNom(nom3);
                 J4.setNom(nom4);
                 ihm.setJoueurCourant(nom1);
+                ArrayList<String > Joueurs = new ArrayList<>();
+                Joueurs.add(nom1);
+                Joueurs.add(nom2);
+                Joueurs.add(nom3);
+                Joueurs.add(nom4);
                 break;
 
             case DEPLACER:
@@ -90,6 +95,7 @@ public class Controleur implements Observateur {
                 break;
             case CHOIX_TUILE:
                 if (message.deplacer) {
+                    System.out.println(message.c.afficherCoord());
                     deplacement(message.c);
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                 }
@@ -119,6 +125,7 @@ public class Controleur implements Observateur {
     private void deplacement(Coordonnees c) {
         for (Tuile t : grille.getTuiles().values()) {
             if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())) {
+                
                 joueurCourant.deplacer(t);
             }
         }
@@ -140,6 +147,7 @@ public class Controleur implements Observateur {
         if (A.getFonction().equalsIgnoreCase("Explorateur")) {
             for (Tuile t : grille.getTuilesVoisinesAvecDiagonal(A.getTuile()).values()) {
                 c.add(t.getCoordonnee());
+                
             }
             A.setActions(A.getActions() - 1);
         } else if (A.getFonction().equalsIgnoreCase("Pilot") && !A.CompetanceUtiliser()) {
@@ -161,7 +169,7 @@ public class Controleur implements Observateur {
             A.setActions(A.getActions() - 1);
 
         }
-
+       // for (Coordonnees co : c ){System.out.println(co.afficherCoord());}
         ihm.setTuilesDispo(c);
 
     }
@@ -375,7 +383,7 @@ public class Controleur implements Observateur {
         int niv = 1;//demander aux joueurs
         grille = new Grille(niv);
         for (int i = 0; i < 36; i++) {// Creation de la Grille
-            Coordonnees C = new Coordonnees(l, c);
+            Coordonnees C = new Coordonnees(c, l);
 
             if (c == 2 && l == 0) {
                 LieuDeTresor tuile = new LieuDeTresor(C, "Calice");
@@ -435,7 +443,7 @@ public class Controleur implements Observateur {
             }
         }
         Coordonnees C = new Coordonnees(2, 3);
-        Coordonnees C2 = new Coordonnees(5, 2);
+        Coordonnees C2 = new Coordonnees(1, 4);
         Coordonnees C3 = new Coordonnees(5, 3);
         Coordonnees C4 = new Coordonnees(3, 3);
         Coordonnees C5 = new Coordonnees(0, 3);
