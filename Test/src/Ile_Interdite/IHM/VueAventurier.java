@@ -33,6 +33,7 @@ public class VueAventurier extends Observe {
     private final Font jou = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private JButton eau;
     private String joueurCourant;
+    private int joueurAct = 1;
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
     private JButton tuile;
@@ -56,18 +57,45 @@ public class VueAventurier extends Observe {
         joueur4 = new JLabel("");
         joueur4.setFont(jou);
 
+        if (joueurAct == 1) {
+            joueur1.setForeground(Color.RED);
+            joueur2.setForeground(Color.WHITE);
+            joueur3.setForeground(Color.WHITE);
+            joueur4.setForeground(Color.WHITE);
+        } else if (joueurAct == 2) {
+            joueur1.setForeground(Color.WHITE);
+            joueur2.setForeground(Color.BLUE);
+            joueur3.setForeground(Color.WHITE);
+            joueur4.setForeground(Color.WHITE);
+        } else if (joueurAct == 3) {
+            joueur1.setForeground(Color.WHITE);
+            joueur2.setForeground(Color.WHITE);
+            joueur3.setForeground(Color.GREEN);
+            joueur4.setForeground(Color.WHITE);
+        } else if (joueurAct == 4) {
+            joueur1.setForeground(Color.WHITE);
+            joueur2.setForeground(Color.WHITE);
+            joueur3.setForeground(Color.WHITE);
+            joueur4.setForeground(Color.MAGENTA);
+        } else {
+            joueur1.setForeground(Color.WHITE);
+            joueur2.setForeground(Color.WHITE);
+            joueur3.setForeground(Color.WHITE);
+            joueur4.setForeground(Color.WHITE);
+        }
+
         fenetre.add(joueurBas, BorderLayout.SOUTH);
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////ACTIONS/////////////////////////////////////////////////////////////////////////
-        JPanel actionGauche = new JPanel(new GridLayout(5, 1));
+        JPanel actionGauche = new JPanel(new GridLayout(6, 1));
 
         JButton seDeplacer = new JButton("Se déplacer");
         seDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                deplacer=true;
-                Assecher=false;
+                deplacer = true;
+                Assecher = false;
                 Message m = new Message();
                 m.type = TypesMessages.DEPLACER;
                 m.joueurCourant = joueurCourant;
@@ -78,8 +106,8 @@ public class VueAventurier extends Observe {
         assecher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                deplacer=false;
-                Assecher=true;
+                deplacer = false;
+                Assecher = true;
                 Message m = new Message();
                 m.type = TypesMessages.ASSECHER;
                 m.joueurCourant = joueurCourant;
@@ -107,12 +135,48 @@ public class VueAventurier extends Observe {
 
             }
         });
+        JButton terminerTour = new JButton("Terminer Tour");
+        terminerTour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Message m = new Message();
+                m.type = TypesMessages.TERMINER_TOUR;
+                if (nbJoueur == 4) {
+                    if (joueurAct == 4) {
+                        joueurAct = 1;
+                        getJoueurAct(joueurAct);
+                    } else {
+                        joueurAct = joueurAct + 1;
+                        getJoueurAct(joueurAct);
+                    }
+                } else if (nbJoueur == 3) {
+                    if (joueurAct == 3) {
+                        joueurAct = 1;
+                        getJoueurAct(joueurAct);
+                    } else {
+                        joueurAct = joueurAct + 1;
+                        getJoueurAct(joueurAct);
+                    }
+                } else if (nbJoueur == 2) {
+                    if (joueurAct == 2) {
+                        joueurAct = 1;
+                        getJoueurAct(joueurAct);
+                    } else {
+                        joueurAct = joueurAct + 1;
+                        getJoueurAct(joueurAct);
+                    }
+                }
+                m.joueurAct = joueurAct;
+                notifierObservateur(m);
+            }
+        });
 
         actionGauche.add(seDeplacer);
         actionGauche.add(assecher);
         actionGauche.add(donnerTresor);
         actionGauche.add(gagnerTresor);
         actionGauche.add(compSpe);
+        actionGauche.add(terminerTour);
 
         fenetre.add(actionGauche, BorderLayout.WEST);
         ////////////////////////////////////////////////////////////ACTIONS/////////////////////////////////////////////////////////////////////////
@@ -176,8 +240,8 @@ public class VueAventurier extends Observe {
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.c = C;
-                        m.deplacer=deplacer;
-                        m.assecher=Assecher;
+                        m.deplacer = deplacer;
+                        m.assecher = Assecher;
                         notifierObservateur(m);
                     }
                 });
@@ -409,26 +473,64 @@ public class VueAventurier extends Observe {
             for (JButton jb : boutons) {
                 jb.setEnabled(false);
                 if (jb.getText().equalsIgnoreCase(t.getCoordonnee().afficherCoord())) {
-                    
+
                     if (t.getEtat().equalsIgnoreCase("Manquante")) {
                         jb.setBackground(Color.white);
                     } else if (t.getEtat().equalsIgnoreCase("Innondée")) {
                         jb.setBackground(Color.blue);
                     } else {
-                        if (t.getType()!=null) {
+                        if (t.getType() != null) {
                             jb.setBackground(Color.yellow);
+                        } else {
+                            jb.setBackground(Color.ORANGE);
                         }
-                        else { jb.setBackground(Color.ORANGE);}
                     }
                 }
             }
         }
 
     }
-    public void mettreAJourPions(){
-        
+
+    public void mettreAJourPions() {
+
     }
-    public void mettreAJourCartes(){
-        
+
+    public void mettreAJourCartes() {
+
+    }
+
+    public void getJoueurAct(int joueurAct) {
+        switch (joueurAct) {
+            case 1:
+                joueur1.setForeground(Color.RED);
+                joueur2.setForeground(Color.WHITE);
+                joueur3.setForeground(Color.WHITE);
+                joueur4.setForeground(Color.WHITE);
+                break;
+            case 2:
+                joueur1.setForeground(Color.WHITE);
+                joueur2.setForeground(Color.BLUE);
+                joueur3.setForeground(Color.WHITE);
+                joueur4.setForeground(Color.WHITE);
+                break;
+            case 3:
+                joueur1.setForeground(Color.WHITE);
+                joueur2.setForeground(Color.WHITE);
+                joueur3.setForeground(Color.GREEN);
+                joueur4.setForeground(Color.WHITE);
+                break;
+            case 4:
+                joueur1.setForeground(Color.WHITE);
+                joueur2.setForeground(Color.WHITE);
+                joueur3.setForeground(Color.WHITE);
+                joueur4.setForeground(Color.MAGENTA);
+                break;
+            default:
+                joueur1.setForeground(Color.WHITE);
+                joueur2.setForeground(Color.WHITE);
+                joueur3.setForeground(Color.WHITE);
+                joueur4.setForeground(Color.WHITE);
+                break;
+        }
     }
 }

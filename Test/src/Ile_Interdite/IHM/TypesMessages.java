@@ -14,5 +14,6 @@ public enum TypesMessages {
     CHOIX_TUILE,
     DEPLACER,
     ANNULER,
-    ASSECHER
+    ASSECHER,
+    TERMINER_TOUR
 }

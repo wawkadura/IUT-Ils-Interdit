@@ -38,6 +38,7 @@ public class Controleur implements Observateur {
     private PileTresor pileTresor;
     private VueAventurier ihm;
     private Aventurier joueurCourant;
+    private int joueurAct = 1;
     private VueInitialisation ihmInit;
     private int no_joueurs;
     private Aventurier J1, J2, J3, J4;
@@ -60,6 +61,7 @@ public class Controleur implements Observateur {
                 nom3 = message.nom3;
                 nom4 = message.nom4;
                 difficulte = message.difficulte;
+
                 ihm.setNbJoueurs(no_joueurs);
                 ihm.setNomJoueurs(nom1, nom2, nom3, nom4);
                 ihm.setDifficulte(difficulte);
@@ -98,13 +100,15 @@ public class Controleur implements Observateur {
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                 }
                 if (message.assecher) {
-                    
+
                     assechement(message.c);
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                     grille.AfficherGrille();
                 }
                 break;
-
+            case TERMINER_TOUR:
+                joueurAct = message.joueurAct;
+                break;
         }
 
     }

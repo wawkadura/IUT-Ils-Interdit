@@ -243,12 +243,10 @@ public class VueInitialisation extends Observe {
                     nom4.setText(no4);
                 }
 
-                String nno1 = nom1.getText();
-                String nno2 = nom2.getText();
-                String nno3 = nom3.getText();
-                String nno4 = nom4.getText();
-                
-               
+                String nno1 = nom1.getText();//joueurAct = 1
+                String nno2 = nom2.getText();//joueurAct = 2
+                String nno3 = nom3.getText();//joueurAct = 3
+                String nno4 = nom4.getText();//joueurAct = 4
                 
                 int difficulte = val;
 
