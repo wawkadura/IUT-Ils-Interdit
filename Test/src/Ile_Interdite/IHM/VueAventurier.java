@@ -185,19 +185,19 @@ public class VueAventurier extends Observe {
             joueur4.setForeground(Color.WHITE);
         } else if (joueurAct == 2) {
             joueur1.setForeground(Color.WHITE);
-            joueur2.setForeground(Color.BLUE);
+            joueur2.setForeground(Color.GREEN);
             joueur3.setForeground(Color.WHITE);
             joueur4.setForeground(Color.WHITE);
         } else if (joueurAct == 3) {
             joueur1.setForeground(Color.WHITE);
             joueur2.setForeground(Color.WHITE);
-            joueur3.setForeground(Color.GREEN);
+            joueur3.setForeground(Color.BLUE);
             joueur4.setForeground(Color.WHITE);
         } else if (joueurAct == 4) {
             joueur1.setForeground(Color.WHITE);
             joueur2.setForeground(Color.WHITE);
             joueur3.setForeground(Color.WHITE);
-            joueur4.setForeground(Color.MAGENTA);
+            joueur4.setForeground(Color.BLACK);
         } else {
             joueur1.setForeground(Color.WHITE);
             joueur2.setForeground(Color.WHITE);
@@ -889,21 +889,21 @@ public class VueAventurier extends Observe {
                 break;
             case 2:
                 joueur1.setForeground(Color.WHITE);
-                joueur2.setForeground(Color.BLUE);
+                joueur2.setForeground(Color.GREEN);
                 joueur3.setForeground(Color.WHITE);
                 joueur4.setForeground(Color.WHITE);
                 break;
             case 3:
                 joueur1.setForeground(Color.WHITE);
                 joueur2.setForeground(Color.WHITE);
-                joueur3.setForeground(Color.GREEN);
+                joueur3.setForeground(Color.BLUE);
                 joueur4.setForeground(Color.WHITE);
                 break;
             case 4:
                 joueur1.setForeground(Color.WHITE);
                 joueur2.setForeground(Color.WHITE);
                 joueur3.setForeground(Color.WHITE);
-                joueur4.setForeground(Color.MAGENTA);
+                joueur4.setForeground(Color.BLACK);
                 break;
             default:
                 joueur1.setForeground(Color.WHITE);
@@ -913,6 +913,21 @@ public class VueAventurier extends Observe {
                 break;
         }
     }
+    
+//    public void SetColorAv(String joueurCourant) {
+//        if(joueurCourant.equals("Explorateur")) {//green
+//            
+//        } else if(joueurCourant.equals("Pilot")) {//blue
+//            
+//        } else if(joueurCourant.equals("Plongeur")) {//black
+//            
+//        } else if(joueurCourant.equals("Ingénieur")) {//red
+//            
+//        } else if(joueurCourant.equals("Navigateur")) {//yellow
+//            
+//        }
+//    }
+    
 }
 //                nbDec = nbDec - 1;
 //                setNbAct(nbDec, joueurAct);
