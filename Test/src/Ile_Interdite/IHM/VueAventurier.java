@@ -33,13 +33,14 @@ public class VueAventurier extends Observe {
     private JPanel grilleMilieu;
     private int nbJoueur;
     private JPanel joueurBas;
+    private JButton joueur1, joueur2, joueur3, joueur4;
     private ArrayList<String> nomsTuiles = new ArrayList<>();
-    private JLabel joueur1, joueur2, joueur3, joueur4;
     private final Font jou = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private JButton eau;
     private String joueurCourant;
     private int joueurAct = 1;
     private int nbDec = 3;
+    private Color none;
     private JLabel decompte;
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
@@ -47,6 +48,7 @@ public class VueAventurier extends Observe {
     ArrayList<JButton> boutons = new ArrayList<>();
     ArrayList<JButton> cartes = new ArrayList<>();
     ArrayList<JButton> niveaux = new ArrayList<>();
+    ArrayList<JButton> joueurs = new ArrayList<>();
     private boolean niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean deplacer;
     private boolean Assecher;
@@ -84,15 +86,98 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
         joueurBas = new JPanel(new GridLayout(1, 5));
 
-        joueur1 = new JLabel("");
+        joueur1 = new JButton("");
         joueur1.setFont(jou);
-        joueur2 = new JLabel("");
-        joueur2.setFont(jou);
-        joueur3 = new JLabel("");
-        joueur3.setFont(jou);
-        joueur4 = new JLabel("");
-        joueur4.setFont(jou);
+        joueur1.setBorder(null);
+        joueur1.setEnabled(false);
+        joueur1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                nbDec = nbDec - 1;
+                mettreAJourIndic();
+                decompte.setText(nbDec + "");
+                Message m = new Message();
+                m.type = TypesMessages.CHOIX_JOUEUR;
+                m.DonnerAJoueur = joueur1.getText();
+                notifierObservateur(m);
+                for (JButton jb : joueurs) {
+                        jb.setEnabled(false);
+                        jb.setBackground(none);
+
+                    }
+            }
+        });
+
+        joueur2 = new JButton("");
+        joueur2.setFont(jou);
+        joueur2.setBorder(null);
+        joueur2.setEnabled(false);
+        joueur2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nbDec = nbDec - 1;
+                mettreAJourIndic();
+                decompte.setText(nbDec + "");
+                Message m = new Message();
+                m.type = TypesMessages.CHOIX_JOUEUR;
+                m.DonnerAJoueur = joueur2.getText();
+                notifierObservateur(m);
+                for (JButton jb : joueurs) {
+                        jb.setEnabled(false);
+                        jb.setBackground(none);
+
+                    }
+            }
+        });
+
+        joueur3 = new JButton("");
+        joueur3.setFont(jou);
+        joueur3.setBorder(null);
+        joueur3.setEnabled(false);
+        joueur3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nbDec = nbDec - 1;
+                mettreAJourIndic();
+                decompte.setText(nbDec + "");
+                Message m = new Message();
+                m.type = TypesMessages.CHOIX_JOUEUR;
+                m.DonnerAJoueur = joueur3.getText();
+                notifierObservateur(m);
+                for (JButton jb : joueurs) {
+                        jb.setEnabled(false);
+                        jb.setBackground(none);
+
+                    }
+            }
+        });
+
+        joueur4 = new JButton("");
+        joueur4.setFont(jou);
+        joueur4.setBorder(null);
+        joueur4.setEnabled(false);
+        joueur4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 nbDec = nbDec - 1;
+                mettreAJourIndic();
+                decompte.setText(nbDec + "");
+                Message m = new Message();
+                m.type = TypesMessages.CHOIX_JOUEUR;
+                m.DonnerAJoueur=joueur4.getText();
+                notifierObservateur(m);
+                for (JButton jb : joueurs) {
+                        jb.setEnabled(false);
+                        jb.setBackground(none);
+
+                    }
+            }
+        });
+        joueurs.add(joueur1);
+        joueurs.add(joueur2);
+        joueurs.add(joueur3);
+        joueurs.add(joueur4);
         if (joueurAct == 1) {
             joueur1.setForeground(Color.RED);
             joueur2.setForeground(Color.WHITE);
@@ -277,6 +362,7 @@ public class VueAventurier extends Observe {
         statue.setEnabled(false);
 
         JButton cristal = new JButton("Le Cristal Ardent");
+        none = cristal.getBackground();
         cristal.setBackground(Color.LIGHT_GRAY);
         carteHaut.add(cristal);
         cristal.setBorder(null);
@@ -305,6 +391,7 @@ public class VueAventurier extends Observe {
 
         for (int i = 0; i < 7; i++) {
             JButton carteJoueur = new JButton("Carte");
+
             carteJoueur.setEnabled(false);
             carteHaut.add(carteJoueur);
             carteJoueur.addActionListener(new ActionListener() {
@@ -316,8 +403,11 @@ public class VueAventurier extends Observe {
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     notifierObservateur(m);
+                    setJoueurDispo();
                     for (JButton jb : cartes) {
                         jb.setEnabled(false);
+                        jb.setBackground(none);
+
                     }
                 }
             });
@@ -616,10 +706,21 @@ public class VueAventurier extends Observe {
     public void setCartesDispo() {
 
         for (JButton J : cartes) {
+            if (!J.getText().equals("Carte")) {
+                J.setBackground(Color.green);
+                J.setEnabled(true);
+            }
+        }
 
-            J.setBackground(Color.green);
-            J.setEnabled(true);
+    }
 
+    public void setJoueurDispo() {
+
+        for (JButton J : joueurs) {
+            if (!J.getText().equals(joueurCourant)) {
+                J.setBackground(Color.green);
+                J.setEnabled(true);
+            }
         }
 
     }
