@@ -38,6 +38,8 @@ public class VueAventurier extends Observe {
     private JButton eau;
     private String joueurCourant;
     private int joueurAct = 1;
+    private int nbDec = 3;
+    private JLabel decompte;
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
     private JButton tuile, seDeplacer, assecher, donnerCarte, gagnerTresor, compSpe, terminerTour;
@@ -47,6 +49,7 @@ public class VueAventurier extends Observe {
     private boolean niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean deplacer;
     private boolean Assecher;
+    private Graphics pion;
 
     public VueAventurier() {
         fenetre = new JFrame("Ile Interdite");
@@ -94,12 +97,21 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////ACTIONS/////////////////////////////////////////////////////////////////////////
-        JPanel actionGauche = new JPanel(new GridLayout(6, 1));
+        JPanel actionGauche = new JPanel(new GridLayout(7, 1));
+        JPanel nbAct = new JPanel(new GridLayout(1, 2));
+
+        JLabel nombreActions = new JLabel("Nombre d'actions restantes :          ");
+
+        decompte = new JLabel(nbDec + "");
+        decompte.setFont(jou);
+        nbAct.add(nombreActions);
+        nbAct.add(decompte);
 
         seDeplacer = new JButton("Se déplacer");
         seDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                
                 deplacer = true;
                 Assecher = false;
 
@@ -120,6 +132,8 @@ public class VueAventurier extends Observe {
         assecher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                nbDec = nbDec - 1;
+                setNbAct(nbDec, joueurAct);
                 deplacer = false;
                 Assecher = true;
 
@@ -140,6 +154,9 @@ public class VueAventurier extends Observe {
         donnerCarte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                nbDec = nbDec - 1;
+                setNbAct(nbDec, joueurAct);
+
                 seDeplacer.setEnabled(false);
                 assecher.setEnabled(false);
                 donnerCarte.setEnabled(false);
@@ -152,6 +169,9 @@ public class VueAventurier extends Observe {
         gagnerTresor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                nbDec = nbDec - 1;
+                setNbAct(nbDec, joueurAct);
+
                 seDeplacer.setEnabled(false);
                 assecher.setEnabled(false);
                 donnerCarte.setEnabled(false);
@@ -164,12 +184,6 @@ public class VueAventurier extends Observe {
         compSpe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                seDeplacer.setEnabled(false);
-                assecher.setEnabled(false);
-                donnerCarte.setEnabled(false);
-                gagnerTresor.setEnabled(false);
-                compSpe.setEnabled(false);
-                terminerTour.setEnabled(false);
             }
         });
         terminerTour = new JButton("Terminer Tour");
@@ -201,14 +215,17 @@ public class VueAventurier extends Observe {
                         getJoueurAct(joueurAct);
                     } else {
                         joueurAct = joueurAct + 1;
-                        getJoueurAct(joueurAct);
+                        getJoueurAct(joueurAct);      
                     }
                 }
+                nbDec = 3;
+                decompte.setText(nbDec+"");
                 m.joueurAct = joueurAct;
                 notifierObservateur(m);
             }
         });
 
+        actionGauche.add(nbAct);
         actionGauche.add(seDeplacer);
         actionGauche.add(assecher);
         actionGauche.add(donnerCarte);
@@ -255,7 +272,7 @@ public class VueAventurier extends Observe {
 
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
         JPanel grilleMilieu = new JPanel(new GridLayout(6, 6));
-
+        
         int l = 0;// ligne
         int c = 0;//colonne
         for (int i = 0; i < 36; i++) {
@@ -278,6 +295,9 @@ public class VueAventurier extends Observe {
                 tuile.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        nbDec = nbDec - 1;
+                        setNbAct(nbDec, joueurAct);
+                        
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.c = C;
@@ -398,15 +418,16 @@ public class VueAventurier extends Observe {
         }
     }
 
-    public void paintComponent(Graphics g) {
-        Graphics pion = (Graphics2D) g;
-
+    public void paintComponent(Graphics g) {  
+        pion = (Graphics2D) g;
+        pion.setColor(Color.RED);
+        pion.fillOval(10, 10, 10, 10);
     }
 
     public void afficher() {
         //permet d'afficher la fenetre du jeu
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(1200, 800);
+        fenetre.setSize(1500, 800);
         fenetre.setVisible(false);
     }
 
@@ -610,6 +631,52 @@ public class VueAventurier extends Observe {
 
     }
 
+    public void setNbAct(int nbDec, int joueurAct) {
+        Message m = new Message();
+        m.type = TypesMessages.TERMINER_TOUR;
+        if (nbDec == 0) {
+            if (nbJoueur == 4) {
+                if (joueurAct == 4) {
+                    joueurAct = 1;
+                    this.joueurAct = joueurAct;
+                    getJoueurAct(joueurAct);
+                } else {
+                    joueurAct = joueurAct + 1;
+                    this.joueurAct = joueurAct;
+                    getJoueurAct(joueurAct);
+                }
+            } else if (nbJoueur == 3) {
+                if (joueurAct == 3) {
+                    joueurAct = 1;
+                    this.joueurAct = joueurAct;
+                    getJoueurAct(joueurAct);
+                } else {
+                    joueurAct = joueurAct + 1;
+                    this.joueurAct = joueurAct;
+                    getJoueurAct(joueurAct);
+                }
+            } else if (nbJoueur == 2) {
+                if (joueurAct == 2) {
+                    joueurAct = 1;
+                    this.joueurAct = joueurAct;
+                    getJoueurAct(joueurAct);
+                } else {
+                    joueurAct = joueurAct + 1;
+                    this.joueurAct = joueurAct;
+                    getJoueurAct(joueurAct);
+                }
+            }
+            nbDec = 3;
+            this.nbDec = nbDec;
+            decompte.setText(nbDec + "");
+        } else {
+            decompte.setText(nbDec + "");
+        }
+
+        m.joueurAct = joueurAct;
+        notifierObservateur(m);
+    }
+
     public void getJoueurAct(int joueurAct) {
         switch (joueurAct) {
             case 1:
@@ -645,3 +712,12 @@ public class VueAventurier extends Observe {
         }
     }
 }
+//                nbDec = nbDec - 1;
+//                setNbAct(nbDec, joueurAct);
+//
+//                seDeplacer.setEnabled(false);
+//                assecher.setEnabled(false);
+//                donnerCarte.setEnabled(false);
+//                gagnerTresor.setEnabled(false);
+//                compSpe.setEnabled(false);
+//                terminerTour.setEnabled(false);
