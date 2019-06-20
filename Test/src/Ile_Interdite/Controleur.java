@@ -18,6 +18,7 @@ import Ile_Interdite.Aventuriers.Pilote;
 import Ile_Interdite.Aventuriers.Ingenieur;
 import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
+import Ile_Interdite.Aventuriers.Messager;
 import Ile_Interdite.IHM.VueInitialisation;
 import Ile_Interdite.cartes.CarteTresor;
 import Ile_Interdite.cartes.Carte;
@@ -41,12 +42,13 @@ public class Controleur implements Observateur {
     private int joueurAct = 1;
     private VueInitialisation ihmInit;
     private int no_joueurs;
-    private Aventurier J1, J2, J3, J4;
+    ArrayList<String> joueurs = new ArrayList<>();
+    private Aventurier J1, J2, J3, J4, J5, J6;
     private String nom1, nom2, nom3, nom4;
     private int difficulte;
     private Grille grille;
 
-    ArrayList<Aventurier> Joueurs = new ArrayList<>();
+    ArrayList<Aventurier> aventuriers = new ArrayList<>();
     private Niveau niveau;
 
     @Override
@@ -74,11 +76,11 @@ public class Controleur implements Observateur {
                 J3.setNom(nom3);
                 J4.setNom(nom4);
                 ihm.setJoueurCourant(nom1);
-                ArrayList<String > Joueurs = new ArrayList<>();
-                Joueurs.add(nom1);
-                Joueurs.add(nom2);
-                Joueurs.add(nom3);
-                Joueurs.add(nom4);
+
+                joueurs.add(nom1);
+                joueurs.add(nom2);
+                joueurs.add(nom3);
+                joueurs.add(nom4);
                 break;
 
             case DEPLACER:
@@ -108,13 +110,14 @@ public class Controleur implements Observateur {
                 break;
             case TERMINER_TOUR:
                 joueurAct = message.joueurAct;
+                ihm.setJoueurCourant(joueurs.get(joueurAct - 1));
                 break;
         }
 
     }
 
     public Aventurier getJoueurCourant(String nomJoueur) {
-        for (Aventurier a : Joueurs) {
+        for (Aventurier a : aventuriers) {
             if (a.getNom().equalsIgnoreCase(nomJoueur)) {
                 return a;
             }
@@ -125,7 +128,7 @@ public class Controleur implements Observateur {
     private void deplacement(Coordonnees c) {
         for (Tuile t : grille.getTuiles().values()) {
             if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())) {
-                
+
                 joueurCourant.deplacer(t);
             }
         }
@@ -147,7 +150,7 @@ public class Controleur implements Observateur {
         if (A.getFonction().equalsIgnoreCase("Explorateur")) {
             for (Tuile t : grille.getTuilesVoisinesAvecDiagonal(A.getTuile()).values()) {
                 c.add(t.getCoordonnee());
-                
+
             }
             A.setActions(A.getActions() - 1);
         } else if (A.getFonction().equalsIgnoreCase("Pilot") && !A.CompetanceUtiliser()) {
@@ -169,7 +172,7 @@ public class Controleur implements Observateur {
             A.setActions(A.getActions() - 1);
 
         }
-       // for (Coordonnees co : c ){System.out.println(co.afficherCoord());}
+        // for (Coordonnees co : c ){System.out.println(co.afficherCoord());}
         ihm.setTuilesDispo(c);
 
     }
@@ -413,6 +416,9 @@ public class Controleur implements Observateur {
                     || c == 4 && l == 0 || c == 5 && l == 0 || c == 5 && l == 1
                     || c == 0 && l == 4 || c == 0 && l == 5 || c == 1 && l == 5
                     || c == 4 && l == 5 || c == 5 && l == 4 || c == 5 && l == 5) {
+            } else if (c == 2 && l == 3) {
+                Heliport tuile = new Heliport(C);
+                grille.addTuile(tuile);
             } else {
 
                 Tuile tuile = new Tuile(C);
@@ -442,23 +448,25 @@ public class Controleur implements Observateur {
                 l++;
             }
         }
-        Coordonnees C = new Coordonnees(2, 3);
-        Coordonnees C2 = new Coordonnees(1, 4);
-        Coordonnees C3 = new Coordonnees(5, 3);
-        Coordonnees C4 = new Coordonnees(3, 3);
-        Coordonnees C5 = new Coordonnees(0, 3);
+        Coordonnees C = new Coordonnees(1, 1);
+        Coordonnees C2 = new Coordonnees(4, 1);
+        Coordonnees C3 = new Coordonnees(1, 4);
+        Coordonnees C4 = new Coordonnees(4, 4);
+        Coordonnees C5 = new Coordonnees(2, 2);
+        Coordonnees C6 = new Coordonnees(3, 3);
 
-        J1 = new Ingenieur(nom2, grille.getTuiles().get(C));
-        J2 = new Explorateur(nom1, grille.getTuiles().get(C2));
+        J1 = new Ingenieur(nom1, grille.getTuiles().get(C));
+        J2 = new Explorateur(nom2, grille.getTuiles().get(C2));
         J3 = new Pilote(nom3, grille.getTuiles().get(C3));
         J4 = new Plongeur(nom4, grille.getTuiles().get(C4));
-        Navigateur J5 = new Navigateur("Rémi", grille.getTuiles().get(C5));
+        J5 = new Navigateur("Rémi", grille.getTuiles().get(C5));
+        J6 = new Messager("ilias", grille.getTuiles().get(C6));
 
-        Joueurs.add(J1);
-        Joueurs.add(J2);
-        Joueurs.add(J3);
-        Joueurs.add(J4);
-        Joueurs.add(J5);
+        aventuriers.add(J1);
+        aventuriers.add(J2);
+        aventuriers.add(J3);
+        aventuriers.add(J4);
+        aventuriers.add(J5);
 
         J1.addCarte(new CarteDeTresor("Calice"));
         J1.addCarte(new CarteDeTresor("Calice"));

@@ -480,7 +480,11 @@ public class VueAventurier extends Observe {
                         jb.setBackground(Color.blue);
                     } else {
                         if (t.getType() != null) {
-                            jb.setBackground(Color.yellow);
+                            if (t.getType().equalsIgnoreCase("Héliport")) {
+                                jb.setBackground(Color.LIGHT_GRAY);
+                            } else {
+                                jb.setBackground(Color.yellow);
+                            }
                         } else {
                             jb.setBackground(Color.ORANGE);
                         }
