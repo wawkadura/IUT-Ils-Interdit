@@ -93,7 +93,6 @@ public class Controleur implements Observateur {
                     deplacement(message.c);
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                 }
-                System.out.println("Ile_Interdite.Controleur.traiterMessage()");
                 if (message.assecher) {
 
                     assechement(message.c);
