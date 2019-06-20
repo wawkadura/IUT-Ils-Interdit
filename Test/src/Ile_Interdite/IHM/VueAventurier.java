@@ -7,6 +7,7 @@ package Ile_Interdite.IHM;
 
 import Ile_Interdite.Coordonnees;
 import Ile_Interdite.Tuile;
+import Ile_Interdite.cartes.CarteTresor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -29,6 +30,7 @@ import javax.swing.JPanel;
 public class VueAventurier extends Observe {
 
     private JFrame fenetre;
+    private int nivEau;
     private int nbJoueur;
     private JPanel joueurBas;
     private JLabel joueur1, joueur2, joueur3, joueur4;
@@ -38,9 +40,11 @@ public class VueAventurier extends Observe {
     private int joueurAct = 1;
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
-    private JButton tuile;
+    private JButton tuile, seDeplacer, assecher, donnerCarte, gagnerTresor, compSpe, terminerTour;
     ArrayList<JButton> boutons = new ArrayList<>();
-    private boolean val1, val2, val3, val4 = false;
+    ArrayList<JButton> cartes = new ArrayList<>();
+    ArrayList<JButton> niveaux = new ArrayList<>();
+    private boolean niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean deplacer;
     private boolean Assecher;
 
@@ -92,55 +96,87 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////ACTIONS/////////////////////////////////////////////////////////////////////////
         JPanel actionGauche = new JPanel(new GridLayout(6, 1));
 
-        JButton seDeplacer = new JButton("Se déplacer");
+        seDeplacer = new JButton("Se déplacer");
         seDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 deplacer = true;
                 Assecher = false;
+
+                seDeplacer.setEnabled(false);
+                assecher.setEnabled(false);
+                donnerCarte.setEnabled(false);
+                gagnerTresor.setEnabled(false);
+                compSpe.setEnabled(false);
+                terminerTour.setEnabled(false);
+
                 Message m = new Message();
                 m.type = TypesMessages.DEPLACER;
                 m.joueurCourant = joueurCourant;
                 notifierObservateur(m);
             }
         });
-        JButton assecher = new JButton("Assécher");
+        assecher = new JButton("Assécher");
         assecher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 deplacer = false;
                 Assecher = true;
+
+                seDeplacer.setEnabled(false);
+                assecher.setEnabled(false);
+                donnerCarte.setEnabled(false);
+                gagnerTresor.setEnabled(false);
+                compSpe.setEnabled(false);
+                terminerTour.setEnabled(false);
+
                 Message m = new Message();
                 m.type = TypesMessages.ASSECHER;
                 m.joueurCourant = joueurCourant;
                 notifierObservateur(m);
             }
         });
-        JButton donnerTresor = new JButton("Donner une carte Trésor");
-        donnerTresor.addActionListener(new ActionListener() {
+        donnerCarte = new JButton("Donner une carte Trésor");
+        donnerCarte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
+                seDeplacer.setEnabled(false);
+                assecher.setEnabled(false);
+                donnerCarte.setEnabled(false);
+                gagnerTresor.setEnabled(false);
+                compSpe.setEnabled(false);
+                terminerTour.setEnabled(false);
             }
         });
-        JButton gagnerTresor = new JButton("Gagner un Trésor");
+        gagnerTresor = new JButton("Gagner un Trésor");
         gagnerTresor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
+                seDeplacer.setEnabled(false);
+                assecher.setEnabled(false);
+                donnerCarte.setEnabled(false);
+                gagnerTresor.setEnabled(false);
+                compSpe.setEnabled(false);
+                terminerTour.setEnabled(false);
             }
         });
-        JButton compSpe = new JButton("Compétence spéciale");
+        compSpe = new JButton("Compétence spéciale");
         compSpe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
+                seDeplacer.setEnabled(false);
+                assecher.setEnabled(false);
+                donnerCarte.setEnabled(false);
+                gagnerTresor.setEnabled(false);
+                compSpe.setEnabled(false);
+                terminerTour.setEnabled(false);
             }
         });
-        JButton terminerTour = new JButton("Terminer Tour");
+        terminerTour = new JButton("Terminer Tour");
         terminerTour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+
                 Message m = new Message();
                 m.type = TypesMessages.TERMINER_TOUR;
                 if (nbJoueur == 4) {
@@ -175,7 +211,7 @@ public class VueAventurier extends Observe {
 
         actionGauche.add(seDeplacer);
         actionGauche.add(assecher);
-        actionGauche.add(donnerTresor);
+        actionGauche.add(donnerCarte);
         actionGauche.add(gagnerTresor);
         actionGauche.add(compSpe);
         actionGauche.add(terminerTour);
@@ -202,6 +238,7 @@ public class VueAventurier extends Observe {
             JButton carteJoueur = new JButton("Carte");
             carteJoueur.setEnabled(false);
             carteHaut.add(carteJoueur);
+            cartes.add(carteJoueur);
         }
 
         fenetre.add(carteHaut, BorderLayout.NORTH);
@@ -247,6 +284,13 @@ public class VueAventurier extends Observe {
                         m.deplacer = deplacer;
                         m.assecher = Assecher;
                         notifierObservateur(m);
+                        seDeplacer.setEnabled(true);
+                        assecher.setEnabled(true);
+                        donnerCarte.setEnabled(true);
+                        gagnerTresor.setEnabled(true);
+                        compSpe.setEnabled(true);
+                        terminerTour.setEnabled(true);
+                        mettreAJourActions();
                     }
                 });
                 grilleMilieu.add(tuile);
@@ -262,6 +306,96 @@ public class VueAventurier extends Observe {
 
         fenetre.add(grilleMilieu, BorderLayout.CENTER);
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
+
+    }
+
+    public void afficherNiv() {
+        for (int i = 10; i >= 1; i--) {
+            if (i == 1) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 2 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv1");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 2) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 2 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv2");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 3) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv3");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+                if (niv1 == true && niv2 == true && niv3 == true) {
+                    eau.setBackground(Color.BLUE);
+                }
+            } else if (i == 4) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv4");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 5) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv5");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 6) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 4 cartes");
+                eau.setEnabled(false);
+
+                eau.setActionCommand("niv6");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 7) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 4 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv7");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 8) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 5 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv8");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 9) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Piocher 5 cartes");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv9");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            } else if (i == 10) {
+                eau = new JButton();
+                eau.setText("Niveau " + i + "   Mort");
+                eau.setEnabled(false);
+                eau.setActionCommand("niv10");
+                niveaux.add(eau);
+                monteeEauDroit.add(eau);
+
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -301,88 +435,74 @@ public class VueAventurier extends Observe {
         joueur4.setText(nom4);
     }
 
-    public void setDifficulte(int difficulte) {
+    public void setNivEau(int difficulte) {
         if (difficulte == 0 || difficulte == 1) {
-            val1 = true;
+            niv1 = true;
         } else if (difficulte == 2) {
-            val1 = true;
-            val2 = true;
+            niv1 = true;
+            niv2 = true;
         } else if (difficulte == 3) {
-            val1 = true;
-            val2 = true;
-            val3 = true;
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
         } else if (difficulte == 4) {
-            val1 = true;
-            val2 = true;
-            val3 = true;
-            val4 = true;
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
+            niv4 = true;
+        } else if (difficulte == 5) {
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
+            niv4 = true;
+            niv5 = true;
+        } else if (difficulte == 6) {
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
+            niv4 = true;
+            niv5 = true;
+            niv6 = true;
+        } else if (difficulte == 7) {
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
+            niv4 = true;
+            niv5 = true;
+            niv6 = true;
+            niv7 = true;
+        } else if (difficulte == 8) {
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
+            niv4 = true;
+            niv5 = true;
+            niv6 = true;
+            niv7 = true;
+            niv8 = true;
+        } else if (difficulte == 9) {
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
+            niv4 = true;
+            niv5 = true;
+            niv6 = true;
+            niv7 = true;
+            niv8 = true;
+            niv9 = true;
+        } else if (difficulte == 10) {
+            niv1 = true;
+            niv2 = true;
+            niv3 = true;
+            niv4 = true;
+            niv5 = true;
+            niv6 = true;
+            niv7 = true;
+            niv8 = true;
+            niv9 = true;
+            niv10 = true;
         }
 
-        for (int i = 10; i >= 1; i--) {
-            if (i == 1) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 2 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-                if (val1 == true) {
-                    eau.setBackground(Color.BLUE);
-                }
-            } else if (i == 2) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 2 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-                if (val1 == true & val2 == true) {
-                    eau.setBackground(Color.BLUE);
-                }
-            } else if (i == 3) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-                if (val1 == true && val2 == true && val3 == true) {
-                    eau.setBackground(Color.BLUE);
-                }
-            } else if (i == 4) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-                if (val1 == true && val2 == true && val3 == true && val4 == true) {
-                    eau.setBackground(Color.BLUE);
-                }
-            } else if (i == 5) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 6) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 4 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 7) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 4 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 8) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 5 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 9) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 5 cartes");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            } else if (i == 10) {
-                eau = new JButton();
-                eau.setText("Niveau " + i + "   Mort");
-                eau.setEnabled(false);
-                monteeEauDroit.add(eau);
-            }
-        }
     }
 
     public void setJoueurCourant(String joueurCourant) {
@@ -431,7 +551,62 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void mettreAJourCartes() {
+    public void mettreAJourCartes(ArrayList<CarteTresor> cartes) {
+        int i = 0;
+        while (i < cartes.size()) {
+            this.cartes.get(i).setText(cartes.get(i).getFonction());
+            this.cartes.get(i).setEnabled(true);
+            i++;
+        }
+
+    }
+    public void mettreAJourActions(){
+        terminerTour.setEnabled(true);
+        
+    }
+
+    public void mettreAJourNivEau() {
+        Message m = new Message();
+        m.type = TypesMessages.DIFFICULTE;
+        for (JButton jb : niveaux) {
+            if (jb.getActionCommand().equalsIgnoreCase("niv1") && niv1) {
+                jb.setBackground(Color.BLUE);
+
+                m.carteAPiocher = 2;
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv2") && niv2) {
+                jb.setBackground(Color.BLUE);
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv3") && niv3) {
+                jb.setBackground(Color.BLUE);
+                m.carteAPiocher = 3;
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv4") && niv4) {
+                jb.setBackground(Color.BLUE);
+            }
+
+            if (jb.getActionCommand().equalsIgnoreCase("niv5") && niv5) {
+                jb.setBackground(Color.BLUE);
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv6") && niv6) {
+                jb.setBackground(Color.BLUE);
+                m.carteAPiocher = 4;
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv7") && niv7) {
+                jb.setBackground(Color.BLUE);
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv8") && niv8) {
+                jb.setBackground(Color.BLUE);
+                m.carteAPiocher = 5;
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv9") && niv9) {
+                jb.setBackground(Color.BLUE);
+            }
+            if (jb.getActionCommand().equalsIgnoreCase("niv10") && niv10) {
+                jb.setBackground(Color.BLUE);
+            }
+        }
+        notifierObservateur(m);
 
     }
 

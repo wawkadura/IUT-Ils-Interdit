@@ -155,7 +155,7 @@ public abstract class Aventurier {
         tuile.addAventurier(this);
     }
 
-    public void gagnerTresor(Tuile tuile, PileTresor pilet) {
+    public void gagnerTresor(PileTresor pilet) {
         if (tuile.getType().equalsIgnoreCase("Pierre")) {
             tresors.setPierre(true);
             ArrayList<CarteTresor> cartesRemove = new ArrayList<>();

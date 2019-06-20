@@ -27,6 +27,7 @@ public class Message {
     public String nom3;
     public String nom4;
     public int difficulte;
+    public int carteAPiocher;
     public Coordonnees c;
 
     

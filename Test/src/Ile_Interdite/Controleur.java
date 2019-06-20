@@ -42,6 +42,7 @@ public class Controleur implements Observateur {
     private int joueurAct = 1;
     private VueInitialisation ihmInit;
     private int no_joueurs;
+    private int carteAPiocher ; 
     ArrayList<String> joueurs = new ArrayList<>();
     private Aventurier J1, J2, J3, J4, J5, J6;
     private String nom1, nom2, nom3, nom4;
@@ -55,6 +56,10 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message message) {
 
         switch (message.type) {
+            case DIFFICULTE : 
+                carteAPiocher=message.carteAPiocher;
+                break;
+            
             case DEMARRER_PARTIE:
 
                 no_joueurs = message.nbJoueurs;
@@ -66,7 +71,10 @@ public class Controleur implements Observateur {
 
                 ihm.setNbJoueurs(no_joueurs);
                 ihm.setNomJoueurs(nom1, nom2, nom3, nom4);
-                ihm.setDifficulte(difficulte);
+                ihm.setNivEau(difficulte);
+                
+                ihm.afficherNiv();
+                ihm.mettreAJourNivEau();
 
                 ihm.mettreAJourTuiles(grille.getTuiles().values());
                 ihmInit.demarrerJeu();
@@ -76,7 +84,9 @@ public class Controleur implements Observateur {
                 J3.setNom(nom3);
                 J4.setNom(nom4);
                 ihm.setJoueurCourant(nom1);
-
+                joueurCourant = getJoueurCourant(nom1);
+                ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
+                
                 joueurs.add(nom1);
                 joueurs.add(nom2);
                 joueurs.add(nom3);
@@ -85,13 +95,13 @@ public class Controleur implements Observateur {
 
             case DEPLACER:
                 joueurCourant = getJoueurCourant(message.joueurCourant);
-
+                
                 tuilesVoisinesDeplacement(joueurCourant);
 
                 break;
             case ASSECHER:
                 joueurCourant = getJoueurCourant(message.joueurCourant);
-
+                
                 tuilesVoisinesAssechement(joueurCourant);
 
                 break;
@@ -106,11 +116,24 @@ public class Controleur implements Observateur {
                     assechement(message.c);
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                     grille.AfficherGrille();
+                    
                 }
                 break;
             case TERMINER_TOUR:
+                pileTresor.piocher(joueurCourant);
+                
+                
                 joueurAct = message.joueurAct;
                 ihm.setJoueurCourant(joueurs.get(joueurAct - 1));
+                joueurCourant = getJoueurCourant(joueurs.get(joueurAct - 1));
+                //afficherCarte(joueurCourant.getCartesEnMain());
+                
+                
+                ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
+                ihm.setNivEau(8);
+                ihm.mettreAJourNivEau();
+                
+                
                 break;
         }
 
@@ -221,7 +244,6 @@ public class Controleur implements Observateur {
         ihm.afficher();
         //tcommencerPartie();
         Initialisation();
-        System.out.println(nom1 + " se trouve sur la tuile :" + J1.getTuile().getCoordonnee().afficherCoord());
     }
 
     public void afficherCarte(ArrayList<CarteTresor> c) {
@@ -483,10 +505,10 @@ public class Controleur implements Observateur {
         J3.addCarte(new CarteDeTresor("Pierre"));
         J3.addCarte(new CarteDeTresor("Pierre"));
 
-        J5.addCarte(new CarteDeTresor("Cristal"));
-        J5.addCarte(new CarteDeTresor("Cristal"));
-        J5.addCarte(new CarteDeTresor("Cristal"));
-        J5.addCarte(new CarteDeTresor("Cristal"));
+        J4.addCarte(new CarteDeTresor("Cristal"));
+        J4.addCarte(new CarteDeTresor("Cristal"));
+        J4.addCarte(new CarteDeTresor("Cristal"));
+        J4.addCarte(new CarteDeTresor("Cristal"));
 /////////////////////////////////////////////PLACEMENT DES TUILES ALEATOIREMENT///////////////////////////////////////////////////////////////
         // Placement aléatoire des trésors
 //        Random random = new Random();
