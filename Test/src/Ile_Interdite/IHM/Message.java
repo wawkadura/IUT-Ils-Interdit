@@ -21,6 +21,7 @@ public class Message {
     public boolean assecher;
     public int nbJoueurs;
     public String joueurCourant;
+    public int joueurAct;
     public String nom1;
     public String nom2;
     public String nom3;
