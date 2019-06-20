@@ -13,6 +13,8 @@ public enum TypesMessages {
     DEMARRER_PARTIE,
     CHOIX_TUILE,
     DIFFICULTE,
+    DONNER,
+    GAGNER,
     DEPLACER,
     ANNULER,
     ASSECHER,

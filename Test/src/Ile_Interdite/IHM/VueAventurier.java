@@ -33,6 +33,7 @@ public class VueAventurier extends Observe {
     private int nivEau;
     private int nbJoueur;
     private JPanel joueurBas;
+    private ArrayList<String> nomsTuiles = new ArrayList<>(); 
     private JLabel joueur1, joueur2, joueur3, joueur4;
     private final Font jou = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private JButton eau;
@@ -52,6 +53,32 @@ public class VueAventurier extends Observe {
     private Graphics pion;
 
     public VueAventurier() {
+//        nomsTuiles.add("Le Pont des Abimes");
+//        nomsTuiles.add("La Porte de Bronze");
+//        nomsTuiles.add("La Caverne des Ombres");
+//        nomsTuiles.add("La Porte de Fer");
+//        nomsTuiles.add("La Porte d’Or");
+//        nomsTuiles.add("Les Falaises de l’Oubli");
+//        nomsTuiles.add("Le Palais de Corail");
+//        nomsTuiles.add("La Porte d’Argent");
+//        nomsTuiles.add("Les Dunes de l’Illusion");
+//        nomsTuiles.add("Heliport");
+//        nomsTuiles.add("La Porte de Cuivre");
+//        nomsTuiles.add("Le Jardin des Hurlements");
+//        
+//        nomsTuiles.add("La Foret Pourpre");
+//        nomsTuiles.add("Le Lagon Perdu");
+//        nomsTuiles.add("Le Marais Brumeux");
+//        nomsTuiles.add("Observatoire");
+//        nomsTuiles.add("Le Rocher Fantome");
+//        nomsTuiles.add("La Caverne du Brasier");
+//        nomsTuiles.add("Le Temple du Soleil");
+//        nomsTuiles.add("Le Temple de La Lune");
+//        nomsTuiles.add("Le Palais des Marees");
+//        nomsTuiles.add("Le Val du Crepuscule");
+//        nomsTuiles.add("La Tour du Guet");
+//        nomsTuiles.add("Le Jardin des Murmures");
+        
         fenetre = new JFrame("Ile Interdite");
 
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
@@ -111,7 +138,7 @@ public class VueAventurier extends Observe {
         seDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                
+
                 deplacer = true;
                 Assecher = false;
 
@@ -132,8 +159,8 @@ public class VueAventurier extends Observe {
         assecher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                nbDec = nbDec - 1;
-                setNbAct(nbDec, joueurAct);
+                
+                
                 deplacer = false;
                 Assecher = true;
 
@@ -155,7 +182,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 nbDec = nbDec - 1;
-                setNbAct(nbDec, joueurAct);
+                mettreAJourIndic();
 
                 seDeplacer.setEnabled(false);
                 assecher.setEnabled(false);
@@ -170,7 +197,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 nbDec = nbDec - 1;
-                setNbAct(nbDec, joueurAct);
+                mettreAJourIndic();
 
                 seDeplacer.setEnabled(false);
                 assecher.setEnabled(false);
@@ -215,12 +242,14 @@ public class VueAventurier extends Observe {
                         getJoueurAct(joueurAct);
                     } else {
                         joueurAct = joueurAct + 1;
-                        getJoueurAct(joueurAct);      
+                        getJoueurAct(joueurAct);
                     }
                 }
                 nbDec = 3;
-                decompte.setText(nbDec+"");
+                decompte.setText(nbDec + "");
                 m.joueurAct = joueurAct;
+                mettreAJourIndic();
+                mettreAJourActions();
                 notifierObservateur(m);
             }
         });
@@ -272,7 +301,7 @@ public class VueAventurier extends Observe {
 
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
         JPanel grilleMilieu = new JPanel(new GridLayout(6, 6));
-        
+
         int l = 0;// ligne
         int c = 0;//colonne
         for (int i = 0; i < 36; i++) {
@@ -296,21 +325,15 @@ public class VueAventurier extends Observe {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         nbDec = nbDec - 1;
-                        setNbAct(nbDec, joueurAct);
-                        
+                        decompte.setText(nbDec + "");
+                        mettreAJourActions();
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.c = C;
                         m.deplacer = deplacer;
                         m.assecher = Assecher;
                         notifierObservateur(m);
-                        seDeplacer.setEnabled(true);
-                        assecher.setEnabled(true);
-                        donnerCarte.setEnabled(true);
-                        gagnerTresor.setEnabled(true);
-                        compSpe.setEnabled(true);
-                        terminerTour.setEnabled(true);
-                        mettreAJourActions();
+
                     }
                 });
                 grilleMilieu.add(tuile);
@@ -418,7 +441,7 @@ public class VueAventurier extends Observe {
         }
     }
 
-    public void paintComponent(Graphics g) {  
+    public void paintComponent(Graphics g) {
         pion = (Graphics2D) g;
         pion.setColor(Color.RED);
         pion.fillOval(10, 10, 10, 10);
@@ -572,6 +595,11 @@ public class VueAventurier extends Observe {
 
     }
 
+    public void mettreAJourIndic() {
+        decompte.setText(nbDec + "");
+
+    }
+
     public void mettreAJourCartes(ArrayList<CarteTresor> cartes) {
         int i = 0;
         while (i < cartes.size()) {
@@ -581,9 +609,23 @@ public class VueAventurier extends Observe {
         }
 
     }
-    public void mettreAJourActions(){
+
+    public void mettreAJourActions() {
         terminerTour.setEnabled(true);
-        
+        if (nbDec == 0) {
+            seDeplacer.setEnabled(false);
+            assecher.setEnabled(false);
+            donnerCarte.setEnabled(false);
+            gagnerTresor.setEnabled(false);
+            compSpe.setEnabled(false);
+        } else {
+            seDeplacer.setEnabled(true);
+            assecher.setEnabled(true);
+            donnerCarte.setEnabled(true);
+            gagnerTresor.setEnabled(true);
+            compSpe.setEnabled(true);
+        }
+
     }
 
     public void mettreAJourNivEau() {
@@ -631,51 +673,51 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void setNbAct(int nbDec, int joueurAct) {
-        Message m = new Message();
-        m.type = TypesMessages.TERMINER_TOUR;
-        if (nbDec == 0) {
-            if (nbJoueur == 4) {
-                if (joueurAct == 4) {
-                    joueurAct = 1;
-                    this.joueurAct = joueurAct;
-                    getJoueurAct(joueurAct);
-                } else {
-                    joueurAct = joueurAct + 1;
-                    this.joueurAct = joueurAct;
-                    getJoueurAct(joueurAct);
-                }
-            } else if (nbJoueur == 3) {
-                if (joueurAct == 3) {
-                    joueurAct = 1;
-                    this.joueurAct = joueurAct;
-                    getJoueurAct(joueurAct);
-                } else {
-                    joueurAct = joueurAct + 1;
-                    this.joueurAct = joueurAct;
-                    getJoueurAct(joueurAct);
-                }
-            } else if (nbJoueur == 2) {
-                if (joueurAct == 2) {
-                    joueurAct = 1;
-                    this.joueurAct = joueurAct;
-                    getJoueurAct(joueurAct);
-                } else {
-                    joueurAct = joueurAct + 1;
-                    this.joueurAct = joueurAct;
-                    getJoueurAct(joueurAct);
-                }
-            }
-            nbDec = 3;
-            this.nbDec = nbDec;
-            decompte.setText(nbDec + "");
-        } else {
-            decompte.setText(nbDec + "");
-        }
-
-        m.joueurAct = joueurAct;
-        notifierObservateur(m);
-    }
+//    public void setNbAct(int joueurAct) {
+//        Message m = new Message();
+//        m.type = TypesMessages.TERMINER_TOUR;
+//        if (nbDec == 0) {
+//        if (nbJoueur == 4) {
+//            if (joueurAct == 4) {
+//                joueurAct = 1;
+//                this.joueurAct = joueurAct;
+//                getJoueurAct(joueurAct);
+//            } else {
+//                joueurAct = joueurAct + 1;
+//                this.joueurAct = joueurAct;
+//                getJoueurAct(joueurAct);
+//            }
+//        } else if (nbJoueur == 3) {
+//            if (joueurAct == 3) {
+//                joueurAct = 1;
+//                this.joueurAct = joueurAct;
+//                getJoueurAct(joueurAct);
+//            } else {
+//                joueurAct = joueurAct + 1;
+//                this.joueurAct = joueurAct;
+//                getJoueurAct(joueurAct);
+//            }
+//        } else if (nbJoueur == 2) {
+//            if (joueurAct == 2) {
+//                joueurAct = 1;
+//                this.joueurAct = joueurAct;
+//                getJoueurAct(joueurAct);
+//            } else {
+//                joueurAct = joueurAct + 1;
+//                this.joueurAct = joueurAct;
+//                getJoueurAct(joueurAct);
+//            }
+//        }
+//            nbDec = 3;
+//            this.nbDec = nbDec;
+//            decompte.setText(nbDec + "");
+//        } else {
+//            decompte.setText(nbDec + "");
+//        }
+//
+//        m.joueurAct = joueurAct;
+//        notifierObservateur(m);
+//    }
 
     public void getJoueurAct(int joueurAct) {
         switch (joueurAct) {

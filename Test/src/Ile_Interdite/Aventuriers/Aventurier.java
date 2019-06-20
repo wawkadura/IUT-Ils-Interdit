@@ -214,7 +214,6 @@ public abstract class Aventurier {
     public void tourTermine() {
 
         setTerminer(true);
-        System.out.println("Tour de " + getNom() + " terminé ! ");
     }
 
     public void setTerminer(boolean tourTerminer) {

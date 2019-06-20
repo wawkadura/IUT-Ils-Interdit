@@ -130,8 +130,8 @@ public class Controleur implements Observateur {
                 
                 
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
-                ihm.setNivEau(8);
-                ihm.mettreAJourNivEau();
+//                ihm.setNivEau(8);
+//                ihm.mettreAJourNivEau();
                 
                 
                 break;
