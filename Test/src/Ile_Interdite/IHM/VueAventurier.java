@@ -165,10 +165,10 @@ public class VueAventurier extends Observe {
                 grilleMilieu.add(tuile);
             } else {
 
-                tuile = new JButton("(" + l + "," + c + ")");
+                tuile = new JButton("(" + c + "," + l + ")");
                 tuile.setEnabled(false);
                 tuile.setBackground(Color.GRAY);
-                Coordonnees C = new Coordonnees(l, c);
+                Coordonnees C = new Coordonnees(c, l);
                 boutons.add(tuile);
                 tuile.addActionListener(new ActionListener() {
                     @Override
