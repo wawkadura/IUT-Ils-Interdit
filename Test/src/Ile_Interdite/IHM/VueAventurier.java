@@ -33,7 +33,7 @@ public class VueAventurier extends Observe {
     private JPanel grilleMilieu;
     private int nbJoueur;
     private JPanel joueurBas;
-    private JLabel joueur1, joueur2, joueur3, joueur4;
+    private JButton joueur1, joueur2, joueur3, joueur4;
     private final Font jou = new Font(Font.MONOSPACED, Font.BOLD, 30);
     private JButton eau;
     private String joueurCourant;
@@ -57,14 +57,18 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
         joueurBas = new JPanel(new GridLayout(1, 5));
 
-        joueur1 = new JLabel("");
+        joueur1 = new JButton("");
         joueur1.setFont(jou);
-        joueur2 = new JLabel("");
+        joueur1.setBorder(null);
+        joueur2 = new JButton("");
         joueur2.setFont(jou);
-        joueur3 = new JLabel("");
+        joueur2.setBorder(null);
+        joueur3 = new JButton("");
         joueur3.setFont(jou);
-        joueur4 = new JLabel("");
+        joueur3.setBorder(null);
+        joueur4 = new JButton("");
         joueur4.setFont(jou);
+        joueur4.setBorder(null);
 
         if (joueurAct == 1) {
             joueur1.setForeground(Color.RED);
