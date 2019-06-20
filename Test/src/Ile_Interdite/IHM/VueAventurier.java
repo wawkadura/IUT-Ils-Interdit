@@ -30,7 +30,7 @@ import javax.swing.JPanel;
 public class VueAventurier extends Observe {
 
     private JFrame fenetre;
-    private int nivEau;
+    private JPanel grilleMilieu;
     private int nbJoueur;
     private JPanel joueurBas;
     private JLabel joueur1, joueur2, joueur3, joueur4;
@@ -111,7 +111,7 @@ public class VueAventurier extends Observe {
         seDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                
+
                 deplacer = true;
                 Assecher = false;
 
@@ -215,11 +215,11 @@ public class VueAventurier extends Observe {
                         getJoueurAct(joueurAct);
                     } else {
                         joueurAct = joueurAct + 1;
-                        getJoueurAct(joueurAct);      
+                        getJoueurAct(joueurAct);
                     }
                 }
                 nbDec = 3;
-                decompte.setText(nbDec+"");
+                decompte.setText(nbDec + "");
                 m.joueurAct = joueurAct;
                 notifierObservateur(m);
             }
@@ -239,18 +239,39 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////CARTES///////////////////////////////////////////////////////////////////////////
         JPanel carteHaut = new JPanel(new GridLayout(2, 7));
 
-        for (int i = 0; i < 3; i++) {
-            JLabel espace = new JLabel("");
-            carteHaut.add(espace);
-        }
+        JButton statue = new JButton("La Statue du Zéphyr");
+        statue.setBackground(Color.ORANGE);
+        carteHaut.add(statue);
+        statue.setBorder(null);
+        statue.setEnabled(false);
+
+        JButton cristal = new JButton("Le Cristal Ardent");
+        cristal.setBackground(Color.RED);
+        carteHaut.add(cristal);
+        cristal.setBorder(null);
+        cristal.setEnabled(false);
+
+        JLabel espace1 = new JLabel("");
+        carteHaut.add(espace1);
 
         JLabel cartesJoueur = new JLabel("Cartes joueur courant : ");
         carteHaut.add(cartesJoueur);
 
-        for (int i = 0; i < 3; i++) {
-            JLabel espace = new JLabel("");
-            carteHaut.add(espace);
-        }
+        JLabel espace2 = new JLabel("");
+        carteHaut.add(espace2);
+
+        JButton pierre = new JButton("La Pierre Sacrée");
+        pierre.setBackground(Color.GRAY);
+        carteHaut.add(pierre);
+        pierre.setBorder(null);
+        pierre.setEnabled(false);
+
+        JButton calice = new JButton("Le Calice de Londe");
+        calice.setBackground(Color.CYAN);
+        carteHaut.add(calice);
+        calice.setBorder(null);
+        calice.setEnabled(false);
+
         for (int i = 0; i < 7; i++) {
             JButton carteJoueur = new JButton("Carte");
             carteJoueur.setEnabled(false);
@@ -271,8 +292,8 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////NIVEAU EAU/////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
-        JPanel grilleMilieu = new JPanel(new GridLayout(6, 6));
-        
+        grilleMilieu = new JPanel(new GridLayout(6, 6));
+
         int l = 0;// ligne
         int c = 0;//colonne
         for (int i = 0; i < 36; i++) {
@@ -284,6 +305,7 @@ public class VueAventurier extends Observe {
                 JButton tuile = new JButton();
                 tuile.setEnabled(false);
                 tuile.setBackground(Color.WHITE);
+                tuile.setBorder(null);
                 grilleMilieu.add(tuile);
             } else {
 
@@ -297,7 +319,7 @@ public class VueAventurier extends Observe {
                     public void actionPerformed(ActionEvent e) {
                         nbDec = nbDec - 1;
                         setNbAct(nbDec, joueurAct);
-                        
+
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.c = C;
@@ -335,6 +357,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 2 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv1");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -343,6 +366,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 2 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv2");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -351,6 +375,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 3 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv3");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -361,6 +386,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 3 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv4");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -369,6 +395,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 3 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv5");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -377,7 +404,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 4 cartes");
                 eau.setEnabled(false);
-
+                eau.setBorder(null);
                 eau.setActionCommand("niv6");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -386,6 +413,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 4 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv7");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -394,6 +422,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 5 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv8");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -402,6 +431,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Piocher 5 cartes");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv9");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -410,6 +440,7 @@ public class VueAventurier extends Observe {
                 eau = new JButton();
                 eau.setText("Niveau " + i + "   Mort");
                 eau.setEnabled(false);
+                eau.setBorder(null);
                 eau.setActionCommand("niv10");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
@@ -418,10 +449,11 @@ public class VueAventurier extends Observe {
         }
     }
 
-    public void paintComponent(Graphics g) {  
+    public void paintComponent(Graphics g) {
         pion = (Graphics2D) g;
         pion.setColor(Color.RED);
         pion.fillOval(10, 10, 10, 10);
+
     }
 
     public void afficher() {
@@ -581,9 +613,10 @@ public class VueAventurier extends Observe {
         }
 
     }
-    public void mettreAJourActions(){
+
+    public void mettreAJourActions() {
         terminerTour.setEnabled(true);
-        
+
     }
 
     public void mettreAJourNivEau() {
