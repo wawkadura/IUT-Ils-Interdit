@@ -63,6 +63,8 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER_PARTIE:
+                
+                
 
                 no_joueurs = message.nbJoueurs;
                 nom1 = message.nom1;
@@ -355,7 +357,7 @@ public class Controleur implements Observateur {
     }
 
     public Controleur() {
-
+       
         ihmInit = new VueInitialisation();
         ihmInit.addObservateur(this);
         ihmInit.afficher();
