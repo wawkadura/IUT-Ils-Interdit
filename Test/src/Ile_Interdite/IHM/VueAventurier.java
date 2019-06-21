@@ -5,6 +5,7 @@
  */
 package Ile_Interdite.IHM;
 
+import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Coordonnees;
 import Ile_Interdite.Tuile;
 import Ile_Interdite.cartes.CarteTresor;
@@ -49,7 +50,11 @@ public class VueAventurier extends Observe {
     private boolean niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean deplacer;
     private boolean Assecher;
-    private Graphics pion;
+    private Graphics pionRouge, pionBleu, pionVert, pionNoir;
+    private PionRouge pionRed;
+    private PionBleu pionBlue;
+    private PionVert pionGreen;
+    private PionNoir pionBlack;
 
     public VueAventurier() {
         fenetre = new JFrame("Ile Interdite");
@@ -297,6 +302,10 @@ public class VueAventurier extends Observe {
 
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
         grilleMilieu = new JPanel(new GridLayout(6, 6));
+        pionRed = new PionRouge();
+        pionBlue = new PionBleu();
+        pionGreen = new PionVert();
+        pionBlack = new PionNoir();
 
         int l = 0;// ligne
         int c = 0;//colonne
@@ -316,6 +325,7 @@ public class VueAventurier extends Observe {
                 tuile = new JButton("(" + c + "," + l + ")");
                 tuile.setEnabled(false);
                 tuile.setBackground(Color.GRAY);
+                //tuile.add(pionRed);
                 Coordonnees C = new Coordonnees(c, l);
                 boutons.add(tuile);
                 tuile.addActionListener(new ActionListener() {
@@ -323,7 +333,6 @@ public class VueAventurier extends Observe {
                     public void actionPerformed(ActionEvent e) {
                         nbDec = nbDec - 1;
                         setNbAct(nbDec, joueurAct);
-
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.c = C;
@@ -339,6 +348,18 @@ public class VueAventurier extends Observe {
                         mettreAJourActions();
                     }
                 });
+                if(c==1 && l==1) {
+                    tuile.add(pionRed);
+                }
+                if(c==4 && l==1) {
+                    tuile.add(pionBlue);
+                }
+                if(c==1 && l==4) {
+                    tuile.add(pionGreen);
+                }
+                if(c==4 && l==4) {
+                    tuile.add(pionBlack);
+                }
                 grilleMilieu.add(tuile);
             }
 
@@ -453,11 +474,47 @@ public class VueAventurier extends Observe {
         }
     }
 
-    public void paintComponent(Graphics g) {
-        pion = (Graphics2D) g;
-        pion.setColor(Color.RED);
-        pion.fillOval(10, 10, 10, 10);
+    public class PionRouge extends JPanel {
 
+        public void paintComponent(Graphics g) {
+            pionRouge = (Graphics2D) g;
+            pionRouge.setColor(Color.RED);
+            pionRouge.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionBleu extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionBleu = (Graphics2D) g;
+            pionBleu.setColor(Color.MAGENTA);
+            pionBleu.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionVert extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionVert = (Graphics2D) g;
+            pionVert.setColor(Color.GREEN);
+            pionVert.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionNoir extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionNoir = (Graphics2D) g;
+            pionNoir.setColor(Color.BLACK);
+            pionNoir.fillOval(20, 20, 20, 20);
+
+        }
     }
 
     public void afficher() {
@@ -748,7 +805,7 @@ public class VueAventurier extends Observe {
                 break;
         }
     }
-    
+
 //    public void SetColorAv(String joueurCourant) {
 //        if(joueurCourant.equals("Explorateur")) {//green
 //            
@@ -762,7 +819,6 @@ public class VueAventurier extends Observe {
 //            
 //        }
 //    }
-    
 }
 //                nbDec = nbDec - 1;
 //                setNbAct(nbDec, joueurAct);
