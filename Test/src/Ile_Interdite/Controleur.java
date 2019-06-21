@@ -63,9 +63,7 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER_PARTIE:
-                
-                
-
+                   
                 no_joueurs = message.nbJoueurs;
                 nom1 = message.nom1;
                 nom2 = message.nom2;
@@ -160,8 +158,8 @@ public class Controleur implements Observateur {
 
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 ihm.mettreAJourTuiles(grille.getTuiles().values());
-//                ihm.setNivEau(8);
-//                ihm.mettreAJourNivEau();
+//              ihm.setNivEau(8);
+//              ihm.mettreAJourNivEau();
                 break;
         }
 
