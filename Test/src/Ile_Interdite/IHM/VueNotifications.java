@@ -5,9 +5,14 @@
  */
 package Ile_Interdite.IHM;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,23 +20,112 @@ import javax.swing.JLabel;
  */
 public class VueNotifications extends Observe {
 
-    private JFrame fenetre;
+    private JFrame fenetre1;
+    private JFrame fenetre2;
+    private JFrame fenetre3;
+    
     public void mainPlein(){
-        fenetre = new JFrame("Notification");
-        JLabel info = new JLabel("Vous avez plus de 5 cartes en main ! ");
-        JLabel info2 = new JLabel("veuillez retirer defausser une carte");
+        fenetre1 = new JFrame("Attention");
+        JPanel haut = new JPanel(new GridLayout(3,1));
+        JPanel bas = new JPanel();
+        JLabel info1 = new JLabel("                            ATTENTION !");
+        JLabel info2 = new JLabel("     Vous avez plus de 5 cartes en main ! ");
+        JLabel info3 = new JLabel("         Veuillez défausser une carte");
+        haut.add(info1);
+        haut.add(info2);
+        haut.add(info3);
         JButton ok = new JButton("OK");
-        fenetre.add(info) ;
-        fenetre.add(info2);
-        fenetre.add(ok);
-        afficher();
-        
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                
+            }
+        });
+        bas.add(ok);
+        fenetre1.add(haut,BorderLayout.CENTER);
+        fenetre1.add(bas,BorderLayout.SOUTH);
+        afficher1();
     }
-    public void afficher() {
+    
+    public void vueGagner(){
+        fenetre2 = new JFrame("Partie gagnée");
+        JPanel haut = new JPanel(new GridLayout(3,1));
+        JPanel bas = new JPanel();
+        JLabel info1 = new JLabel("                       FÉLICITATION !");
+        JLabel info2 = new JLabel("     Vous venez de remporter la partie ! ");
+        haut.add(info1);
+        haut.add(info2);
+        JButton quitter = new JButton("QUITTER");
+        quitter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                
+            }
+        });
+        JButton recommencer = new JButton("RECOMMENCER");
+        recommencer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                
+            }
+        });
+        bas.add(quitter);
+        bas.add(recommencer);
+        fenetre2.add(haut,BorderLayout.CENTER);
+        fenetre2.add(bas,BorderLayout.SOUTH);
+        afficher2();
+    }
+    
+    public void vuePerdu(){
+        fenetre3 = new JFrame("Partie perdu");
+        JPanel haut = new JPanel(new GridLayout(3,1));
+        JPanel bas = new JPanel();
+        JLabel info1 = new JLabel("                       DOMMAGE !");
+        JLabel info2 = new JLabel("         Vous avez perdu la partie ! ");
+        haut.add(info1);
+        haut.add(info2);
+        JButton quitter = new JButton("QUITTER");
+        quitter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                
+            }
+        });
+        JButton recommencer = new JButton("RECOMMENCER");
+        recommencer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                
+            }
+        });
+        bas.add(quitter);
+        bas.add(recommencer);
+        fenetre3.add(haut,BorderLayout.CENTER);
+        fenetre3.add(bas,BorderLayout.SOUTH);
+        afficher3();
+    }
+    
+    
+    
+    public void afficher1() {
         //permet d'afficher la fenetre du jeu
-        fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(1500, 800);
-        fenetre.setVisible(true);
+        fenetre1.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        fenetre1.setSize(300, 200);
+        fenetre1.setVisible(true);
+    }
+    
+    public void afficher2() {
+        //permet d'afficher la fenetre du jeu
+        fenetre2.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        fenetre2.setSize(300, 200);
+        fenetre2.setVisible(true);
+    }
+    
+    public void afficher3() {
+        //permet d'afficher la fenetre du jeu
+        fenetre3.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        fenetre3.setSize(300, 200);
+        fenetre3.setVisible(true);
     }
 
 }
