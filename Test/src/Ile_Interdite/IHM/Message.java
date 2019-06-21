@@ -19,6 +19,8 @@ public class Message {
 //    public TypesMessages type3; // pour assechement
     public boolean deplacer;
     public boolean assecher;
+    public boolean defausser;
+    public boolean donner;
     public String DonnerAJoueur;
     public int numCarte;
     public int nbJoueurs;

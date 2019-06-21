@@ -53,11 +53,11 @@ public class VueAventurier extends Observe {
     ArrayList<JButton> joueurs = new ArrayList<>();
     private boolean niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean donner = false;
-
+    private boolean defausser=false;
     private boolean deplacer;
     private boolean Assecher;
     private Graphics pionRouge, pionBleu, pionVert, pionNoir;
-    private PionRouge pionRed;
+    private Pion pion1;
     private PionBleu pionBlue;
     private PionVert pionGreen;
     private PionNoir pionBlack;
@@ -135,6 +135,7 @@ public class VueAventurier extends Observe {
                     decompte.setText(nbDec + "");
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_JOUEUR;
+                    
                     m.DonnerAJoueur = joueur2.getText();
                     notifierObservateur(m);
                     for (JButton jb : joueurs) {
@@ -204,32 +205,6 @@ public class VueAventurier extends Observe {
         joueurs.add(joueur3);
         joueurs.add(joueur4);
 
-//        if (joueurAct == 1) {
-//            joueur1.setForeground(Color.RED);
-//            joueur2.setForeground(Color.WHITE);
-//            joueur3.setForeground(Color.WHITE);
-//            joueur4.setForeground(Color.WHITE);
-//        } else if (joueurAct == 2) {
-//            joueur1.setForeground(Color.WHITE);
-//            joueur2.setForeground(Color.GREEN);
-//            joueur3.setForeground(Color.WHITE);
-//            joueur4.setForeground(Color.WHITE);
-//        } else if (joueurAct == 3) {
-//            joueur1.setForeground(Color.WHITE);
-//            joueur2.setForeground(Color.WHITE);
-//            joueur3.setForeground(Color.BLUE);
-//            joueur4.setForeground(Color.WHITE);
-//        } else if (joueurAct == 4) {
-//            joueur1.setForeground(Color.WHITE);
-//            joueur2.setForeground(Color.WHITE);
-//            joueur3.setForeground(Color.WHITE);
-//            joueur4.setForeground(Color.BLACK);
-//        } else {
-//            joueur1.setForeground(Color.WHITE);
-//            joueur2.setForeground(Color.WHITE);
-//            joueur3.setForeground(Color.WHITE);
-//            joueur4.setForeground(Color.WHITE);
-//        }
         fenetre.add(joueurBas, BorderLayout.SOUTH);
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
 
@@ -424,9 +399,22 @@ public class VueAventurier extends Observe {
                 public void actionPerformed(ActionEvent e) {
                     if (donner) {
 
-                        decompte.setText(nbDec + "");
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
+                        m.numCarte = num;
+                        m.donner=donner;
+                        notifierObservateur(m);
+
+                        for (JButton jb : cartes) {
+                            jb.setEnabled(false);
+                            jb.setBackground(none);
+
+                        }
+                    } else if(defausser) {
+                        
+                        Message m = new Message();
+                        m.type = TypesMessages.CHOIX_CARTE;
+                        m.defausser=defausser;
                         m.numCarte = num;
                         notifierObservateur(m);
 
@@ -435,7 +423,7 @@ public class VueAventurier extends Observe {
                             jb.setBackground(none);
 
                         }
-                    } else {
+                        defausser=false;
                     }
                 }
             });
@@ -457,7 +445,7 @@ public class VueAventurier extends Observe {
 
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
         grilleMilieu = new JPanel(new GridLayout(6, 6));
-        pionRed = new PionRouge();
+        pion1 = new Pion();
         pionBlue = new PionBleu();
         pionGreen = new PionVert();
         pionBlack = new PionNoir();
@@ -498,16 +486,16 @@ public class VueAventurier extends Observe {
 
                     }
                 });
-                if(c==1 && l==1) {
-                    tuile.add(pionRed);
+                if (c == 1 && l == 1) {
+                    tuile.add(pion1);
                 }
-                if(c==4 && l==1) {
+                if (c == 4 && l == 1) {
                     tuile.add(pionBlue);
                 }
-                if(c==1 && l==4) {
+                if (c == 1 && l == 4) {
                     tuile.add(pionGreen);
                 }
-                if(c==4 && l==4) {
+                if (c == 4 && l == 4) {
                     tuile.add(pionBlack);
                 }
                 grilleMilieu.add(tuile);
@@ -526,7 +514,7 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void afficherNiv() {
+    public void creeNiv() {
         for (int i = 10; i >= 1; i--) {
             if (i == 1) {
                 eau = new JButton();
@@ -621,49 +609,6 @@ public class VueAventurier extends Observe {
                 monteeEauDroit.add(eau);
 
             }
-        }
-    }
-
-    public class PionRouge extends JPanel {
-
-        public void paintComponent(Graphics g) {
-            pionRouge = (Graphics2D) g;
-            pionRouge.setColor(Color.RED);
-            pionRouge.fillOval(20, 20, 20, 20);
-
-        }
-    }
-
-    public class PionBleu extends JPanel {
-
-        public void paintComponent(Graphics g) {
-
-            pionBleu = (Graphics2D) g;
-            pionBleu.setColor(Color.MAGENTA);
-            pionBleu.fillOval(20, 20, 20, 20);
-
-        }
-    }
-
-    public class PionVert extends JPanel {
-
-        public void paintComponent(Graphics g) {
-
-            pionVert = (Graphics2D) g;
-            pionVert.setColor(Color.GREEN);
-            pionVert.fillOval(20, 20, 20, 20);
-
-        }
-    }
-
-    public class PionNoir extends JPanel {
-
-        public void paintComponent(Graphics g) {
-
-            pionNoir = (Graphics2D) g;
-            pionNoir.setColor(Color.BLACK);
-            pionNoir.fillOval(20, 20, 20, 20);
-
         }
     }
 
@@ -815,8 +760,10 @@ public class VueAventurier extends Observe {
                 for (String j : joueur) {
                     for (JButton J : joueurs) {
                         if (!J.getText().equals(joueurCourant) && J.getText().equals(j)) {
-                            if (J.getForeground()==Color.GREEN){ J.setForeground(Color.black);}
-                            
+                            if (J.getForeground() == Color.GREEN) {
+                                J.setForeground(Color.black);
+                            }
+
                             J.setBackground(Color.green);
                             J.setEnabled(true);
                         }
@@ -877,7 +824,7 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void mettreAJourActions(boolean GagnerTresor, ArrayList<String> joueur , boolean asseche) {
+    public void mettreAJourActions(boolean GagnerTresor, ArrayList<String> joueur, boolean asseche) {
         boolean no_carte = true;
         for (JButton jb : cartes) {
             if (!jb.getText().equals("Carte")) {
@@ -898,7 +845,7 @@ public class VueAventurier extends Observe {
             gagnerTresor.setEnabled(true);
             compSpe.setEnabled(true);
         }
-        if (!asseche){
+        if (!asseche) {
             assecher.setEnabled(false);
         }
         if (no_carte || joueur.isEmpty()) {
@@ -924,96 +871,62 @@ public class VueAventurier extends Observe {
 
     }
 
+    public void defausserCarte() {
+        seDeplacer.setEnabled(false);
+        assecher.setEnabled(false);
+        donnerCarte.setEnabled(false);
+        gagnerTresor.setEnabled(false);
+        compSpe.setEnabled(false);
+        terminerTour.setEnabled(false);
+        setCartesDispo();
+        defausser = true;
+    }
+
     public void mettreAJourNivEau() {
         Message m = new Message();
         m.type = TypesMessages.DIFFICULTE;
-        for (JButton jb : niveaux) {
-            if (jb.getActionCommand().equalsIgnoreCase("niv1") && niv1) {
-                jb.setBackground(Color.BLUE);
 
-                m.carteAPiocher = 2;
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv2") && niv2) {
-                jb.setBackground(Color.BLUE);
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv3") && niv3) {
-                jb.setBackground(Color.BLUE);
-                m.carteAPiocher = 3;
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv4") && niv4) {
-                jb.setBackground(Color.BLUE);
-            }
+        if (niveaux.get(9).getActionCommand().equalsIgnoreCase("niv1") && niv1) {
+            niveaux.get(9).setBackground(Color.BLUE);
 
-            if (jb.getActionCommand().equalsIgnoreCase("niv5") && niv5) {
-                jb.setBackground(Color.BLUE);
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv6") && niv6) {
-                jb.setBackground(Color.BLUE);
-                m.carteAPiocher = 4;
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv7") && niv7) {
-                jb.setBackground(Color.BLUE);
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv8") && niv8) {
-                jb.setBackground(Color.BLUE);
-                m.carteAPiocher = 5;
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv9") && niv9) {
-                jb.setBackground(Color.BLUE);
-            }
-            if (jb.getActionCommand().equalsIgnoreCase("niv10") && niv10) {
-                jb.setBackground(Color.BLUE);
-            }
+            m.carteAPiocher = 2;
         }
+        if (niveaux.get(8).getActionCommand().equalsIgnoreCase("niv2") && niv2) {
+            niveaux.get(8).setBackground(Color.BLUE);
+        }
+        if (niveaux.get(7).getActionCommand().equalsIgnoreCase("niv3") && niv3) {
+            niveaux.get(7).setBackground(Color.BLUE);
+            m.carteAPiocher = 3;
+        }
+        if (niveaux.get(6).getActionCommand().equalsIgnoreCase("niv4") && niv4) {
+            niveaux.get(6).setBackground(Color.BLUE);
+        }
+
+        if (niveaux.get(5).getActionCommand().equalsIgnoreCase("niv5") && niv5) {
+            niveaux.get(5).setBackground(Color.BLUE);
+        }
+        if (niveaux.get(4).getActionCommand().equalsIgnoreCase("niv6") && niv6) {
+            niveaux.get(4).setBackground(Color.BLUE);
+            m.carteAPiocher = 4;
+        }
+        if (niveaux.get(3).getActionCommand().equalsIgnoreCase("niv7") && niv7) {
+            niveaux.get(3).setBackground(Color.BLUE);
+        }
+        if (niveaux.get(2).getActionCommand().equalsIgnoreCase("niv8") && niv8) {
+            niveaux.get(2).setBackground(Color.BLUE);
+            m.carteAPiocher = 5;
+        }
+        if (niveaux.get(1).getActionCommand().equalsIgnoreCase("niv9") && niv9) {
+            niveaux.get(1).setBackground(Color.BLUE);
+        }
+        if (niveaux.get(0).getActionCommand().equalsIgnoreCase("niv10") && niv10) {
+            niveaux.get(0).setBackground(Color.BLUE);
+        }
+
         notifierObservateur(m);
 
     }
 
-//    public void setNbAct(int joueurAct) {
-//        Message m = new Message();
-//        m.type = TypesMessages.TERMINER_TOUR;
-//        if (nbDec == 0) {
-//        if (nbJoueur == 4) {
-//            if (joueurAct == 4) {
-//                joueurAct = 1;
-//                this.joueurAct = joueurAct;
-//                getJoueurAct(joueurAct);
-//            } else {
-//                joueurAct = joueurAct + 1;
-//                this.joueurAct = joueurAct;
-//                getJoueurAct(joueurAct);
-//            }
-//        } else if (nbJoueur == 3) {
-//            if (joueurAct == 3) {
-//                joueurAct = 1;
-//                this.joueurAct = joueurAct;
-//                getJoueurAct(joueurAct);
-//            } else {
-//                joueurAct = joueurAct + 1;
-//                this.joueurAct = joueurAct;
-//                getJoueurAct(joueurAct);
-//            }
-//        } else if (nbJoueur == 2) {
-//            if (joueurAct == 2) {
-//                joueurAct = 1;
-//                this.joueurAct = joueurAct;
-//                getJoueurAct(joueurAct);
-//            } else {
-//                joueurAct = joueurAct + 1;
-//                this.joueurAct = joueurAct;
-//                getJoueurAct(joueurAct);
-//            }
-//        }
-//            nbDec = 3;
-//            this.nbDec = nbDec;
-//            decompte.setText(nbDec + "");
-//        } else {
-//            decompte.setText(nbDec + "");
-//        }
-//
-//        m.joueurAct = joueurAct;
-//        notifierObservateur(m);
-//    }
     public void getJoueurAct(int joueurAct) {
         switch (joueurAct) {
 
@@ -1066,28 +979,50 @@ public class VueAventurier extends Observe {
                 jb.setForeground(Color.GRAY);
             }
         }
+
     }
 
-//    public void SetColorAv(String joueurCourant) {
-//        if(joueurCourant.equals("Explorateur")) {//green
-//            
-//        } else if(joueurCourant.equals("Pilot")) {//blue
-//            
-//        } else if(joueurCourant.equals("Plongeur")) {//black
-//            
-//        } else if(joueurCourant.equals("Ingénieur")) {//red
-//            
-//        } else if(joueurCourant.equals("Navigateur")) {//yellow
-//            
-//        }
-//    }
-}
-//                nbDec = nbDec - 1;
-//                setNbAct(nbDec, joueurAct);
-//
-//                seDeplacer.setEnabled(false);
-//                assecher.setEnabled(false);
-//                donnerCarte.setEnabled(false);
-//                gagnerTresor.setEnabled(false);
-//                compSpe.setEnabled(false);
-//                terminerTour.setEnabled(false);
+    public class Pion extends JPanel {
+
+        public void paintComponent(Graphics g) {
+            pionRouge = (Graphics2D) g;
+            pionRouge.setColor(Color.RED);
+            pionRouge.fillOval(20, 20, 20, 20);
+
+        }
+
+    }
+
+    public class PionBleu extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionBleu = (Graphics2D) g;
+            pionBleu.setColor(Color.MAGENTA);
+            pionBleu.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionVert extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionVert = (Graphics2D) g;
+            pionVert.setColor(Color.GREEN);
+            pionVert.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionNoir extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionNoir = (Graphics2D) g;
+            pionNoir.setColor(Color.BLACK);
+            pionNoir.fillOval(20, 20, 20, 20);
+
+        }
+    }
+}    

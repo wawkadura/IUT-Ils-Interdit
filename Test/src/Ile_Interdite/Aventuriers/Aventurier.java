@@ -13,6 +13,7 @@ import Ile_Interdite.Coordonnees;
 import Ile_Interdite.Grille;
 import Ile_Interdite.Tuile;
 import Ile_Interdite.cartes.CarteTresor;
+import Ile_Interdite.cartes.MonteeDesEaux;
 import Ile_Interdite.cartes.PileTresor;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -260,6 +261,24 @@ public abstract class Aventurier {
     }
 
     public void setUtilise(boolean utilise) { // xxxxxx pas la peine de le mettre sur le diagramme de classe
+    }
+
+    public boolean mainContainMDE() {
+        for (CarteTresor ct : cartesEnMain) {
+            if (ct.getFonction().equals("Montée des Eaux")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeMDP(PileTresor pt) {
+        for (CarteTresor ct : cartesEnMain) {
+            if (ct.getFonction().equals("Montée des Eaux")) {
+                pt.Defausser(ct, this);
+            }
+        }
+        pt.melangerLesPiles();
     }
 
 }

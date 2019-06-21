@@ -44,6 +44,18 @@ public class VueInitialisation extends Observe {
         J2 = "Explorateur";
         J3 = "Ingenieur";
         J4 = "Pilot";
+        
+        JPanel globalPanel = new JPanel();
+        JPanel main = new JPanel(new GridLayout(1, 1));
+        fenetre.add(main);
+//        JLabel j = new JLabel("");
+//        j.setSize(100, 50);
+//        JLabel j2 = new JLabel("");
+//        j.setSize(100, 50);        
+        //main.add(j);
+        main.add(globalPanel);
+        //main.add(j2);
+        
         //////////////////////////////////////////////////////TITRE////////////////////////////////////////////////////////////
         JPanel panelTitre = new JPanel();
 
@@ -51,7 +63,7 @@ public class VueInitialisation extends Observe {
         titre.setFont(policeTitre);
         panelTitre.add(titre);
 
-        fenetre.add(panelTitre, BorderLayout.NORTH);
+        globalPanel.add(panelTitre, BorderLayout.NORTH);
         //////////////////////////////////////////////////////TITRE//////////////////////////////////////////////////////////// 
 
         //////////////////////////////////////////////////////VALEURS//////////////////////////////////////////////////////////  
@@ -130,7 +142,7 @@ public class VueInitialisation extends Observe {
         panelValeurs.add(joueur4);
         panelValeurs.add(nom4);
 
-        fenetre.add(panelValeurs);
+        globalPanel.add(panelValeurs);
         //////////////////////////////////////////////////////VALEURS//////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////LANCER////////////////////////////////////////////////////////////
@@ -267,14 +279,16 @@ public class VueInitialisation extends Observe {
         panelLancer.add(choixDifficulte);
         panelLancer.add(commencer);
 
-        fenetre.add(panelLancer, BorderLayout.SOUTH);
+        globalPanel.add(panelLancer, BorderLayout.SOUTH);
         //////////////////////////////////////////////////////LANCER////////////////////////////////////////////////////////////
     }
 
     public void afficher() {
         //permet d'afficher la fenetre d'initialisation
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(800, 500);
+        fenetre.setSize(700, 600);
+        fenetre.setResizable(false);
+
         fenetre.setVisible(true);
     }
 

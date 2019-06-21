@@ -20,10 +20,13 @@ public class PileInondation {
     private ArrayList<CarteInondation> cartesInondDefaussees = new ArrayList<>();
 
     public PileInondation(ArrayList<CarteInondation> cartesInondation) {
+        melanger(cartesInondation);
         this.cartesInondation = cartesInondation;
+        
     }
 
     public void piocher(Grille g) {
+        
         if (!cartesInondation.isEmpty()) {
             CarteInondation ci = cartesInondation.get(cartesInondation.size() - 1);
             System.out.println(ci.getCoordonnees().afficherCoord());
