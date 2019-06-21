@@ -41,6 +41,7 @@ public class VueAventurier extends Observe {
     private int joueurAct = 1;
     private int nbDec = 3;
     private Color none;
+
     private JLabel decompte;
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
@@ -50,6 +51,8 @@ public class VueAventurier extends Observe {
     ArrayList<JButton> niveaux = new ArrayList<>();
     ArrayList<JButton> joueurs = new ArrayList<>();
     private boolean niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
+    private boolean donner = false;
+
     private boolean deplacer;
     private boolean Assecher;
     private Graphics pion;
@@ -93,19 +96,24 @@ public class VueAventurier extends Observe {
         joueur1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (donner) {
 
-                nbDec = nbDec - 1;
-                mettreAJourIndic();
-                decompte.setText(nbDec + "");
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_JOUEUR;
-                m.DonnerAJoueur = joueur1.getText();
-                notifierObservateur(m);
-                for (JButton jb : joueurs) {
+                    nbDec = nbDec - 1;
+                    mettreAJourIndic();
+                    decompte.setText(nbDec + "");
+                    Message m = new Message();
+                    m.type = TypesMessages.CHOIX_JOUEUR;
+                    m.DonnerAJoueur = joueur1.getText();
+                    notifierObservateur(m);
+                    for (JButton jb : joueurs) {
                         jb.setEnabled(false);
                         jb.setBackground(none);
+                        setCouleurJoueur();
 
                     }
+                    donner = false;
+                }
+
             }
         });
 
@@ -116,18 +124,22 @@ public class VueAventurier extends Observe {
         joueur2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nbDec = nbDec - 1;
-                mettreAJourIndic();
-                decompte.setText(nbDec + "");
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_JOUEUR;
-                m.DonnerAJoueur = joueur2.getText();
-                notifierObservateur(m);
-                for (JButton jb : joueurs) {
+                if (donner) {
+                    nbDec = nbDec - 1;
+                    mettreAJourIndic();
+                    decompte.setText(nbDec + "");
+                    Message m = new Message();
+                    m.type = TypesMessages.CHOIX_JOUEUR;
+                    m.DonnerAJoueur = joueur2.getText();
+                    notifierObservateur(m);
+                    for (JButton jb : joueurs) {
                         jb.setEnabled(false);
                         jb.setBackground(none);
+                        setCouleurJoueur();
 
                     }
+                    donner = false;
+                }
             }
         });
 
@@ -138,18 +150,22 @@ public class VueAventurier extends Observe {
         joueur3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nbDec = nbDec - 1;
-                mettreAJourIndic();
-                decompte.setText(nbDec + "");
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_JOUEUR;
-                m.DonnerAJoueur = joueur3.getText();
-                notifierObservateur(m);
-                for (JButton jb : joueurs) {
+                if (donner) {
+                    nbDec = nbDec - 1;
+                    mettreAJourIndic();
+                    decompte.setText(nbDec + "");
+                    Message m = new Message();
+                    m.type = TypesMessages.CHOIX_JOUEUR;
+                    m.DonnerAJoueur = joueur3.getText();
+                    notifierObservateur(m);
+                    for (JButton jb : joueurs) {
                         jb.setEnabled(false);
                         jb.setBackground(none);
+                        setCouleurJoueur();
 
                     }
+                    donner = false;
+                }
             }
         });
 
@@ -160,51 +176,55 @@ public class VueAventurier extends Observe {
         joueur4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 nbDec = nbDec - 1;
-                mettreAJourIndic();
-                decompte.setText(nbDec + "");
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_JOUEUR;
-                m.DonnerAJoueur=joueur4.getText();
-                notifierObservateur(m);
-                for (JButton jb : joueurs) {
+                if (donner) {
+                    nbDec = nbDec - 1;
+                    mettreAJourIndic();
+                    decompte.setText(nbDec + "");
+                    Message m = new Message();
+                    m.type = TypesMessages.CHOIX_JOUEUR;
+                    m.DonnerAJoueur = joueur4.getText();
+                    notifierObservateur(m);
+                    for (JButton jb : joueurs) {
                         jb.setEnabled(false);
                         jb.setBackground(none);
+                        setCouleurJoueur();
 
                     }
+                    donner = false;
+                }
             }
         });
         joueurs.add(joueur1);
         joueurs.add(joueur2);
         joueurs.add(joueur3);
         joueurs.add(joueur4);
-        if (joueurAct == 1) {
-            joueur1.setForeground(Color.RED);
-            joueur2.setForeground(Color.WHITE);
-            joueur3.setForeground(Color.WHITE);
-            joueur4.setForeground(Color.WHITE);
-        } else if (joueurAct == 2) {
-            joueur1.setForeground(Color.WHITE);
-            joueur2.setForeground(Color.GREEN);
-            joueur3.setForeground(Color.WHITE);
-            joueur4.setForeground(Color.WHITE);
-        } else if (joueurAct == 3) {
-            joueur1.setForeground(Color.WHITE);
-            joueur2.setForeground(Color.WHITE);
-            joueur3.setForeground(Color.BLUE);
-            joueur4.setForeground(Color.WHITE);
-        } else if (joueurAct == 4) {
-            joueur1.setForeground(Color.WHITE);
-            joueur2.setForeground(Color.WHITE);
-            joueur3.setForeground(Color.WHITE);
-            joueur4.setForeground(Color.BLACK);
-        } else {
-            joueur1.setForeground(Color.WHITE);
-            joueur2.setForeground(Color.WHITE);
-            joueur3.setForeground(Color.WHITE);
-            joueur4.setForeground(Color.WHITE);
-        }
 
+//        if (joueurAct == 1) {
+//            joueur1.setForeground(Color.RED);
+//            joueur2.setForeground(Color.WHITE);
+//            joueur3.setForeground(Color.WHITE);
+//            joueur4.setForeground(Color.WHITE);
+//        } else if (joueurAct == 2) {
+//            joueur1.setForeground(Color.WHITE);
+//            joueur2.setForeground(Color.GREEN);
+//            joueur3.setForeground(Color.WHITE);
+//            joueur4.setForeground(Color.WHITE);
+//        } else if (joueurAct == 3) {
+//            joueur1.setForeground(Color.WHITE);
+//            joueur2.setForeground(Color.WHITE);
+//            joueur3.setForeground(Color.BLUE);
+//            joueur4.setForeground(Color.WHITE);
+//        } else if (joueurAct == 4) {
+//            joueur1.setForeground(Color.WHITE);
+//            joueur2.setForeground(Color.WHITE);
+//            joueur3.setForeground(Color.WHITE);
+//            joueur4.setForeground(Color.BLACK);
+//        } else {
+//            joueur1.setForeground(Color.WHITE);
+//            joueur2.setForeground(Color.WHITE);
+//            joueur3.setForeground(Color.WHITE);
+//            joueur4.setForeground(Color.WHITE);
+//        }
         fenetre.add(joueurBas, BorderLayout.SOUTH);
         ////////////////////////////////////////////////////////////JOUEURS/////////////////////////////////////////////////////////////////////////
 
@@ -265,12 +285,12 @@ public class VueAventurier extends Observe {
         donnerCarte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
+                donner = true;
                 Message m = new Message();
                 m.type = TypesMessages.DONNER;
                 m.joueurCourant = joueurCourant;
                 notifierObservateur(m);
-                setCartesDispo();
+
                 seDeplacer.setEnabled(false);
                 assecher.setEnabled(false);
                 donnerCarte.setEnabled(false);
@@ -336,7 +356,7 @@ public class VueAventurier extends Observe {
                 decompte.setText(nbDec + "");
                 m.joueurAct = joueurAct;
                 mettreAJourIndic();
-                mettreAJourActions();
+
                 notifierObservateur(m);
             }
         });
@@ -391,23 +411,26 @@ public class VueAventurier extends Observe {
 
         for (int i = 0; i < 7; i++) {
             JButton carteJoueur = new JButton("Carte");
-
+            int num = i;
             carteJoueur.setEnabled(false);
             carteHaut.add(carteJoueur);
             carteJoueur.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    nbDec = nbDec - 1;
-                    mettreAJourIndic();
-                    decompte.setText(nbDec + "");
-                    Message m = new Message();
-                    m.type = TypesMessages.CHOIX_CARTE;
-                    notifierObservateur(m);
-                    setJoueurDispo();
-                    for (JButton jb : cartes) {
-                        jb.setEnabled(false);
-                        jb.setBackground(none);
+                    if (donner) {
 
+                        decompte.setText(nbDec + "");
+                        Message m = new Message();
+                        m.type = TypesMessages.CHOIX_CARTE;
+                        m.numCarte = num;
+                        notifierObservateur(m);
+
+                        for (JButton jb : cartes) {
+                            jb.setEnabled(false);
+                            jb.setBackground(none);
+
+                        }
+                    } else {
                     }
                 }
             });
@@ -455,7 +478,7 @@ public class VueAventurier extends Observe {
                     public void actionPerformed(ActionEvent e) {
                         nbDec = nbDec - 1;
                         decompte.setText(nbDec + "");
-                        mettreAJourActions();
+
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.c = C;
@@ -618,6 +641,13 @@ public class VueAventurier extends Observe {
         joueur4.setText(nom4);
     }
 
+    public void setRoleJoueur(String role1, String role2, String role3, String role4) {
+        joueur1.setActionCommand(role1);
+        joueur2.setActionCommand(role2);
+        joueur3.setActionCommand(role3);
+        joueur4.setActionCommand(role4);
+    }
+
     public void setNivEau(int difficulte) {
         if (difficulte == 0 || difficulte == 1) {
             niv1 = true;
@@ -714,12 +744,26 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void setJoueurDispo() {
-
-        for (JButton J : joueurs) {
-            if (!J.getText().equals(joueurCourant)) {
-                J.setBackground(Color.green);
-                J.setEnabled(true);
+    public void setJoueurDispo(ArrayList<String> joueur) {
+        if (!joueur.isEmpty()) {
+            if (joueurs.get(joueurAct - 1).getActionCommand().equals("Messager")) {
+                for (JButton J : joueurs) {
+                    if (!J.getText().equals(joueurCourant)) {
+                        J.setBackground(Color.green);
+                        J.setEnabled(true);
+                    }
+                }
+            } else {
+                for (String j : joueur) {
+                    for (JButton J : joueurs) {
+                        if (!J.getText().equals(joueurCourant) && J.getText().equals(j)) {
+                            if (J.getForeground()==Color.GREEN){ J.setForeground(Color.black);}
+                            
+                            J.setBackground(Color.green);
+                            J.setEnabled(true);
+                        }
+                    }
+                }
             }
         }
 
@@ -771,7 +815,17 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void mettreAJourActions() {
+    public void verfiCarte() {
+
+    }
+
+    public void mettreAJourActions(boolean GagnerTresor, ArrayList<String> joueur , boolean asseche) {
+        boolean no_carte = true;
+        for (JButton jb : cartes) {
+            if (!jb.getText().equals("Carte")) {
+                no_carte = false;
+            }
+        }
         terminerTour.setEnabled(true);
         if (nbDec == 0) {
             seDeplacer.setEnabled(false);
@@ -785,6 +839,29 @@ public class VueAventurier extends Observe {
             donnerCarte.setEnabled(true);
             gagnerTresor.setEnabled(true);
             compSpe.setEnabled(true);
+        }
+        if (!asseche){
+            assecher.setEnabled(false);
+        }
+        if (no_carte || joueur.isEmpty()) {
+
+            donnerCarte.setEnabled(false);
+
+        }
+        if (joueurs.get(joueurAct - 1).getActionCommand().equals("Explorateur")
+                || joueurs.get(joueurAct - 1).getActionCommand().equals("Plongeur")
+                || joueurs.get(joueurAct - 1).getActionCommand().equals("Navigateur")) {
+            compSpe.setEnabled(false);
+        }
+        if (!GagnerTresor) {
+            gagnerTresor.setEnabled(false);
+        }
+
+    }
+
+    public void initaliserAventurier(ArrayList<String> type) {
+        for (int i = 0; i < joueurs.size(); i++) {
+            joueurs.get(i).setActionCommand(type.get(i));
         }
 
     }
@@ -881,39 +958,58 @@ public class VueAventurier extends Observe {
 //    }
     public void getJoueurAct(int joueurAct) {
         switch (joueurAct) {
+
             case 1:
-                joueur1.setForeground(Color.RED);
-                joueur2.setForeground(Color.WHITE);
-                joueur3.setForeground(Color.WHITE);
-                joueur4.setForeground(Color.WHITE);
+                joueur1.setEnabled(true);
+                joueur2.setEnabled(false);
+                joueur3.setEnabled(false);
+                joueur4.setEnabled(false);
+
                 break;
             case 2:
-                joueur1.setForeground(Color.WHITE);
-                joueur2.setForeground(Color.GREEN);
-                joueur3.setForeground(Color.WHITE);
-                joueur4.setForeground(Color.WHITE);
+                joueur1.setEnabled(false);
+                joueur2.setEnabled(true);
+                joueur3.setEnabled(false);
+                joueur4.setEnabled(false);
                 break;
             case 3:
-                joueur1.setForeground(Color.WHITE);
-                joueur2.setForeground(Color.WHITE);
-                joueur3.setForeground(Color.BLUE);
-                joueur4.setForeground(Color.WHITE);
+                joueur1.setEnabled(false);
+                joueur2.setEnabled(false);
+                joueur3.setEnabled(true);
+                joueur4.setEnabled(false);
                 break;
             case 4:
-                joueur1.setForeground(Color.WHITE);
-                joueur2.setForeground(Color.WHITE);
-                joueur3.setForeground(Color.WHITE);
-                joueur4.setForeground(Color.BLACK);
-                break;
-            default:
-                joueur1.setForeground(Color.WHITE);
-                joueur2.setForeground(Color.WHITE);
-                joueur3.setForeground(Color.WHITE);
-                joueur4.setForeground(Color.WHITE);
+                joueur1.setEnabled(false);
+                joueur2.setEnabled(false);
+                joueur3.setEnabled(false);
+                joueur4.setEnabled(true);
                 break;
         }
     }
-    
+
+    public void setCouleurJoueur() {
+        for (JButton jb : joueurs) {
+            if (jb.getActionCommand().equals("Explorateur")) {
+                jb.setForeground(Color.GREEN);
+            }
+            if (jb.getActionCommand().equals("Plongeur")) {
+                jb.setForeground(Color.BLACK);
+            }
+            if (jb.getActionCommand().equals("Pilote")) {
+                jb.setForeground(Color.BLUE);
+            }
+            if (jb.getActionCommand().equals("Navigateur")) {
+                jb.setForeground(Color.yellow);
+            }
+            if (jb.getActionCommand().equals("Ingénieur")) {
+                jb.setForeground(Color.RED);
+            }
+            if (jb.getActionCommand().equals("Messager")) {
+                jb.setForeground(Color.GRAY);
+            }
+        }
+    }
+
 //    public void SetColorAv(String joueurCourant) {
 //        if(joueurCourant.equals("Explorateur")) {//green
 //            
@@ -927,7 +1023,6 @@ public class VueAventurier extends Observe {
 //            
 //        }
 //    }
-    
 }
 //                nbDec = nbDec - 1;
 //                setNbAct(nbDec, joueurAct);

@@ -27,10 +27,19 @@ public class Tuile {
         return C;
     }
 
+    public int getNumEtat() {
+        return this.etat;
+    }
+
     public String getEtat() {
-        if  (this.etat == 2){return "Manquante";}
-        if  (this.etat == 1){return "Innondée";}
-        else{return "Assechée";}
+        if (this.etat == 2) {
+            return "Manquante";
+        }
+        if (this.etat == 1) {
+            return "Innondée";
+        } else {
+            return "Assechée";
+        }
     }
 
     public void setEtat(int etat) {
@@ -42,25 +51,25 @@ public class Tuile {
     }
 
     public void suppAventurier(Aventurier A) {
-        if (aventuriers.contains(A)){
-        aventuriers.remove(A);}
+        if (aventuriers.contains(A)) {
+            aventuriers.remove(A);
+        }
     }
 
     public ArrayList<Aventurier> getAventuriers() {
         return aventuriers;
     }
-    
+
     public String getType() {
         return null;
     }
-    
+
     public void augmenterEtat() {
-        if(this.etat == 0) {
+        if (this.etat == 0) {
             this.setEtat(1);
-        }
-        else if(this.etat == 1) {
+        } else if (this.etat == 1) {
             this.setEtat(2);
         }
     }
-    
+
 }

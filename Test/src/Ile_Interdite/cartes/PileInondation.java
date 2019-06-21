@@ -26,6 +26,8 @@ public class PileInondation {
     public void piocher(Grille g) {
         if (!cartesInondation.isEmpty()) {
             CarteInondation ci = cartesInondation.get(cartesInondation.size() - 1);
+            System.out.println(ci.getCoordonnees().afficherCoord());
+            g.getTuiles().get(ci.getCoordonnees()).setEtat(g.getTuiles().get(ci.getCoordonnees()).getNumEtat()+1);
             cartesInondation.remove(cartesInondation.size() - 1);
             cartesInondDefaussees.add(ci);
             ci.inonder(g);

@@ -20,6 +20,7 @@ public class Message {
     public boolean deplacer;
     public boolean assecher;
     public String DonnerAJoueur;
+    public int numCarte;
     public int nbJoueurs;
     public String joueurCourant;
     public int joueurAct;
