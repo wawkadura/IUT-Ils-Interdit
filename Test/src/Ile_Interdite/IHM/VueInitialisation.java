@@ -93,17 +93,17 @@ public class VueInitialisation extends Observe {
 
         joueur1 = new JLabel("Joueur 1 : ");
         joueur1.setFont(policeLabel);
-        joueur1.setForeground(Color.RED);
+        joueur1.setForeground(Color.BLACK);
         joueur2 = new JLabel("Joueur 2 : ");
         joueur2.setFont(policeLabel);
-        joueur2.setForeground(Color.BLUE);
+        joueur2.setForeground(Color.BLACK);
         joueur3 = new JLabel("Joueur 3 : ");
         joueur3.setFont(policeLabel);
-        joueur3.setForeground(Color.GREEN);
+        joueur3.setForeground(Color.BLACK);
         joueur3.setEnabled(false);
         joueur4 = new JLabel("Joueur 4 : ");
         joueur4.setFont(policeLabel);
-        joueur4.setForeground(Color.MAGENTA);
+        joueur4.setForeground(Color.BLACK);
         joueur4.setEnabled(false);
 
         nom1 = new JTextField();

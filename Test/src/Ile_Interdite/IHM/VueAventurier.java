@@ -5,6 +5,7 @@
  */
 package Ile_Interdite.IHM;
 
+import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Coordonnees;
 import Ile_Interdite.Tuile;
 import Ile_Interdite.cartes.CarteTresor;
@@ -55,7 +56,11 @@ public class VueAventurier extends Observe {
 
     private boolean deplacer;
     private boolean Assecher;
-    private Graphics pion;
+    private Graphics pionRouge, pionBleu, pionVert, pionNoir;
+    private PionRouge pionRed;
+    private PionBleu pionBlue;
+    private PionVert pionGreen;
+    private PionNoir pionBlack;
 
     public VueAventurier() {
 //        nomsTuiles.add("Le Pont des Abimes");
@@ -451,7 +456,11 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////NIVEAU EAU/////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
-        JPanel grilleMilieu = new JPanel(new GridLayout(6, 6));
+        grilleMilieu = new JPanel(new GridLayout(6, 6));
+        pionRed = new PionRouge();
+        pionBlue = new PionBleu();
+        pionGreen = new PionVert();
+        pionBlack = new PionNoir();
 
         int l = 0;// ligne
         int c = 0;//colonne
@@ -471,6 +480,7 @@ public class VueAventurier extends Observe {
                 tuile = new JButton("(" + c + "," + l + ")");
                 tuile.setEnabled(false);
                 tuile.setBackground(Color.GRAY);
+                //tuile.add(pionRed);
                 Coordonnees C = new Coordonnees(c, l);
                 boutons.add(tuile);
                 tuile.addActionListener(new ActionListener() {
@@ -488,6 +498,18 @@ public class VueAventurier extends Observe {
 
                     }
                 });
+                if(c==1 && l==1) {
+                    tuile.add(pionRed);
+                }
+                if(c==4 && l==1) {
+                    tuile.add(pionBlue);
+                }
+                if(c==1 && l==4) {
+                    tuile.add(pionGreen);
+                }
+                if(c==4 && l==4) {
+                    tuile.add(pionBlack);
+                }
                 grilleMilieu.add(tuile);
             }
 
@@ -602,11 +624,47 @@ public class VueAventurier extends Observe {
         }
     }
 
-    public void paintComponent(Graphics g) {
-        pion = (Graphics2D) g;
-        pion.setColor(Color.RED);
-        pion.fillOval(10, 10, 10, 10);
+    public class PionRouge extends JPanel {
 
+        public void paintComponent(Graphics g) {
+            pionRouge = (Graphics2D) g;
+            pionRouge.setColor(Color.RED);
+            pionRouge.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionBleu extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionBleu = (Graphics2D) g;
+            pionBleu.setColor(Color.MAGENTA);
+            pionBleu.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionVert extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionVert = (Graphics2D) g;
+            pionVert.setColor(Color.GREEN);
+            pionVert.fillOval(20, 20, 20, 20);
+
+        }
+    }
+
+    public class PionNoir extends JPanel {
+
+        public void paintComponent(Graphics g) {
+
+            pionNoir = (Graphics2D) g;
+            pionNoir.setColor(Color.BLACK);
+            pionNoir.fillOval(20, 20, 20, 20);
+
+        }
     }
 
     public void afficher() {
