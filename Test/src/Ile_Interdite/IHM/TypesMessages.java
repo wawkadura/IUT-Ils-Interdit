@@ -16,5 +16,5 @@ public enum TypesMessages {
     DEPLACER,
     ANNULER,
     ASSECHER,
-    TERMINER_TOUR
+    TERMINER_TOUR,
 }
