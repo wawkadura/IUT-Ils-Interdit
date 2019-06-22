@@ -206,13 +206,31 @@ public class Controleur implements Observateur {
                 }
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 ihm.mettreAJourTuiles(grille.getTuiles().values());
-                
-                
+
                 //////////////SENARIO DE DEFAITE PAR NIV EAU/////////////////////////////
 //              ihm.setNivEau(10);
 //              grille.setNivEau(10);
 //              ihm.mettreAJourNivEau();
                 finDePartiePerdu();
+                break;
+
+            case RECOMMENCER:
+                ihm.setRecommencer();
+                ihmInit = new VueInitialisation();
+                ihmInit.addObservateur(this);
+                ihmInit.afficher();
+                ihmNotif = new VueNotifications();
+                ihmNotif.addObservateur(this);
+                ihm = new VueAventurier();
+                ihm.addObservateur(this);
+                ihm.afficher();
+                //tcommencerPartie();
+                Initialisation();
+
+                break;
+                
+            case QUITTER:
+                ihm.setQuitter();
                 break;
         }
 
@@ -234,7 +252,7 @@ public class Controleur implements Observateur {
 
     public void finDePartiePerdu() {
         for (Tuile t : grille.getTuiles().values()) {
-            if (t.getType()!=null && t.getType().equals("Heliport") && t.getEtat().equalsIgnoreCase("Manquante")) {
+            if (t.getType() != null && t.getType().equals("Heliport") && t.getEtat().equalsIgnoreCase("Manquante")) {
                 ihm.lock();
                 ihmNotif.vuePerdu();
             }
@@ -410,7 +428,7 @@ public class Controleur implements Observateur {
             for (Tuile t : grille.getTuilesVoisinesHelicoptere().values()) {
                 c.add(t.getCoordonnee());
             }
-            
+
             A.setActions(A.getActions() - 1);
         }
         ihm.setTuilesDispo(c);
@@ -609,7 +627,6 @@ public class Controleur implements Observateur {
 //        J4.addCarte(new CarteDeTresor("Cristal"));
 //        J4.addCarte(new CarteDeTresor("Cristal"));
 //=========================SENARIO GAGNER TRESOR================================================================================
-
         //********************************Initialisation Piles Cartes*********************************//
         ArrayList<CarteTresor> cartes = new ArrayList<>();
 
