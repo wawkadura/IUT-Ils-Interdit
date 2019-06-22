@@ -272,12 +272,17 @@ public abstract class Aventurier {
         return false;
     }
 
-    public void removeMDP(PileTresor pt) {
+    public void removeMDE(PileTresor pt ) {
+        ArrayList<CarteTresor> mde = new ArrayList<>();
         for (CarteTresor ct : cartesEnMain) {
             if (ct.getFonction().equals("Montée des Eaux")) {
-                pt.Defausser(ct, this);
+                mde.add(ct);
             }
         }
+        for (CarteTresor ct2 : mde) {
+            pt.Defausser(ct2, this);
+        }
+
         pt.melangerLesPiles();
     }
 

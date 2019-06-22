@@ -6,6 +6,7 @@
 package Ile_Interdite.IHM;
 
 import Ile_Interdite.Aventuriers.Aventurier;
+import Ile_Interdite.Aventuriers.TresorsRecupere;
 import Ile_Interdite.Coordonnees;
 import Ile_Interdite.Tuile;
 import Ile_Interdite.cartes.CarteTresor;
@@ -42,7 +43,6 @@ public class VueAventurier extends Observe {
     private int joueurAct = 1;
     private int nbDec = 3;
     private Color none;
-
     private JLabel decompte;
     private JPanel monteeEauDroit;
     private JLabel monteeEau;
@@ -51,43 +51,16 @@ public class VueAventurier extends Observe {
     ArrayList<JButton> cartes = new ArrayList<>();
     ArrayList<JButton> niveaux = new ArrayList<>();
     ArrayList<JButton> joueurs = new ArrayList<>();
-    private boolean niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
+    private JButton calice, pierre, statue, cristal;
+    private boolean competenceUtiliser,niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean donner = false;
-    private boolean defausser=false;
+    private boolean defausser = false;
     private boolean deplacer;
     private boolean Assecher;
-    private Graphics pionRouge, pionBleu, pionVert, pionNoir;
-    private Pion pion1;
-    private PionBleu pionBlue;
-    private PionVert pionGreen;
-    private PionNoir pionBlack;
+    private Graphics pion;
+    private Pion pion1, pion2, pion3, pion4;
 
     public VueAventurier() {
-//        nomsTuiles.add("Le Pont des Abimes");
-//        nomsTuiles.add("La Porte de Bronze");
-//        nomsTuiles.add("La Caverne des Ombres");
-//        nomsTuiles.add("La Porte de Fer");
-//        nomsTuiles.add("La Porte d’Or");
-//        nomsTuiles.add("Les Falaises de l’Oubli");
-//        nomsTuiles.add("Le Palais de Corail");
-//        nomsTuiles.add("La Porte d’Argent");
-//        nomsTuiles.add("Les Dunes de l’Illusion");
-//        nomsTuiles.add("Heliport");
-//        nomsTuiles.add("La Porte de Cuivre");
-//        nomsTuiles.add("Le Jardin des Hurlements");
-//        
-//        nomsTuiles.add("La Foret Pourpre");
-//        nomsTuiles.add("Le Lagon Perdu");
-//        nomsTuiles.add("Le Marais Brumeux");
-//        nomsTuiles.add("Observatoire");
-//        nomsTuiles.add("Le Rocher Fantome");
-//        nomsTuiles.add("La Caverne du Brasier");
-//        nomsTuiles.add("Le Temple du Soleil");
-//        nomsTuiles.add("Le Temple de La Lune");
-//        nomsTuiles.add("Le Palais des Marees");
-//        nomsTuiles.add("Le Val du Crepuscule");
-//        nomsTuiles.add("La Tour du Guet");
-//        nomsTuiles.add("Le Jardin des Murmures");
 
         fenetre = new JFrame("Ile Interdite");
 
@@ -116,6 +89,11 @@ public class VueAventurier extends Observe {
                         setCouleurJoueur();
 
                     }
+                    for (JButton jb : cartes) {
+                        if (!jb.getText().equalsIgnoreCase("Carte")) {
+                            jb.setEnabled(true);
+                        }
+                    }
                     donner = false;
                 }
 
@@ -135,7 +113,7 @@ public class VueAventurier extends Observe {
                     decompte.setText(nbDec + "");
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_JOUEUR;
-                    
+
                     m.DonnerAJoueur = joueur2.getText();
                     notifierObservateur(m);
                     for (JButton jb : joueurs) {
@@ -143,6 +121,11 @@ public class VueAventurier extends Observe {
                         jb.setBackground(none);
                         setCouleurJoueur();
 
+                    }
+                    for (JButton jb : cartes) {
+                        if (!jb.getText().equalsIgnoreCase("Carte")) {
+                            jb.setEnabled(true);
+                        }
                     }
                     donner = false;
                 }
@@ -170,6 +153,11 @@ public class VueAventurier extends Observe {
                         setCouleurJoueur();
 
                     }
+                    for (JButton jb : cartes) {
+                        if (!jb.getText().equalsIgnoreCase("Carte")) {
+                            jb.setEnabled(true);
+                        }
+                    }
                     donner = false;
                 }
             }
@@ -195,6 +183,11 @@ public class VueAventurier extends Observe {
                         jb.setBackground(none);
                         setCouleurJoueur();
 
+                    }
+                    for (JButton jb : cartes) {
+                        if (!jb.getText().equalsIgnoreCase("Carte")) {
+                            jb.setEnabled(true);
+                        }
                     }
                     donner = false;
                 }
@@ -292,12 +285,23 @@ public class VueAventurier extends Observe {
                 gagnerTresor.setEnabled(false);
                 compSpe.setEnabled(false);
                 terminerTour.setEnabled(false);
+                Message m = new Message();
+                m.type = TypesMessages.GAGNER;
+                m.joueurCourant = joueurCourant;
+                notifierObservateur(m);
             }
         });
         compSpe = new JButton("Compétence spéciale");
         compSpe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+//                if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Ingénieur")){}
+                Message m = new Message();
+                m.type = TypesMessages.COMPETENCE;
+                m.joueurCourant=joueurCourant;
+                notifierObservateur(m);
+                competenceUtiliser=true;
+
             }
         });
         terminerTour = new JButton("Terminer Tour");
@@ -355,13 +359,13 @@ public class VueAventurier extends Observe {
         ////////////////////////////////////////////////////////////CARTES///////////////////////////////////////////////////////////////////////////
         JPanel carteHaut = new JPanel(new GridLayout(2, 7));
 
-        JButton statue = new JButton("La Statue du Zéphyr");
+        statue = new JButton("La Statue du Zéphyr");
         statue.setBackground(Color.LIGHT_GRAY);
         carteHaut.add(statue);
         statue.setBorder(null);
         statue.setEnabled(false);
 
-        JButton cristal = new JButton("Le Cristal Ardent");
+        cristal = new JButton("Le Cristal Ardent");
         none = cristal.getBackground();
         cristal.setBackground(Color.LIGHT_GRAY);
         carteHaut.add(cristal);
@@ -377,13 +381,13 @@ public class VueAventurier extends Observe {
         JLabel espace2 = new JLabel("");
         carteHaut.add(espace2);
 
-        JButton pierre = new JButton("La Pierre Sacrée");
+        pierre = new JButton("La Pierre Sacrée");
         pierre.setBackground(Color.LIGHT_GRAY);
         carteHaut.add(pierre);
         pierre.setBorder(null);
         pierre.setEnabled(false);
 
-        JButton calice = new JButton("Le Calice de Londe");
+        calice = new JButton("Le Calice de Londe");
         calice.setBackground(Color.LIGHT_GRAY);
         carteHaut.add(calice);
         calice.setBorder(null);
@@ -402,7 +406,7 @@ public class VueAventurier extends Observe {
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.numCarte = num;
-                        m.donner=donner;
+                        m.donner = donner;
                         notifierObservateur(m);
 
                         for (JButton jb : cartes) {
@@ -410,20 +414,20 @@ public class VueAventurier extends Observe {
                             jb.setBackground(none);
 
                         }
-                    } else if(defausser) {
-                        
+                    } else if (defausser) {
+
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
-                        m.defausser=defausser;
+                        m.defausser = defausser;
                         m.numCarte = num;
                         notifierObservateur(m);
+                        int i = 0;
 
                         for (JButton jb : cartes) {
-                            jb.setEnabled(false);
                             jb.setBackground(none);
-
+                            defausser = false;
                         }
-                        defausser=false;
+
                     }
                 }
             });
@@ -445,10 +449,6 @@ public class VueAventurier extends Observe {
 
         ////////////////////////////////////////////////////////////GRILLE/////////////////////////////////////////////////////////////////////////
         grilleMilieu = new JPanel(new GridLayout(6, 6));
-        pion1 = new Pion();
-        pionBlue = new PionBleu();
-        pionGreen = new PionVert();
-        pionBlack = new PionNoir();
 
         int l = 0;// ligne
         int c = 0;//colonne
@@ -486,18 +486,7 @@ public class VueAventurier extends Observe {
 
                     }
                 });
-                if (c == 1 && l == 1) {
-                    tuile.add(pion1);
-                }
-                if (c == 4 && l == 1) {
-                    tuile.add(pionBlue);
-                }
-                if (c == 1 && l == 4) {
-                    tuile.add(pionGreen);
-                }
-                if (c == 4 && l == 4) {
-                    tuile.add(pionBlack);
-                }
+
                 grilleMilieu.add(tuile);
             }
 
@@ -774,6 +763,25 @@ public class VueAventurier extends Observe {
 
     }
 
+    public void mettreAJourTresor(TresorsRecupere tr) {
+        if (tr.gotCalice()) {
+            calice.setEnabled(true);
+            calice.setBackground(Color.CYAN);
+        }
+        if (tr.gotStatue()) {
+            statue.setEnabled(true);
+            statue.setBackground(Color.YELLOW);
+        }
+        if (tr.gotPierre()) {
+            pierre.setEnabled(true);
+            pierre.setBackground(Color.MAGENTA);
+        }
+        if (tr.gotCristal()) {
+            cristal.setEnabled(true);
+            cristal.setBackground(Color.RED);
+        }
+    }
+
     public void mettreAJourTuiles(Collection<Tuile> tuiles) {
         for (Tuile t : tuiles) {
             for (JButton jb : boutons) {
@@ -783,7 +791,7 @@ public class VueAventurier extends Observe {
                     if (t.getEtat().equalsIgnoreCase("Manquante")) {
                         jb.setBackground(Color.white);
                     } else if (t.getEtat().equalsIgnoreCase("Innondée")) {
-                        jb.setBackground(Color.blue);
+                        jb.setBackground(Color.CYAN);
                     } else {
                         if (t.getType() != null) {
                             if (t.getType().equalsIgnoreCase("Héliport")) {
@@ -801,7 +809,46 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void mettreAJourPions() {
+    public void mettreAJourPions(Coordonnees oldOne, Coordonnees newOne) {
+        for (JButton jb : boutons) {
+            Color color = jb.getBackground();
+            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 1) {
+
+                jb.remove(pion1);
+                jb.setBackground(Color.green);
+
+            }
+            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 2) {
+                jb.remove(pion2);
+                jb.setBackground(Color.green);
+            }
+            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 3) {
+                jb.remove(pion3);
+                jb.setBackground(Color.green);
+            }
+            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 4) {
+                jb.remove(pion4);
+                jb.setBackground(Color.green);
+            }
+
+            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 1) {
+                jb.add(pion1);
+
+            }
+            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 2) {
+                jb.add(pion2);
+                jb.setBackground(color);
+            }
+            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 3) {
+                jb.add(pion3);
+                jb.setBackground(color);
+            }
+            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 4) {
+                jb.add(pion4);
+                jb.setBackground(color);
+            }
+
+        }
 
     }
 
@@ -815,6 +862,11 @@ public class VueAventurier extends Observe {
         while (i < cartes.size()) {
             this.cartes.get(i).setText(cartes.get(i).getFonction());
             this.cartes.get(i).setEnabled(true);
+            i++;
+        }
+        while (i < this.cartes.size()) {
+            this.cartes.get(i).setText("Carte");
+            this.cartes.get(i).setEnabled(false);
             i++;
         }
 
@@ -847,6 +899,9 @@ public class VueAventurier extends Observe {
         }
         if (!asseche) {
             assecher.setEnabled(false);
+            if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Ingénieur")) {
+                compSpe.setEnabled(false);
+            }
         }
         if (no_carte || joueur.isEmpty()) {
 
@@ -855,7 +910,8 @@ public class VueAventurier extends Observe {
         }
         if (joueurs.get(joueurAct - 1).getActionCommand().equals("Explorateur")
                 || joueurs.get(joueurAct - 1).getActionCommand().equals("Plongeur")
-                || joueurs.get(joueurAct - 1).getActionCommand().equals("Navigateur")) {
+                || joueurs.get(joueurAct - 1).getActionCommand().equals("Navigateur")
+                || joueurs.get(joueurAct - 1).getActionCommand().equals("Pilote") && competenceUtiliser) {
             compSpe.setEnabled(false);
         }
         if (!GagnerTresor) {
@@ -958,10 +1014,40 @@ public class VueAventurier extends Observe {
         }
     }
 
+    public void setPions(Coordonnees j1, Coordonnees j2, Coordonnees j3, Coordonnees j4) {
+
+        pion1 = new Pion(2, 7, Color.red);
+        pion2 = new Pion(95, 7, Color.GREEN);
+
+        if (nbJoueur >= 3) {
+            pion3 = new Pion(2, 70, Color.BLUE);
+        }
+        if (nbJoueur == 4) {
+            pion4 = new Pion(95, 70, Color.orange);
+        }
+        for (JButton jb : boutons) {
+
+            if (jb.getText().equals(j1.afficherCoord())) {
+                jb.add(pion1);
+            }
+            if (jb.getText().equals(j2.afficherCoord())) {
+                jb.add(pion2);
+            }
+            if (jb.getText().equals(j3.afficherCoord()) && nbJoueur >= 3) {
+                jb.add(pion3);
+            }
+            if (jb.getText().equals(j4.afficherCoord()) && nbJoueur == 4) {
+                jb.add(pion4);
+            }
+
+        }
+    }
+
     public void setCouleurJoueur() {
         for (JButton jb : joueurs) {
             if (jb.getActionCommand().equals("Explorateur")) {
                 jb.setForeground(Color.GREEN);
+
             }
             if (jb.getActionCommand().equals("Plongeur")) {
                 jb.setForeground(Color.BLACK);
@@ -982,47 +1068,64 @@ public class VueAventurier extends Observe {
 
     }
 
+    public void setNomsTuiles() {
+        nomsTuiles.add("Le Pont des Abimes");
+        nomsTuiles.add("La Porte de Bronze");
+        nomsTuiles.add("La Caverne des Ombres");
+        nomsTuiles.add("La Porte de Fer");        ///
+        nomsTuiles.add("La Porte d’Or");            //
+        nomsTuiles.add("Les Falaises de l’Oubli");
+        nomsTuiles.add("Le Palais de Corail");
+        nomsTuiles.add("La Porte d’Argent");       //   
+        nomsTuiles.add("Les Dunes de l’Illusion");
+        nomsTuiles.add("Heliport");                 //
+        nomsTuiles.add("La Porte de Cuivre");           //
+        nomsTuiles.add("Le Jardin des Hurlements");
+
+        nomsTuiles.add("La Foret Pourpre");
+        nomsTuiles.add("Le Lagon Perdu");
+        nomsTuiles.add("Le Marais Brumeux");
+        nomsTuiles.add("Observatoire");
+        nomsTuiles.add("Le Rocher Fantome");
+        nomsTuiles.add("La Caverne du Brasier");
+        nomsTuiles.add("Le Temple du Soleil");
+        nomsTuiles.add("Le Temple de La Lune");
+        nomsTuiles.add("Le Palais des Marees");
+        nomsTuiles.add("Le Val du Crepuscule");
+        nomsTuiles.add("La Tour du Guet");
+        nomsTuiles.add("Le Jardin des Murmures");
+    }
+
+    public void lock() {
+        terminerTour.setEnabled(false);
+        seDeplacer.setEnabled(false);
+        assecher.setEnabled(false);
+        donnerCarte.setEnabled(false);
+        gagnerTresor.setEnabled(false);
+        compSpe.setEnabled(false);
+    }
+
     public class Pion extends JPanel {
 
+        private int x = 5;
+        private int y = 50;
+        private Color color;
+
+        public Pion(int x, int y, Color color) {
+            this.x = x;
+            this.y = y;
+            this.color = color;
+        }
+
+        @Override
         public void paintComponent(Graphics g) {
-            pionRouge = (Graphics2D) g;
-            pionRouge.setColor(Color.RED);
-            pionRouge.fillOval(20, 20, 20, 20);
+            pion = (Graphics2D) g;
+            pion.setColor(Color.black);
+            pion.drawOval(x, y, 20, 20);
+            pion.setColor(color);
+            pion.fillOval(x, y, 20, 20);
 
         }
 
     }
-
-    public class PionBleu extends JPanel {
-
-        public void paintComponent(Graphics g) {
-
-            pionBleu = (Graphics2D) g;
-            pionBleu.setColor(Color.MAGENTA);
-            pionBleu.fillOval(20, 20, 20, 20);
-
-        }
-    }
-
-    public class PionVert extends JPanel {
-
-        public void paintComponent(Graphics g) {
-
-            pionVert = (Graphics2D) g;
-            pionVert.setColor(Color.GREEN);
-            pionVert.fillOval(20, 20, 20, 20);
-
-        }
-    }
-
-    public class PionNoir extends JPanel {
-
-        public void paintComponent(Graphics g) {
-
-            pionNoir = (Graphics2D) g;
-            pionNoir.setColor(Color.BLACK);
-            pionNoir.fillOval(20, 20, 20, 20);
-
-        }
-    }
-}    
+}

@@ -46,5 +46,22 @@ public class TresorsRecupere {
     public void setCalice(boolean Le_Calice_de_Londe) {
         this.Le_Calice_de_Londe = Le_Calice_de_Londe;
     }
+
+    public boolean gotStatue() {
+        return La_Statue_du_Zéphyr;
+    }
+
+    public boolean gotPierre() {
+        return La_Pierre_Sacrée;
+    }
+
+    public boolean gotCristal() {
+        return Le_Cristal_Ardent;
+    }
+
+    public boolean gotCalice() {
+        return Le_Calice_de_Londe;
+    }
+    
     
 }

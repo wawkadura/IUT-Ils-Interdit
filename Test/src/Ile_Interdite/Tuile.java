@@ -32,7 +32,7 @@ public class Tuile {
     }
 
     public String getEtat() {
-        if (this.etat == 2) {
+        if (this.etat >= 2) {
             return "Manquante";
         }
         if (this.etat == 1) {

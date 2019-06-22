@@ -38,6 +38,11 @@ public class VueNotifications extends Observe {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                Message m = new Message();
+                m.type=TypesMessages.DEFAUSSER;
+                notifierObservateur(m);
+                fenetre1.setVisible(false);
+                
                 
             }
         });

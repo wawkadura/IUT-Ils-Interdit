@@ -13,16 +13,13 @@ import Ile_Interdite.IHM.Message;
 import Ile_Interdite.IHM.Observateur;
 import Ile_Interdite.IHM.VueAventurier;
 import Ile_Interdite.Aventuriers.Navigateur;
-import Ile_Interdite.Aventuriers.Plongeur;
 import Ile_Interdite.Aventuriers.Pilote;
 import Ile_Interdite.Aventuriers.Ingenieur;
 import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
-import Ile_Interdite.Aventuriers.Messager;
 import Ile_Interdite.IHM.VueInitialisation;
 import Ile_Interdite.IHM.VueNotifications;
 import Ile_Interdite.cartes.CarteTresor;
-import Ile_Interdite.cartes.Carte;
 import Ile_Interdite.cartes.CarteInondation;
 import Ile_Interdite.cartes.Helicoptere;
 import Ile_Interdite.cartes.MonteeDesEaux;
@@ -31,11 +28,9 @@ import Ile_Interdite.cartes.SacDeSable;
 import Ile_Interdite.cartes.PileInondation;
 import Ile_Interdite.cartes.PileTresor;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Random;
 
 public class Controleur implements Observateur {
-    
+
     private PileInondation pileInondation;
     private PileTresor pileTresor;
     private VueAventurier ihm;
@@ -46,37 +41,38 @@ public class Controleur implements Observateur {
     private int no_joueurs;
     private int carteAPiocher;
     ArrayList<String> joueurs = new ArrayList<>();
-    private Aventurier J1, J2, J3, J4, J5, J6;
+    private Aventurier J1, J2, J3, J4;
     private String nom1, nom2, nom3, nom4;
     private int difficulte, numCarte;
     private Grille grille;
-    
+
     ArrayList<Aventurier> aventuriers = new ArrayList<>();
     private Niveau niveau;
-    
+
     @Override
     public void traiterMessage(Message message) {
-        
+
         switch (message.type) {
             case DIFFICULTE:
-                
+
                 carteAPiocher = message.carteAPiocher;
                 break;
-            
+
             case DEMARRER_PARTIE:
-                   
+
                 no_joueurs = message.nbJoueurs;
                 nom1 = message.nom1;
                 nom2 = message.nom2;
                 nom3 = message.nom3;
                 nom4 = message.nom4;
                 difficulte = message.difficulte;
-                
+
                 ihm.setNbJoueurs(no_joueurs);
                 ihm.setNomJoueurs(nom1, nom2, nom3, nom4);
                 ihm.setRoleJoueur(aventuriers.get(0).getFonction(), aventuriers.get(1).getFonction(), aventuriers.get(2).getFonction(), aventuriers.get(3).getFonction());
                 ihm.setNivEau(difficulte);
-                
+                ihm.setPions(J1.getTuile().getCoordonnee(), J2.getTuile().getCoordonnee(), J3.getTuile().getCoordonnee(), J4.getTuile().getCoordonnee());
+
                 ihm.creeNiv();
                 ihm.mettreAJourNivEau();
                 ihm.getJoueurAct(1);
@@ -87,7 +83,7 @@ public class Controleur implements Observateur {
                 J3.setNom(nom3);
                 J4.setNom(nom4);
                 ihm.setJoueurCourant(nom1);
-                joueurCourant = getJoueurCourant(nom1);
+                joueurCourant = getJoueur(nom1);
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
                 ihm.setCouleurJoueur();
@@ -96,36 +92,46 @@ public class Controleur implements Observateur {
                 joueurs.add(nom3);
                 joueurs.add(nom4);
                 break;
-            
+
             case DEPLACER:
-                joueurCourant = getJoueurCourant(message.joueurCourant);
-                
+                joueurCourant = getJoueur(message.joueurCourant);
+
                 tuilesVoisinesDeplacement(joueurCourant);
-                
+
                 break;
             case ASSECHER:
-                joueurCourant = getJoueurCourant(message.joueurCourant);
-                
+                joueurCourant = getJoueur(message.joueurCourant);
+
                 tuilesVoisinesAssechement(joueurCourant);
-                
+
                 break;
             case DONNER:
                 ihm.setCartesDispo();
-                
+
+                break;
+            case GAGNER:
+                getJoueur(message.joueurCourant).gagnerTresor(pileTresor);
+                ihm.mettreAJourTuiles(grille.getTuiles().values());
+                ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
+                ihm.mettreAJourTresor(joueurCourant.getTresors());
+                ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
+
                 break;
             case CHOIX_TUILE:
                 if (message.deplacer) {
+                    Coordonnees old = joueurCourant.getTuile().getCoordonnee();
                     System.out.println(message.c.afficherCoord());
                     deplacement(message.c);
+                    ihm.mettreAJourPions(old, joueurCourant.getTuile().getCoordonnee());
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                     ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
                 }
                 if (message.assecher) {
-                    
+
                     assechement(message.c);
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                     ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
-                    
+
                 }
                 break;
             case CHOIX_CARTE:
@@ -138,39 +144,47 @@ public class Controleur implements Observateur {
                     numCarte = message.numCarte;
                     pileTresor.Defausser(getCarte(numCarte), joueurCourant);
                     ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
+                    ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
+                    if (joueurCourant.mainIsFull()) {
+                        ihmNotif.mainPlein();
+                        ihm.lock();
+                        ihm.defausserCarte();
+                    }
                 }
-                
+
                 break;
             case CHOIX_JOUEUR:
                 joueurCourant.donner(getCarte(numCarte), getJoueur(message.DonnerAJoueur));
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
                 break;
-            case DEFAUSSER : 
+            case DEFAUSSER:
+                ihm.defausserCarte();
+                
+
                 break;
             case TERMINER_TOUR:
-                
+
                 pileTresor.piocher(joueurCourant);
                 pileTresor.piocher(joueurCourant);
                 if (joueurCourant.mainContainMDE()) {
-                    //joueurCourant.removeMDP(pileTresor);
+                    joueurCourant.removeMDE(pileTresor);
                     ihm.setNivEau(grille.getNivEau() + 1);
                     ihm.mettreAJourNivEau();
                     grille.setNivEau(grille.getNivEau() + 1);
+                    pileInondation.melangerLesPiles();
                 }
                 for (int i = 1; i <= carteAPiocher; i++) {
                     pileInondation.piocher(grille);
                 }
-                
+
                 joueurAct = message.joueurAct;
                 ihm.setJoueurCourant(joueurs.get(joueurAct - 1));
-                joueurCourant = getJoueurCourant(joueurs.get(joueurAct - 1));
+                joueurCourant = getJoueur(joueurs.get(joueurAct - 1));
                 ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
-                if(joueurCourant.mainIsFull()){ ihmNotif.mainPlein();}
-                while (joueurCourant.mainIsFull()) {
-                    ihm.defausserCarte();
-                    ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
-                    
+                if (joueurCourant.mainIsFull()) {
+                    ihmNotif.mainPlein();
+                    ihm.lock();
                 }
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 ihm.mettreAJourTuiles(grille.getTuiles().values());
@@ -178,15 +192,15 @@ public class Controleur implements Observateur {
 //              ihm.mettreAJourNivEau();
                 break;
         }
-        
+
     }
-    
+
     public boolean peuxAssecher() {
         ArrayList<Coordonnees> c = new ArrayList<>();
         if (joueurCourant.getTuile().getEtat().equalsIgnoreCase("Innondée")) {
             c.add(joueurCourant.getTuile().getCoordonnee());
         }
-        
+
         if (joueurCourant.getFonction().equalsIgnoreCase("Explorateur")) {
             for (Tuile t : grille.getTuilesVoisinesAvecDiagonal(joueurCourant.getTuile()).values()) {
                 if (t.getEtat().equalsIgnoreCase("Innondée")) {
@@ -208,11 +222,11 @@ public class Controleur implements Observateur {
                 }
             }
             joueurCourant.setActions(joueurCourant.getActions() - 1);
-            
+
         }
         return !c.isEmpty();
     }
-    
+
     public ArrayList<String> getJoueurTuile() {
         ArrayList<String> joueur = new ArrayList<>();
         for (Aventurier j : joueurCourant.getTuile().getAventuriers()) {
@@ -222,18 +236,18 @@ public class Controleur implements Observateur {
         }
         return joueur;
     }
-    
+
     public void InitialiserAventurier() {
-        
+
     }
-    
+
     public CarteTresor getCarte(int num) {
         return joueurCourant.getCartesEnMain().get(num);
-        
+
     }
-    
+
     public Aventurier getJoueur(String joueur) {
-        
+
         for (Aventurier a : aventuriers) {
             if (a.getNom().equalsIgnoreCase(joueur)) {
                 return a;
@@ -241,7 +255,7 @@ public class Controleur implements Observateur {
         }
         return null;
     }
-    
+
     public boolean peuxGagnerTresor() {
         int nbCristal = 0;
         int nbPierre = 0;
@@ -277,26 +291,17 @@ public class Controleur implements Observateur {
             return false;
         }
     }
-    
-    public Aventurier getJoueurCourant(String nomJoueur) {
-        for (Aventurier a : aventuriers) {
-            if (a.getNom().equalsIgnoreCase(nomJoueur)) {
-                return a;
-            }
-        }
-        return null;
-    }
-    
+
     private void deplacement(Coordonnees c) {
         for (Tuile t : grille.getTuiles().values()) {
             if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())) {
-                
+
                 joueurCourant.deplacer(t);
             }
         }
-        
+
     }
-    
+
     private void assechement(Coordonnees c) {
         for (Tuile t : grille.getTuiles().values()) {
             if (t.getCoordonnee().afficherCoord().equalsIgnoreCase(c.afficherCoord())) {
@@ -305,14 +310,14 @@ public class Controleur implements Observateur {
             }
         }
     }
-    
+
     public void tuilesVoisinesDeplacement(Aventurier A) {
         ArrayList<Coordonnees> c = new ArrayList<>();
-        
+
         if (A.getFonction().equalsIgnoreCase("Explorateur")) {
             for (Tuile t : grille.getTuilesVoisinesAvecDiagonal(A.getTuile()).values()) {
                 c.add(t.getCoordonnee());
-                
+
             }
             A.setActions(A.getActions() - 1);
         } else if (A.getFonction().equalsIgnoreCase("Pilot") && !A.CompetanceUtiliser()) {
@@ -332,19 +337,19 @@ public class Controleur implements Observateur {
                 c.add(t.getCoordonnee());
             }
             A.setActions(A.getActions() - 1);
-            
+
         }
         // for (Coordonnees co : c ){System.out.println(co.afficherCoord());}
         ihm.setTuilesDispo(c);
-        
+
     }
-    
+
     public void tuilesVoisinesAssechement(Aventurier A) {
         ArrayList<Coordonnees> c = new ArrayList<>();
         if (A.getTuile().getEtat().equalsIgnoreCase("Innondée")) {
             c.add(A.getTuile().getCoordonnee());
         }
-        
+
         if (A.getFonction().equalsIgnoreCase("Explorateur")) {
             for (Tuile t : grille.getTuilesVoisinesAvecDiagonal(A.getTuile()).values()) {
                 if (t.getEtat().equalsIgnoreCase("Innondée")) {
@@ -366,15 +371,15 @@ public class Controleur implements Observateur {
                 }
             }
             A.setActions(A.getActions() - 1);
-            
+
         }
-        
+
         ihm.setTuilesDispo(c);
-        
+
     }
-    
+
     public Controleur() {
-       
+
         ihmInit = new VueInitialisation();
         ihmInit.addObservateur(this);
         ihmInit.afficher();
@@ -386,13 +391,13 @@ public class Controleur implements Observateur {
         //tcommencerPartie();
         Initialisation();
     }
-    
+
     public void afficherCarte(ArrayList<CarteTresor> c) {
         for (CarteTresor CT : c) {
             System.out.println("\t - " + CT.getFonction());
         }
     }
-    
+
     public void Initialisation() {
         //********************************Initialisation Gille*********************************//
         int l = 0;// ligne
@@ -401,7 +406,7 @@ public class Controleur implements Observateur {
         grille = new Grille(niv);
         for (int i = 0; i < 36; i++) {// Creation de la Grille
             Coordonnees C = new Coordonnees(c, l);
-            
+
             if (c == 2 && l == 0) {
                 LieuDeTresor tuile = new LieuDeTresor(C, "Calice");
                 grille.addTuile(tuile);
@@ -434,7 +439,7 @@ public class Controleur implements Observateur {
                 Heliport tuile = new Heliport(C);
                 grille.addTuile(tuile);
             } else {
-                
+
                 Tuile tuile = new Tuile(C);
                 tuile.setEtat(0);
                 grille.addTuile(tuile);
@@ -445,7 +450,7 @@ public class Controleur implements Observateur {
                 l++;
             }
         }
-        
+
         ArrayList<Coordonnees> coordonneesPossibles = new ArrayList<Coordonnees>();
         c = 0;
         l = 0;
@@ -464,45 +469,40 @@ public class Controleur implements Observateur {
                 l++;
             }
         }
-        Coordonnees C = new Coordonnees(1, 1);
-        Coordonnees C2 = new Coordonnees(4, 1);
-        Coordonnees C3 = new Coordonnees(1, 4);
-        Coordonnees C4 = new Coordonnees(4, 4);
-        Coordonnees C5 = new Coordonnees(2, 2);
-        Coordonnees C6 = new Coordonnees(3, 3);
-        
+        Coordonnees C = new Coordonnees(1, 3);
+        Coordonnees C2 = new Coordonnees(2,4 );
+        Coordonnees C3 = new Coordonnees(4, 3);
+        Coordonnees C4 = new Coordonnees(3, 0);
+
         J1 = new Ingenieur(nom1, grille.getTuiles().get(C));
         J2 = new Explorateur(nom2, grille.getTuiles().get(C2));
         J3 = new Pilote(nom3, grille.getTuiles().get(C3));
-        J4 = new Plongeur(nom4, grille.getTuiles().get(C4));
-        J5 = new Navigateur("Rémi", grille.getTuiles().get(C5));
-        J6 = new Messager("ilias", grille.getTuiles().get(C6));
-        
-        aventuriers.add(J2);
-        aventuriers.add(J5);
-        aventuriers.add(J3);
+        J4 = new Navigateur(nom4, grille.getTuiles().get(C4));
+
         aventuriers.add(J1);
+        aventuriers.add(J2);
+        aventuriers.add(J3);
         aventuriers.add(J4);
 
-//        J1.addCarte(new CarteDeTresor("Calice"));
-//        J1.addCarte(new CarteDeTresor("Calice"));
-//        J1.addCarte(new CarteDeTresor("Calice"));
-//        J1.addCarte(new CarteDeTresor("Calice"));
-//
-//        J2.addCarte(new CarteDeTresor("Statue"));
-//        J2.addCarte(new CarteDeTresor("Statue"));
-//        J2.addCarte(new CarteDeTresor("Statue"));
-//        J2.addCarte(new CarteDeTresor("Statue"));
-//
-//        J3.addCarte(new CarteDeTresor("Pierre"));
-//        J3.addCarte(new CarteDeTresor("Pierre"));
-//        J3.addCarte(new CarteDeTresor("Pierre"));
-//        J3.addCarte(new CarteDeTresor("Pierre"));
-//
-//        J4.addCarte(new CarteDeTresor("Cristal"));
-//        J4.addCarte(new CarteDeTresor("Cristal"));
-//        J4.addCarte(new CarteDeTresor("Cristal"));
-//        J4.addCarte(new CarteDeTresor("Cristal"));
+        J1.addCarte(new CarteDeTresor("Calice"));
+        J1.addCarte(new CarteDeTresor("Calice"));
+        J1.addCarte(new CarteDeTresor("Calice"));
+        J1.addCarte(new CarteDeTresor("Calice"));
+
+        J2.addCarte(new CarteDeTresor("Statue"));
+        J2.addCarte(new CarteDeTresor("Statue"));
+        J2.addCarte(new CarteDeTresor("Statue"));
+        J2.addCarte(new CarteDeTresor("Statue"));
+
+        J3.addCarte(new CarteDeTresor("Pierre"));
+        J3.addCarte(new CarteDeTresor("Pierre"));
+        J3.addCarte(new CarteDeTresor("Pierre"));
+        J3.addCarte(new CarteDeTresor("Pierre"));
+
+        J4.addCarte(new CarteDeTresor("Cristal"));
+        J4.addCarte(new CarteDeTresor("Cristal"));
+        J4.addCarte(new CarteDeTresor("Cristal"));
+        J4.addCarte(new CarteDeTresor("Cristal"));
 /////////////////////////////////////////////PLACEMENT DES TUILES ALEATOIREMENT///////////////////////////////////////////////////////////////
         // Placement aléatoire des trésors
 //        Random random = new Random();
@@ -573,7 +573,7 @@ public class Controleur implements Observateur {
 /////////////////////////////////////////////PLACEMENT DES TUILES ALEATOIREMENT///////////////////////////////////////////////////////////////
         //********************************Initialisation Piles Cartes*********************************//
         ArrayList<CarteTresor> cartes = new ArrayList<>();
-        
+
         for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
             CarteDeTresor ct = new CarteDeTresor("Statue");
             cartes.add(ct);
@@ -594,7 +594,7 @@ public class Controleur implements Observateur {
         SacDeSable SacS2 = new SacDeSable();
         cartes.add(SacS);
         cartes.add(SacS2);
-        
+
         MonteeDesEaux mde = new MonteeDesEaux();     // 3 cartes Montée Des Eaux
         MonteeDesEaux mde2 = new MonteeDesEaux();
         //MontéeDesEaux mde3 = new MontéeDesEaux();
@@ -608,16 +608,16 @@ public class Controleur implements Observateur {
         cartes.add(H);
         cartes.add(H2);
         cartes.add(H3);
-        
+
         pileTresor = new PileTresor(cartes);// inistialiser la pile de tresor
 
         ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
         for (Coordonnees c1 : coordonneesPossibles) {
             CarteInondation carteI = new CarteInondation(c1);
             cartesInondation.add(carteI);
-            
+
         }
         pileInondation = new PileInondation(cartesInondation); // inistialisation de la pile Inondation
     }
-    
+
 }

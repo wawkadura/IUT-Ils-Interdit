@@ -16,6 +16,7 @@ public enum TypesMessages {
     CHOIX_CARTE,
     CHOIX_JOUEUR,
     DIFFICULTE,
+    COMPETENCE,
     DONNER,
     GAGNER,
     DEPLACER,
