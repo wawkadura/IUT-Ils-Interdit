@@ -486,7 +486,11 @@ public class VueAventurier extends Observe {
 
         int l = 0;// ligne
         int c = 0;//colonne
-        for (int i = 0; i < 36; i++) {                      /// utiise
+        int v = 0;
+
+        setNomsTuiles();
+
+        for (int i = 0; i < 36; i++) {
 
             if ((c == 0 && l == 0) || (c == 1 && l == 0) || (c == 0 && l == 1)
                     || (c == 4 && l == 0) || (c == 5 && l == 0) || (c == 5 && l == 1)
@@ -494,15 +498,29 @@ public class VueAventurier extends Observe {
                     || (c == 5 && l == 4) || (c == 4 && l == 5) || (c == 5 && l == 5)) {
                 JButton tuile = new JButton();
                 tuile.setEnabled(false);
-                tuile.setBackground(Color.WHITE);
                 tuile.setBorder(null);
+                if (c == 0 && l == 0) {
+                    tuile.setText("Le Calice de l'onde");
+                    tuile.setBackground(Color.BLUE);
+                } else if (c == 5 && l == 0) {
+                    tuile.setText("Le Cristal ardent");
+                    tuile.setBackground(Color.RED);
+                } else if (c == 0 && l == 5) {
+                    tuile.setText("La Statue du Zéphyr");
+                    tuile.setBackground(Color.ORANGE);
+                } else if (c == 5 && l == 5) {
+                    tuile.setText("La Pierre Sacrée");
+                    tuile.setBackground(Color.MAGENTA);
+                }
                 grilleMilieu.add(tuile);
             } else {
-
-                tuile = new JButton("(" + c + "," + l + ")");                /// utilise la liste des noms (nomsTuiles) pour t'aider a mettre les tuiles normal
-                tuile.setEnabled(false);                                     /// si tu y arrive pas ta qu'a les mettre manuellement
-                tuile.setBackground(Color.GRAY); 
-                Coordonnees C = new Coordonnees(c, l);                              
+                tuile = new JButton();
+                tuile.setActionCommand("(" + c + "," + l + ")");
+                tuile.setText(nomsTuiles.get(v));
+                v += 1;
+                tuile.setEnabled(false);
+                tuile.setBackground(Color.GRAY);
+                Coordonnees C = new Coordonnees(c, l);
                 boutons.add(tuile);                                           ///la des tuiles que tu dois mettre manuellement : - les tuiles de joueurs (regarde le modele de grille sur chamilo pout t'aider)
                 tuile.addActionListener(new ActionListener() {                  ///                                              - les tuiles de tresors 
                     @Override                                                     ///                                            - heliport 
@@ -520,14 +538,8 @@ public class VueAventurier extends Observe {
 //par setActionCommande() 
 // FAIT ATTENTION : j'ai utiliser les getText() et setText() dans tous le programme 
 //faudra les remplacer par setActionCommande et getActionCommande SAUF POUR LES CARTES /!\
-
 //si tu trouve des erreur dans le programme note les moi stp je vais les revoir demain matin 
 //////////////////////////////////////////////////////////IMPORTANT//////////////////////////////////////////////////////////////////////////////
-
-
-                            
-                            
-                            
                             notifierObservateur(m);
 
                             compIng = false;
@@ -668,7 +680,7 @@ public class VueAventurier extends Observe {
     public void afficher() {
         //permet d'afficher la fenetre du jeu
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(1500, 800);
+        fenetre.setSize(1800, 900);
         fenetre.setVisible(false);
     }
 
@@ -781,7 +793,7 @@ public class VueAventurier extends Observe {
     public void setTuilesDispo(ArrayList<Coordonnees> c) {
         for (Coordonnees coord : c) {
             for (JButton J : boutons) {
-                if (J.getText().equalsIgnoreCase(coord.afficherCoord())) {
+                if (J.getActionCommand().equalsIgnoreCase(coord.afficherCoord())) {
                     J.setBackground(Color.green);
                     J.setEnabled(true);
                 }
@@ -804,7 +816,7 @@ public class VueAventurier extends Observe {
         if (!joueur.isEmpty()) {
             if (joueurs.get(joueurAct - 1).getActionCommand().equals("Messager")) {
                 for (JButton J : joueurs) {
-                    if (!J.getText().equals(joueurCourant)) {
+                    if (!J.getActionCommand().equals(joueurCourant)) {
                         J.setBackground(Color.green);
                         J.setEnabled(true);
                     }
@@ -812,7 +824,7 @@ public class VueAventurier extends Observe {
             } else {
                 for (String j : joueur) {
                     for (JButton J : joueurs) {
-                        if (!J.getText().equals(joueurCourant) && J.getText().equals(j)) {
+                        if (!J.getActionCommand().equals(joueurCourant) && J.getActionCommand().equals(j)) {
                             if (J.getForeground() == Color.GREEN) {
                                 J.setForeground(Color.black);
                             }
@@ -850,7 +862,7 @@ public class VueAventurier extends Observe {
         for (Tuile t : tuiles) {
             for (JButton jb : boutons) {
                 jb.setEnabled(false);
-                if (jb.getText().equalsIgnoreCase(t.getCoordonnee().afficherCoord())) {
+                if (jb.getActionCommand().equalsIgnoreCase(t.getCoordonnee().afficherCoord())) {
 
                     if (t.getEtat().equalsIgnoreCase("Manquante")) {
                         jb.setBackground(Color.white);
@@ -876,38 +888,38 @@ public class VueAventurier extends Observe {
     public void mettreAJourPions(Coordonnees oldOne, Coordonnees newOne) {
         for (JButton jb : boutons) {
             Color color = jb.getBackground();
-            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 1) {
+            if (jb.getActionCommand().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 1) {
 
                 jb.remove(pion1);
                 jb.setBackground(Color.green);
 
             }
-            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 2) {
+            if (jb.getActionCommand().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 2) {
                 jb.remove(pion2);
                 jb.setBackground(Color.green);
             }
-            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 3) {
+            if (jb.getActionCommand().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 3) {
                 jb.remove(pion3);
                 jb.setBackground(Color.green);
             }
-            if (jb.getText().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 4) {
+            if (jb.getActionCommand().equalsIgnoreCase(oldOne.afficherCoord()) && joueurAct == 4) {
                 jb.remove(pion4);
                 jb.setBackground(Color.green);
             }
 
-            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 1) {
+            if (jb.getActionCommand().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 1) {
                 jb.add(pion1);
 
             }
-            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 2) {
+            if (jb.getActionCommand().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 2) {
                 jb.add(pion2);
                 jb.setBackground(color);
             }
-            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 3) {
+            if (jb.getActionCommand().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 3) {
                 jb.add(pion3);
                 jb.setBackground(color);
             }
-            if (jb.getText().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 4) {
+            if (jb.getActionCommand().equalsIgnoreCase(newOne.afficherCoord()) && joueurAct == 4) {
                 jb.add(pion4);
                 jb.setBackground(color);
             }
@@ -1088,16 +1100,16 @@ public class VueAventurier extends Observe {
         }
         for (JButton jb : boutons) {
 
-            if (jb.getText().equals(j1.afficherCoord())) {
+            if (jb.getActionCommand().equals(j1.afficherCoord())) {
                 jb.add(pion1);
             }
-            if (jb.getText().equals(j2.afficherCoord())) {
+            if (jb.getActionCommand().equals(j2.afficherCoord())) {
                 jb.add(pion2);
             }
-            if (jb.getText().equals(j3.afficherCoord()) && nbJoueur >= 3) {
+            if (jb.getActionCommand().equals(j3.afficherCoord()) && nbJoueur >= 3) {
                 jb.add(pion3);
             }
-            if (jb.getText().equals(j4.afficherCoord()) && nbJoueur == 4) {
+            if (jb.getActionCommand().equals(j4.afficherCoord()) && nbJoueur == 4) {
                 jb.add(pion4);
             }
 
@@ -1139,13 +1151,12 @@ public class VueAventurier extends Observe {
         nomsTuiles.add("Le Palais de Corail");
         nomsTuiles.add("La Porte d’Argent");       //   
         nomsTuiles.add("Les Dunes de l’Illusion");
-        nomsTuiles.add("Heliport");                 //
+        nomsTuiles.add("Le Marais Brumeux");        //
         nomsTuiles.add("La Porte de Cuivre");           //
         nomsTuiles.add("Le Jardin des Hurlements");
-
         nomsTuiles.add("La Foret Pourpre");
         nomsTuiles.add("Le Lagon Perdu");
-        nomsTuiles.add("Le Marais Brumeux");
+        nomsTuiles.add("Heliport");
         nomsTuiles.add("Observatoire");
         nomsTuiles.add("Le Rocher Fantome");
         nomsTuiles.add("La Caverne du Brasier");
@@ -1164,6 +1175,15 @@ public class VueAventurier extends Observe {
         donnerCarte.setEnabled(false);
         gagnerTresor.setEnabled(false);
         compSpe.setEnabled(false);
+    }
+
+    public void setRecommencer() {
+        fenetre.setVisible(false);
+    }
+
+    public void setQuitter() {
+        fenetre.setVisible(false);
+        System.exit(0);
     }
 
     public class Pion extends JPanel {
