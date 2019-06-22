@@ -52,7 +52,7 @@ public class VueAventurier extends Observe {
     ArrayList<JButton> niveaux = new ArrayList<>();
     ArrayList<JButton> joueurs = new ArrayList<>();
     private JButton calice, pierre, statue, cristal;
-    private boolean competenceUtiliser,niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
+    private boolean competenceUtiliser, helicoptere, activerCarte, compIng, niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean donner = false;
     private boolean defausser = false;
     private boolean deplacer;
@@ -219,7 +219,7 @@ public class VueAventurier extends Observe {
 
                 deplacer = true;
                 Assecher = false;
-
+                compIng = false;
                 seDeplacer.setEnabled(false);
                 assecher.setEnabled(false);
                 donnerCarte.setEnabled(false);
@@ -295,12 +295,15 @@ public class VueAventurier extends Observe {
         compSpe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-//                if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Ingénieur")){}
+                deplacer = false;
+                if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Pilote")) {
+                    deplacer = true;
+                }
                 Message m = new Message();
                 m.type = TypesMessages.COMPETENCE;
-                m.joueurCourant=joueurCourant;
+                m.joueurCourant = joueurCourant;
                 notifierObservateur(m);
-                competenceUtiliser=true;
+                competenceUtiliser = true;
 
             }
         });
@@ -336,7 +339,13 @@ public class VueAventurier extends Observe {
                         getJoueurAct(joueurAct);
                     }
                 }
-                nbDec = 3;
+                competenceUtiliser = false;
+                compIng = true;
+                if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Navigateur")) {
+                    nbDec = 4;
+                } else {
+                    nbDec = 3;
+                }
                 decompte.setText(nbDec + "");
                 m.joueurAct = joueurAct;
                 mettreAJourIndic();
@@ -428,6 +437,31 @@ public class VueAventurier extends Observe {
                             defausser = false;
                         }
 
+                    } else {
+                        if (carteJoueur.getText().equals("Sac de Sable")) {
+                            Message m = new Message();
+                            m.type = TypesMessages.CHOIX_CARTE;
+                            deplacer = false;
+                            Assecher = true;
+                            m.activerCarte = true;
+                            activerCarte = true;
+                            m.joueurCourant = joueurs.get(joueurAct - 1).getText();
+                            m.numCarte = num;
+                            notifierObservateur(m);
+                        }
+                        if (carteJoueur.getText().equals("Helicoptere")) {
+                            Message m = new Message();
+                            m.type = TypesMessages.CHOIX_CARTE;
+                            m.activerCarte = true;
+                            activerCarte = true;
+                            deplacer = true;
+                            Assecher = false;
+                            m.joueurCourant = joueurs.get(joueurAct - 1).getText();
+                            m.numCarte = num;
+                            notifierObservateur(m);
+                            helicoptere = true;
+                        }
+
                     }
                 }
             });
@@ -452,7 +486,7 @@ public class VueAventurier extends Observe {
 
         int l = 0;// ligne
         int c = 0;//colonne
-        for (int i = 0; i < 36; i++) {
+        for (int i = 0; i < 36; i++) {                      /// utiise
 
             if ((c == 0 && l == 0) || (c == 1 && l == 0) || (c == 0 && l == 1)
                     || (c == 4 && l == 0) || (c == 5 && l == 0) || (c == 5 && l == 1)
@@ -465,25 +499,55 @@ public class VueAventurier extends Observe {
                 grilleMilieu.add(tuile);
             } else {
 
-                tuile = new JButton("(" + c + "," + l + ")");
-                tuile.setEnabled(false);
-                tuile.setBackground(Color.GRAY);
-                //tuile.add(pionRed);
-                Coordonnees C = new Coordonnees(c, l);
-                boutons.add(tuile);
-                tuile.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        nbDec = nbDec - 1;
-                        decompte.setText(nbDec + "");
+                tuile = new JButton("(" + c + "," + l + ")");                /// utilise la liste des noms (nomsTuiles) pour t'aider a mettre les tuiles normal
+                tuile.setEnabled(false);                                     /// si tu y arrive pas ta qu'a les mettre manuellement
+                tuile.setBackground(Color.GRAY); 
+                Coordonnees C = new Coordonnees(c, l);                              
+                boutons.add(tuile);                                           ///la des tuiles que tu dois mettre manuellement : - les tuiles de joueurs (regarde le modele de grille sur chamilo pout t'aider)
+                tuile.addActionListener(new ActionListener() {                  ///                                              - les tuiles de tresors 
+                    @Override                                                     ///                                            - heliport 
+                    public void actionPerformed(ActionEvent e) {              ///               ces tuiles dois etre conforme a celle placer dans le controleur      
+                        if (compIng && Assecher) {
+                            Message m = new Message();
+                            m.type = TypesMessages.CHOIX_TUILE;
+                            m.c = C;
+                            m.deplacer = deplacer;
+                            m.assecher = Assecher;
+//////////////////////////////////////////////////////////IMPORTANT//////////////////////////////////////////////////////////////////////////////
 
-                        Message m = new Message();
-                        m.type = TypesMessages.CHOIX_TUILE;
-                        m.c = C;
-                        m.deplacer = deplacer;
-                        m.assecher = Assecher;
-                        notifierObservateur(m);
+// pour mettre les noms des tuiles faudra utiliser la procedure setText() 
+// du coup faudra remplacer le setText() qui est utiliser pour les coordonnees 
+//par setActionCommande() 
+// FAIT ATTENTION : j'ai utiliser les getText() et setText() dans tous le programme 
+//faudra les remplacer par setActionCommande et getActionCommande SAUF POUR LES CARTES /!\
 
+//si tu trouve des erreur dans le programme note les moi stp je vais les revoir demain matin 
+//////////////////////////////////////////////////////////IMPORTANT//////////////////////////////////////////////////////////////////////////////
+
+
+                            
+                            
+                            
+                            notifierObservateur(m);
+
+                            compIng = false;
+                        } else {
+                            if (!activerCarte) {
+                                nbDec = nbDec - 1;
+                                decompte.setText(nbDec + "");
+                            }
+                            Message m = new Message();
+                            m.type = TypesMessages.CHOIX_TUILE;
+                            m.c = C;
+                            m.deplacer = deplacer;
+                            m.assecher = Assecher;
+                            m.activerCarte = activerCarte;
+                            notifierObservateur(m);
+                            if (joueurs.get(joueurAct - 1).getActionCommand().equals("Ingénieur") && Assecher) {
+                                compIng = true;
+                            }
+                            activerCarte = false;
+                        }
                     }
                 });
 
@@ -794,7 +858,7 @@ public class VueAventurier extends Observe {
                         jb.setBackground(Color.CYAN);
                     } else {
                         if (t.getType() != null) {
-                            if (t.getType().equalsIgnoreCase("Héliport")) {
+                            if (t.getType().equalsIgnoreCase("Heliport")) {
                                 jb.setBackground(Color.LIGHT_GRAY);
                             } else {
                                 jb.setBackground(Color.yellow);
@@ -872,10 +936,6 @@ public class VueAventurier extends Observe {
 
     }
 
-    public void verfiCarte() {
-
-    }
-
     public void mettreAJourActions(boolean GagnerTresor, ArrayList<String> joueur, boolean asseche) {
         boolean no_carte = true;
         for (JButton jb : cartes) {
@@ -911,7 +971,8 @@ public class VueAventurier extends Observe {
         if (joueurs.get(joueurAct - 1).getActionCommand().equals("Explorateur")
                 || joueurs.get(joueurAct - 1).getActionCommand().equals("Plongeur")
                 || joueurs.get(joueurAct - 1).getActionCommand().equals("Navigateur")
-                || joueurs.get(joueurAct - 1).getActionCommand().equals("Pilote") && competenceUtiliser) {
+                || (joueurs.get(joueurAct - 1).getActionCommand().equals("Pilote") && competenceUtiliser)
+                || joueurs.get(joueurAct - 1).getActionCommand().equals("Ingénieur")) {
             compSpe.setEnabled(false);
         }
         if (!GagnerTresor) {

@@ -86,6 +86,7 @@ public class Controleur implements Observateur {
                 joueurCourant = getJoueur(nom1);
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
+                ihm.mettreAJourTresor(joueurCourant.getTresors());
                 ihm.setCouleurJoueur();
                 joueurs.add(nom1);
                 joueurs.add(nom2);
@@ -117,16 +118,23 @@ public class Controleur implements Observateur {
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
 
                 break;
+            case COMPETENCE:
+                joueurCourant = getJoueur(message.joueurCourant);
+
+                if (joueurCourant.getFonction().equals("Pilote")) {
+                    tuilesVoisinesDeplacementHelicoptere(joueurCourant);
+                }
+
+                break;
             case CHOIX_TUILE:
-                if (message.deplacer) {
+                if (message.deplacer || (message.activerCarte && getCarte(numCarte).getFonction().equals("Helicoptere"))) {
                     Coordonnees old = joueurCourant.getTuile().getCoordonnee();
-                    System.out.println(message.c.afficherCoord());
                     deplacement(message.c);
                     ihm.mettreAJourPions(old, joueurCourant.getTuile().getCoordonnee());
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                     ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
                 }
-                if (message.assecher) {
+                if (message.assecher || (message.activerCarte && getCarte(numCarte).getFonction().equals("Sac de Sable"))) {
 
                     assechement(message.c);
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
@@ -151,6 +159,17 @@ public class Controleur implements Observateur {
                         ihm.defausserCarte();
                     }
                 }
+                if (message.activerCarte) {
+                    joueurCourant = getJoueur(message.joueurCourant);
+                    numCarte = message.numCarte;
+                    if (getCarte(numCarte).getFonction().equals("Helicoptere")) {
+                        finDePartieGagner();
+                    }
+                    activerCarte();
+                    pileTresor.Defausser(getCarte(numCarte), joueurCourant);
+                    ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
+
+                }
 
                 break;
             case CHOIX_JOUEUR:
@@ -160,7 +179,6 @@ public class Controleur implements Observateur {
                 break;
             case DEFAUSSER:
                 ihm.defausserCarte();
-                
 
                 break;
             case TERMINER_TOUR:
@@ -188,9 +206,64 @@ public class Controleur implements Observateur {
                 }
                 ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 ihm.mettreAJourTuiles(grille.getTuiles().values());
-//              ihm.setNivEau(8);
+                
+                
+                //////////////SENARIO DE DEFAITE PAR NIV EAU/////////////////////////////
+//              ihm.setNivEau(10);
+//              grille.setNivEau(10);
 //              ihm.mettreAJourNivEau();
+                finDePartiePerdu();
                 break;
+        }
+
+    }
+
+    public void finDePartieGagner() {
+        boolean tousAHeliport = false;
+        for (Tuile t : grille.getTuiles().values()) {
+
+            if (t.getType() != null && t.getType().equals("Heliport") && t.getAventuriers().size() >= no_joueurs) {
+                tousAHeliport = true;
+            }
+        }
+        if (J1.getTresors().isAllCollected() && tousAHeliport) {
+            ihmNotif.vueGagner();
+        }
+
+    }
+
+    public void finDePartiePerdu() {
+        for (Tuile t : grille.getTuiles().values()) {
+            if (t.getType()!=null && t.getType().equals("Heliport") && t.getEtat().equalsIgnoreCase("Manquante")) {
+                ihm.lock();
+                ihmNotif.vuePerdu();
+            }
+        }
+        for (Tuile t : grille.getTuiles().values()) {
+            for (Tuile t2 : grille.getTuiles().values()) {
+                if (t.getType() != null && t2.getType() != null && t.getType().equals(t2.getType()) && !t.getCoordonnee().afficherCoord().equalsIgnoreCase(t2.getCoordonnee().afficherCoord())) {
+                    if (t.getEtat().equalsIgnoreCase("Manquante") && t2.getEtat().equalsIgnoreCase("Manquante")) {
+                        if (t.getType().equals("Calice") && !J1.getTresors().gotCalice()
+                                || t.getType().equals("Pierre") && !J1.getTresors().gotPierre()
+                                || t.getType().equals("Cristal") && !J1.getTresors().gotCristal()
+                                || t.getType().equals("Statue") && !J1.getTresors().gotCalice()) {
+                            ihm.lock();
+                            ihmNotif.vuePerdu();
+                        }
+
+                    }
+                }
+            }
+        }
+        if (grille.getNivEau() >= 10) {
+            ihm.lock();
+            ihmNotif.vuePerdu();
+        }
+        for (Aventurier a : aventuriers) {
+            if (grille.getTuilesVoisines(a.getTuile()).isEmpty() && a.getTuile().getEtat().equals("Manquante")) {
+                ihm.lock();
+                ihmNotif.vuePerdu();
+            }
         }
 
     }
@@ -311,6 +384,38 @@ public class Controleur implements Observateur {
         }
     }
 
+    public void activerCarte() {
+        ArrayList<Coordonnees> c = new ArrayList<>();
+        if (getCarte(numCarte).getFonction().equalsIgnoreCase("Helicoptere")) {
+            for (Tuile t : grille.getTuilesVoisinesHelicoptere().values()) {
+                c.add(t.getCoordonnee());
+            }
+        }
+        if (getCarte(numCarte).getFonction().equalsIgnoreCase("Sac de Sable")) {
+            for (Tuile t : grille.getTuiles().values()) {
+                if (t.getEtat().equalsIgnoreCase("Innondée")) {
+                    c.add(t.getCoordonnee());
+                }
+
+            }
+        }
+
+        ihm.setTuilesDispo(c);
+    }
+
+    public void tuilesVoisinesDeplacementHelicoptere(Aventurier A) {
+        ArrayList<Coordonnees> c = new ArrayList<>();
+
+        if (!A.CompetanceUtiliser()) {
+            for (Tuile t : grille.getTuilesVoisinesHelicoptere().values()) {
+                c.add(t.getCoordonnee());
+            }
+            
+            A.setActions(A.getActions() - 1);
+        }
+        ihm.setTuilesDispo(c);
+    }
+
     public void tuilesVoisinesDeplacement(Aventurier A) {
         ArrayList<Coordonnees> c = new ArrayList<>();
 
@@ -320,14 +425,7 @@ public class Controleur implements Observateur {
 
             }
             A.setActions(A.getActions() - 1);
-        } else if (A.getFonction().equalsIgnoreCase("Pilot") && !A.CompetanceUtiliser()) {
-            for (Tuile t : grille.getTuilesVoisinesHelicoptere().values()) {
-                c.add(t.getCoordonnee());
-            }
-            A.setUtilise(true);
-            A.setActions(A.getActions() - 1);
-        }
-        if (A.getFonction().equalsIgnoreCase("Plongeur")) {
+        } else if (A.getFonction().equalsIgnoreCase("Plongeur")) {
             for (Tuile t : grille.getTuilesVoisinesPlongeur(A.getTuile()).values()) {
                 c.add(t.getCoordonnee());
             }
@@ -469,42 +567,102 @@ public class Controleur implements Observateur {
                 l++;
             }
         }
-        Coordonnees C = new Coordonnees(1, 3);
-        Coordonnees C2 = new Coordonnees(2,4 );
-        Coordonnees C3 = new Coordonnees(4, 3);
-        Coordonnees C4 = new Coordonnees(3, 0);
+//=========================SENARIO GAGNER TRESOR================================================================================
+//        Coordonnees C = new Coordonnees(1, 3);
+//        Coordonnees C2 = new Coordonnees(2, 4);
+//        Coordonnees C3 = new Coordonnees(4, 3);
+//        Coordonnees C4 = new Coordonnees(3, 0);
+//=========================SENARIO GAGNER TRESOR================================================================================
+        Coordonnees C = new Coordonnees(2, 2);
+        Coordonnees C2 = new Coordonnees(3, 2);
+        Coordonnees C3 = new Coordonnees(2, 3);
+        Coordonnees C4 = new Coordonnees(3, 3);
 
         J1 = new Ingenieur(nom1, grille.getTuiles().get(C));
         J2 = new Explorateur(nom2, grille.getTuiles().get(C2));
         J3 = new Pilote(nom3, grille.getTuiles().get(C3));
         J4 = new Navigateur(nom4, grille.getTuiles().get(C4));
-
+        J3.setUtilise(false);
         aventuriers.add(J1);
         aventuriers.add(J2);
         aventuriers.add(J3);
         aventuriers.add(J4);
 
-        J1.addCarte(new CarteDeTresor("Calice"));
-        J1.addCarte(new CarteDeTresor("Calice"));
-        J1.addCarte(new CarteDeTresor("Calice"));
-        J1.addCarte(new CarteDeTresor("Calice"));
+//=========================SENARIO GAGNER TRESOR================================================================================
+//        J1.addCarte(new CarteDeTresor("Calice"));
+//        J1.addCarte(new CarteDeTresor("Calice"));
+//        J1.addCarte(new CarteDeTresor("Calice"));
+//        J1.addCarte(new CarteDeTresor("Calice"));
+//
+//        J2.addCarte(new CarteDeTresor("Statue"));
+//        J2.addCarte(new CarteDeTresor("Statue"));
+//        J2.addCarte(new CarteDeTresor("Statue"));
+//        J2.addCarte(new CarteDeTresor("Statue"));
+//
+//        J3.addCarte(new CarteDeTresor("Pierre"));
+//        J3.addCarte(new CarteDeTresor("Pierre"));
+//        J3.addCarte(new CarteDeTresor("Pierre"));
+//        J3.addCarte(new CarteDeTresor("Pierre"));
+//
+//        J4.addCarte(new CarteDeTresor("Cristal"));
+//        J4.addCarte(new CarteDeTresor("Cristal"));
+//        J4.addCarte(new CarteDeTresor("Cristal"));
+//        J4.addCarte(new CarteDeTresor("Cristal"));
+//=========================SENARIO GAGNER TRESOR================================================================================
 
-        J2.addCarte(new CarteDeTresor("Statue"));
-        J2.addCarte(new CarteDeTresor("Statue"));
-        J2.addCarte(new CarteDeTresor("Statue"));
-        J2.addCarte(new CarteDeTresor("Statue"));
+        //********************************Initialisation Piles Cartes*********************************//
+        ArrayList<CarteTresor> cartes = new ArrayList<>();
 
-        J3.addCarte(new CarteDeTresor("Pierre"));
-        J3.addCarte(new CarteDeTresor("Pierre"));
-        J3.addCarte(new CarteDeTresor("Pierre"));
-        J3.addCarte(new CarteDeTresor("Pierre"));
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
+            CarteDeTresor ct = new CarteDeTresor("Statue");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Pierre Sacrée
+            CarteDeTresor ct = new CarteDeTresor("Pierre");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Cristal Ardent
+            CarteDeTresor ct = new CarteDeTresor("Cristal");
+            cartes.add(ct);
+        }
+        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Calice de L'onde
+            CarteDeTresor ct = new CarteDeTresor("Calice");
+            cartes.add(ct);
+        }
+        SacDeSable SacS = new SacDeSable();    // 2 cartes Sac de sable 
+        SacDeSable SacS2 = new SacDeSable();
+        cartes.add(SacS);
+        cartes.add(SacS2);
 
-        J4.addCarte(new CarteDeTresor("Cristal"));
-        J4.addCarte(new CarteDeTresor("Cristal"));
-        J4.addCarte(new CarteDeTresor("Cristal"));
-        J4.addCarte(new CarteDeTresor("Cristal"));
+        MonteeDesEaux mde = new MonteeDesEaux();     // 3 cartes Montée Des Eaux
+        MonteeDesEaux mde2 = new MonteeDesEaux();
+        //MontéeDesEaux mde3 = new MontéeDesEaux();
+        cartes.add(mde);
+        cartes.add(mde2);
+        //cartes.add(mde3);
+
+        Helicoptere H = new Helicoptere(); // 3 cartes helicoptere
+        Helicoptere H2 = new Helicoptere();
+        Helicoptere H3 = new Helicoptere();
+        cartes.add(H);
+        cartes.add(H2);
+        cartes.add(H3);
+
+        J1.addCarte(H);
+        pileTresor = new PileTresor(cartes);// inistialiser la pile de tresor
+
+        ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
+        for (Coordonnees c1 : coordonneesPossibles) {
+            CarteInondation carteI = new CarteInondation(c1);
+            cartesInondation.add(carteI);
+
+        }
+        pileInondation = new PileInondation(cartesInondation); // inistialisation de la pile Inondation
+    }
+
+}
 /////////////////////////////////////////////PLACEMENT DES TUILES ALEATOIREMENT///////////////////////////////////////////////////////////////
-        // Placement aléatoire des trésors
+// Placement aléatoire des trésors
 //        Random random = new Random();
 //
 //        int aleatoire = random.nextInt(coordonneesPossibles.size());
@@ -571,53 +729,3 @@ public class Controleur implements Observateur {
 //            grille.addTuile(tuile);
 //        }
 /////////////////////////////////////////////PLACEMENT DES TUILES ALEATOIREMENT///////////////////////////////////////////////////////////////
-        //********************************Initialisation Piles Cartes*********************************//
-        ArrayList<CarteTresor> cartes = new ArrayList<>();
-
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Statue du Zéphyr
-            CarteDeTresor ct = new CarteDeTresor("Statue");
-            cartes.add(ct);
-        }
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor La Pierre Sacrée
-            CarteDeTresor ct = new CarteDeTresor("Pierre");
-            cartes.add(ct);
-        }
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Cristal Ardent
-            CarteDeTresor ct = new CarteDeTresor("Cristal");
-            cartes.add(ct);
-        }
-        for (int i = 1; i < 6; i++) {   // 5 cartes de tresor Le Calice de L'onde
-            CarteDeTresor ct = new CarteDeTresor("Calice");
-            cartes.add(ct);
-        }
-        SacDeSable SacS = new SacDeSable();    // 2 cartes Sac de sable 
-        SacDeSable SacS2 = new SacDeSable();
-        cartes.add(SacS);
-        cartes.add(SacS2);
-
-        MonteeDesEaux mde = new MonteeDesEaux();     // 3 cartes Montée Des Eaux
-        MonteeDesEaux mde2 = new MonteeDesEaux();
-        //MontéeDesEaux mde3 = new MontéeDesEaux();
-        cartes.add(mde);
-        cartes.add(mde2);
-        //cartes.add(mde3);
-
-        Helicoptere H = new Helicoptere(); // 3 cartes helicoptere
-        Helicoptere H2 = new Helicoptere();
-        Helicoptere H3 = new Helicoptere();
-        cartes.add(H);
-        cartes.add(H2);
-        cartes.add(H3);
-
-        pileTresor = new PileTresor(cartes);// inistialiser la pile de tresor
-
-        ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
-        for (Coordonnees c1 : coordonneesPossibles) {
-            CarteInondation carteI = new CarteInondation(c1);
-            cartesInondation.add(carteI);
-
-        }
-        pileInondation = new PileInondation(cartesInondation); // inistialisation de la pile Inondation
-    }
-
-}

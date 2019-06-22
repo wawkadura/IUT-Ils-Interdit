@@ -98,7 +98,7 @@ public class Grille {
     public TreeMap<Coordonnees, Tuile> getTuilesVoisinesHelicoptere() {
         TreeMap<Coordonnees, Tuile> tuilesVoisines = new TreeMap<Coordonnees, Tuile>();
         for (Tuile t : tuiles.values()) {
-            if (t.getEtat().equalsIgnoreCase("Manquante")) {
+            if (!t.getEtat().equalsIgnoreCase("Manquante")) {
                 tuilesVoisines.put(t.getCoordonnee(), t);
             }
         }

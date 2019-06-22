@@ -26,7 +26,7 @@ public class Heliport extends Tuile {
     }
     
     public String getType() {
-        return "Héliport";
+        return "Heliport";
     }
     
 }

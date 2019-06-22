@@ -21,6 +21,7 @@ public class Message {
     public boolean assecher;
     public boolean defausser;
     public boolean donner;
+    public boolean activerCarte;
     public String DonnerAJoueur;
     public int numCarte;
     public int nbJoueurs;

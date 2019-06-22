@@ -283,7 +283,6 @@ public abstract class Aventurier {
             pt.Defausser(ct2, this);
         }
 
-        pt.melangerLesPiles();
     }
 
 }

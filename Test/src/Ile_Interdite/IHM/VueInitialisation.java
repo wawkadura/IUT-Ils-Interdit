@@ -161,7 +161,6 @@ public class VueInitialisation extends Observe {
             @Override
             public void stateChanged(ChangeEvent arg0) {
                 val = choixDifficulte.getValue();
-                System.out.println(choixDifficulte.getValue());
             }
         });
 

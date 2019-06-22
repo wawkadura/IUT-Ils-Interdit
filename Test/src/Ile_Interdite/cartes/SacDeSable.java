@@ -20,10 +20,6 @@ public class SacDeSable extends CarteTresor {
         return fonction;
     }
 
-    @Override
-    public void action(Grille g, Aventurier a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     
     
