@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -163,92 +164,92 @@ public class VueInitialisation extends Observe {
                 String no4 = nom4.getText();
 
                 if (no1.isEmpty() && no2.isEmpty() && no3.isEmpty() && no4.isEmpty()) {
-                    nom1.setText("Joueur 1");
-                    nom2.setText("Joueur 2");
-                    nom3.setText("Joueur 3");
-                    nom4.setText("Joueur 4");
+                    nom1.setText("Joueur");
+                    nom2.setText("Joueur");
+                    nom3.setText("Joueur");
+                    nom4.setText("Joueur");
                 } else if (no1.isEmpty() && no2.isEmpty() && no3.isEmpty()) {
-                    nom1.setText("Joueur 1");
-                    nom2.setText("Joueur 2");
-                    nom3.setText("Joueur 3");
+                    nom1.setText("Joueur");
+                    nom2.setText("Joueur");
+                    nom3.setText("Joueur");
                     nom4.setText(no4);
                 } else if (no2.isEmpty() && no3.isEmpty() && no4.isEmpty()) {
                     nom1.setText(no1);
-                    nom2.setText("Joueur 2");
-                    nom3.setText("Joueur 3");
-                    nom4.setText("Joueur 4");
+                    nom2.setText("Joueur");
+                    nom3.setText("Joueur");
+                    nom4.setText("Joueur");
                 } else if (no1.isEmpty() && no2.isEmpty() && no4.isEmpty()) {
-                    nom1.setText("Joueur 1");
-                    nom2.setText("Joueur 2");
+                    nom1.setText("Joueur");
+                    nom2.setText("Joueur");
                     nom3.setText(no3);
-                    nom4.setText("Joueur 4");
+                    nom4.setText("Joueur");
                 } else if (no1.isEmpty() && no3.isEmpty() && no4.isEmpty()) {
-                    nom1.setText("Joueur 1");
+                    nom1.setText("Joueur");
                     nom2.setText(no2);
-                    nom3.setText("Joueur 3");
-                    nom4.setText("Joueur 4");
+                    nom3.setText("Joueur");
+                    nom4.setText("Joueur");
                 } else if (no1.isEmpty() && no2.isEmpty()) {
-                    nom1.setText("Joueur 1");
-                    nom2.setText("Joueur 2");
+                    nom1.setText("Joueur");
+                    nom2.setText("Joueur");
                     nom3.setText(no3);
                     nom4.setText(no4);
                 } else if (no1.isEmpty() && no3.isEmpty()) {
-                    nom1.setText("Joueur 1");
+                    nom1.setText("Joueur");
                     nom2.setText(no2);
-                    nom3.setText("Joueur 3");
+                    nom3.setText("Joueur");
                     nom4.setText(no4);
                 } else if (no1.isEmpty() && no4.isEmpty()) {
-                    nom1.setText("Joueur 1");
+                    nom1.setText("Joueur");
                     nom2.setText(no2);
                     nom3.setText(no3);
-                    nom4.setText("Joueur 4");
+                    nom4.setText("Joueur");
                 } else if (no2.isEmpty() && no3.isEmpty()) {
                     nom1.setText(no1);
-                    nom2.setText("Joueur 2");
-                    nom3.setText("Joueur 3");
+                    nom2.setText("Joueur");
+                    nom3.setText("Joueur");
                     nom4.setText(no4);
                 } else if (no2.isEmpty() && no4.isEmpty()) {
                     nom1.setText(no1);
-                    nom2.setText("Joueur 2");
+                    nom2.setText("Joueur");
                     nom3.setText(no3);
-                    nom4.setText("Joueur 4");
+                    nom4.setText("Joueur");
                 } else if (no3.isEmpty() && no4.isEmpty()) {
                     nom1.setText(no1);
                     nom2.setText(no2);
-                    nom3.setText("Joueur 3");
-                    nom4.setText("Joueur 4");
+                    nom3.setText("Joueur");
+                    nom4.setText("Joueur");
                 } else if (no1.isEmpty()) {
-                    nom1.setText("Joueur 1");
+                    nom1.setText("Joueur");
                     nom2.setText(no2);
                     nom3.setText(no3);
                     nom4.setText(no4);
                 } else if (no2.isEmpty()) {
                     nom1.setText(no1);
-                    nom2.setText("Joueur 2");
+                    nom2.setText("Joueur");
                     nom3.setText(no3);
                     nom4.setText(no4);
                 } else if (no3.isEmpty()) {
                     nom1.setText(no1);
                     nom2.setText(no2);
-                    nom3.setText("Joueur 3");
+                    nom3.setText("Joueur");
                     nom4.setText(no4);
                 } else if (no4.isEmpty()) {
                     nom1.setText(no1);
                     nom2.setText(no2);
                     nom3.setText(no3);
-                    nom4.setText("Joueur 4");
+                    nom4.setText("Joueur");
                 } else {
                     nom1.setText(no1);
                     nom2.setText(no2);
                     nom3.setText(no3);
                     nom4.setText(no4);
                 }
-
-                String nno1 = nom1.getText();//joueurAct = 1
-                String nno2 = nom2.getText();//joueurAct = 2
-                String nno3 = nom3.getText();//joueurAct = 3
-                String nno4 = nom4.getText();//joueurAct = 4
                 
+                String nno1 = nom1.getText() + " ①";//joueurAct = 1
+                String nno2 = nom2.getText() + " ②";//joueurAct = 2
+                String nno3 = nom3.getText() + " ③";//joueurAct = 3
+                String nno4 = nom4.getText() + " ④";//joueurAct = 4
+
                 int difficulte = val;
 
                 Message m = new Message();
@@ -261,10 +262,13 @@ public class VueInitialisation extends Observe {
                 m.difficulte = difficulte;
                 notifierObservateur(m);
             }
-        });
+        }
+        );
 
         panelLancer.add(difficulte);
+
         panelLancer.add(choixDifficulte);
+
         panelLancer.add(commencer);
 
         fenetre.add(panelLancer, BorderLayout.SOUTH);
