@@ -27,9 +27,5 @@ public class CarteDeTresor extends CarteTresor {
     public String getType() {
         return typeTresor;
     }
-
-    @Override
-    public void action(Grille g, Aventurier a) {
-    }
     
 }

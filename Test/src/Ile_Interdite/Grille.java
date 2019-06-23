@@ -14,7 +14,6 @@ import java.util.TreeMap;
 
 public class Grille {
 
-    private int nbPiocheInond;
     private int nivEau;
     private TreeMap<Coordonnees, Tuile> tuiles = new TreeMap<>();
 
@@ -130,51 +129,9 @@ public class Grille {
 
     }
 
-    public void AfficherGrille() {
-        System.out.println("");
-        System.out.println("///////////////////////Grille///////////////////////////// ");
-        for (Tuile T : this.getTuiles().values()) {
-
-            System.out.print("Tuile" + T.getCoordonnee().afficherCoord());
-            System.out.print("Contenant : ");
-            if (T.getAventuriers() == null) {
-                System.out.println("personne");
-            }
-            for (Aventurier A : T.getAventuriers()) {
-
-                System.out.print(A.getNom() + "  ");
-            }
-            System.out.print(" (Etat " + T.getEtat() + ")");
-            if (T.getType() != null) {
-                if (T.getType().equals("Héliport")) {
-                    System.out.print(" Case héliport");
-                } else {
-                    System.out.println("\u001B[33m" + " Trésor contenu : " + T.getType() + "\u001B[33m");
-                }
-            } else {
-                System.out.println("");
-            }
-
-        }
-        System.out.println("///////////////////////Grille///////////////////////////// ");
-        System.out.println("");
-    }
-
     public void setNivEau(int niv) {
         this.nivEau = niv;
-        if (niv >= 0 && niv <= 1) {
-            this.setNbPiocheInond(2);
-        } else if (niv >= 2 && niv <= 4) {
-            this.setNbPiocheInond(3);
-        } else if (niv == 5 || niv == 6) {
-            this.setNbPiocheInond(4);
-        } else if (niv == 7 || niv == 8) {
-            this.setNbPiocheInond(5);
-        }
-    }
 
-    public void setNbPiocheInond(int nbPiocheInond) {
-        this.nbPiocheInond = nbPiocheInond;
     }
 
     public int getNivEau() {

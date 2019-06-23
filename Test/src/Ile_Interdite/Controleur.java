@@ -47,7 +47,6 @@ public class Controleur implements Observateur {
     private Grille grille;
 
     ArrayList<Aventurier> aventuriers = new ArrayList<>();
-    private Niveau niveau;
 
     @Override
     public void traiterMessage(Message message) {
@@ -149,16 +148,16 @@ public class Controleur implements Observateur {
                         ihm.mettreAJourPions(old, joueurCourant.getTuile().getCoordonnee());
                         ihm.mettreAJourTuiles(grille.getTuiles().values());
                         ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
-                        
+
                     }
                     if (getCarte(numCarte).getFonction().equals("Sac de Sable")) {
                         assechement(message.c);
                         ihm.mettreAJourTuiles(grille.getTuiles().values());
                         ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
-                        
+
                     }
                     pileTresor.Defausser(getCarte(numCarte), joueurCourant);
-                        ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
+                    ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 }
                 break;
             case CHOIX_CARTE:
@@ -242,7 +241,6 @@ public class Controleur implements Observateur {
                 ihm = new VueAventurier();
                 ihm.addObservateur(this);
                 ihm.afficher();
-                //tcommencerPartie();
                 Initialisation();
 
                 break;
@@ -345,10 +343,6 @@ public class Controleur implements Observateur {
             }
         }
         return joueur;
-    }
-
-    public void InitialiserAventurier() {
-
     }
 
     public CarteTresor getCarte(int num) {
@@ -474,7 +468,6 @@ public class Controleur implements Observateur {
             A.setActions(A.getActions() - 1);
 
         }
-        // for (Coordonnees co : c ){System.out.println(co.afficherCoord());}
         ihm.setTuilesDispo(c);
 
     }
@@ -523,14 +516,7 @@ public class Controleur implements Observateur {
         ihm = new VueAventurier();
         ihm.addObservateur(this);
         ihm.afficher();
-        //tcommencerPartie();
         Initialisation();
-    }
-
-    public void afficherCarte(ArrayList<CarteTresor> c) {
-        for (CarteTresor CT : c) {
-            System.out.println("\t - " + CT.getFonction());
-        }
     }
 
     public void Initialisation() {
@@ -624,12 +610,11 @@ public class Controleur implements Observateur {
         aventuriers.add(J2);
         aventuriers.add(J3);
         aventuriers.add(J4);
-        
+
 //        J1.getTresors().setCalice(true);
 //        J1.getTresors().setPierre(true);
 //        J1.getTresors().setStatue(true);
 //        J1.getTresors().setCristal(true);
-
 //=========================SENARIO GAGNER TRESOR================================================================================
 //        J1.addCarte(new CarteDeTresor("Calice"));
 //        J1.addCarte(new CarteDeTresor("Calice"));

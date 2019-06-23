@@ -12,11 +12,11 @@ import Ile_Interdite.Grille;
  *
  * @author peyrinfl
  */
-public abstract class CarteTresor extends Carte {
+public abstract class CarteTresor {
     private String fonction;
     
     public String getFonction() {
         return fonction;
     }
-    public  void action(Grille g , Aventurier a){}
+    
 }

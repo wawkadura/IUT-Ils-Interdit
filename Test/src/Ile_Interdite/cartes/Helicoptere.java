@@ -21,10 +21,5 @@ public class Helicoptere extends CarteTresor {
         return fonction;
     }
 
-    @Override
-    public void action(Grille g, Aventurier a) {
-        
-    }
-
     
 }

@@ -11,18 +11,9 @@ package Ile_Interdite;
  */
 public class Heliport extends Tuile {
     
-    private boolean depart;
 
     public Heliport(Coordonnees C) {
         super(C);
-    }
-
-    public boolean isDepart() {
-        return depart;
-    }
-
-    public void setDepart(boolean depart) {
-        this.depart = depart;
     }
     
     public String getType() {

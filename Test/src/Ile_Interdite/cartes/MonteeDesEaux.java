@@ -23,10 +23,4 @@ public class MonteeDesEaux extends CarteTresor {
         return fonction;
     }
     
-    
-
-    @Override
-    public void action(Grille g, Aventurier a) {
-        g.setNivEau(g.getNivEau() + 1);
-    }
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Tuile {
 
-    private String nom;
+
     private Coordonnees C;
     private ArrayList<Aventurier> aventuriers = new ArrayList<>();
     private int etat = 0; //0 assecher , 1 innonder, 2 manquant
@@ -64,12 +64,5 @@ public class Tuile {
         return null;
     }
 
-    public void augmenterEtat() {
-        if (this.etat == 0) {
-            this.setEtat(1);
-        } else if (this.etat == 1) {
-            this.setEtat(2);
-        }
-    }
 
 }

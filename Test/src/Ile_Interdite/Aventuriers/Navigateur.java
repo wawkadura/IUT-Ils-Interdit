@@ -6,9 +6,7 @@
 package Ile_Interdite.Aventuriers;
 
 import Ile_Interdite.Aventuriers.Aventurier;
-import Ile_Interdite.Grille;
 import Ile_Interdite.Tuile;
-import java.util.Scanner;
 
 /**
  *
@@ -24,9 +22,5 @@ public class Navigateur extends Aventurier {
     @Override
     public String getFonction() {
         return  "Navigateur";
-    }
-    public void Reset() {
-        super.setActions(4);
-        super.setTerminer(false);
     }
 }

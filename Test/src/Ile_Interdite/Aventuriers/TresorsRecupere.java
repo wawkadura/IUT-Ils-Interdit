@@ -19,18 +19,6 @@ public class TresorsRecupere {
         return La_Statue_du_Zéphyr && La_Pierre_Sacrée && Le_Cristal_Ardent && Le_Calice_de_Londe;
     
     }
-    public void tresorsCollecte(){
-        System.out.println("Les Tresors Recupere :");
-        if (La_Statue_du_Zéphyr){
-        System.out.println("\t - La Statue du Zéphyr");}
-        if (La_Pierre_Sacrée){
-        System.out.println("\t - La Pierre Sacrée");}
-        if (Le_Cristal_Ardent){
-        System.out.println("\t - Le Cristal Ardent");}
-        if (Le_Calice_de_Londe){
-        System.out.println("\t - Le Calice de L'onde");}
-    
-    }
     public void setStatue(boolean La_Statue_du_Zéphyr) {
         this.La_Statue_du_Zéphyr = La_Statue_du_Zéphyr;
     }

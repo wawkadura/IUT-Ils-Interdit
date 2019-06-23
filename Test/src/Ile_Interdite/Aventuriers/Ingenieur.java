@@ -20,29 +20,6 @@ public class Ingenieur extends Aventurier {
         super(nom, tuile);
     }
 
-//    @Override
-//    public void assecher(Grille g) {
-//        int actions = getActions();
-//        super.assecher(g);
-//        if (actions > getActions()) {
-//            super.setActions(super.getActions() + 1);
-//            System.out.print("(Spécial) Voulez-vous assécher une autre tuile ?(oui/non): ");
-//            Scanner scn = new Scanner(System.in);
-//
-//            String rep = scn.next();
-//            while (!rep.equalsIgnoreCase("oui") && !rep.equalsIgnoreCase("non")) {
-//                System.out.print("(Spécial) Voulez-vous assécher une autre tuile ?(oui/non): ");
-//                rep = scn.next();
-//            }
-//            if (rep.equalsIgnoreCase("oui")) {
-//                super.assecher(g);
-//            } else {
-//                super.setActions(super.getActions() - 1);
-//            }
-//
-//        }
-//    }
-
     @Override
     public String getFonction() {
         return "Ingénieur";

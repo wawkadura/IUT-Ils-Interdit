@@ -5,7 +5,6 @@
  */
 package Ile_Interdite.IHM;
 
-import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.TresorsRecupere;
 import Ile_Interdite.Coordonnees;
 import Ile_Interdite.Tuile;
@@ -28,7 +27,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 /**
  *
@@ -613,7 +611,7 @@ public class VueAventurier extends Observe {
         for (int i = 10; i >= 1; i--) {
             if (i == 1) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 2 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv1");
@@ -622,7 +620,7 @@ public class VueAventurier extends Observe {
 
             } else if (i == 2) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 2 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv2");
@@ -631,18 +629,15 @@ public class VueAventurier extends Observe {
 
             } else if (i == 3) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv3");
                 niveaux.add(eau);
                 monteeEauDroit.add(eau);
-                if (niv1 == true && niv2 == true && niv3 == true) {
-                    eau.setBackground(Color.BLUE);
-                }
             } else if (i == 4) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv4");
@@ -651,7 +646,7 @@ public class VueAventurier extends Observe {
 
             } else if (i == 5) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 3 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv5");
@@ -660,7 +655,7 @@ public class VueAventurier extends Observe {
 
             } else if (i == 6) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 4 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv6");
@@ -669,7 +664,7 @@ public class VueAventurier extends Observe {
 
             } else if (i == 7) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 4 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv7");
@@ -678,7 +673,7 @@ public class VueAventurier extends Observe {
 
             } else if (i == 8) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 5 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv8");
@@ -687,7 +682,7 @@ public class VueAventurier extends Observe {
 
             } else if (i == 9) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Piocher 5 cartes");
+                eau.setText("Niveau " + i);
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv9");
@@ -696,7 +691,7 @@ public class VueAventurier extends Observe {
 
             } else if (i == 10) {
                 eau = new JButton();
-                eau.setText("Niveau " + i + "   Mort");
+                eau.setText("Niveau " + i + " Mort    ");
                 eau.setEnabled(false);
                 eau.setBorder(null);
                 eau.setActionCommand("niv10");
@@ -1079,7 +1074,7 @@ public class VueAventurier extends Observe {
             niveaux.get(1).setBackground(Color.BLUE);
         }
         if (niveaux.get(0).getActionCommand().equalsIgnoreCase("niv10") && niv10) {
-            niveaux.get(0).setBackground(Color.BLUE);
+            niveaux.get(0).setBackground(Color.red);
         }
 
         notifierObservateur(m);
@@ -1174,41 +1169,40 @@ public class VueAventurier extends Observe {
     public void setNomsTuiles() {
         nomsTuiles.add("Le Palais de Corail");
         nomsTuiles.add("La Caverne du Brasier");
-        
+
         nomsTuiles.add("Le Pont des Abimes");
         nomsTuiles.add("La Porte de Bronze");
         nomsTuiles.add("La Porte de Cuivre");
-        nomsTuiles.add("La Porte de Fer");  
-        
+        nomsTuiles.add("La Porte de Fer");
+
         nomsTuiles.add("Le Palais des Marees");
-             //
-        
+        //
+
         nomsTuiles.add("Les Falaises de l’Oubli");
-        nomsTuiles.add("La Porte d’Argent");     
+        nomsTuiles.add("La Porte d’Argent");
         nomsTuiles.add("Les Dunes de l’Illusion");
-        
-        nomsTuiles.add("Le Marais Brumeux"); 
+
+        nomsTuiles.add("Le Marais Brumeux");
         nomsTuiles.add("La Caverne des Ombres");
-         //
-        
+        //
+
         nomsTuiles.add("Le Jardin des Hurlements");
         nomsTuiles.add("La Foret Pourpre");
-        
+
         nomsTuiles.add("Heliport");
         nomsTuiles.add("Le Lagon Perdu");
-        
+
         nomsTuiles.add("Observatoire"); //
         nomsTuiles.add("Le Temple du Soleil");
         nomsTuiles.add("Le Rocher Fantome");
-        
-        
+
         nomsTuiles.add("La Tour du Guet");
-        nomsTuiles.add("La Porte d’Or"); 
+        nomsTuiles.add("La Porte d’Or");
         nomsTuiles.add("Le Val du Crepuscule");
         nomsTuiles.add("Le Jardin des Murmures");
-        
+
         nomsTuiles.add("Le Temple de La Lune");
-        
+
     }
 
     public void lock() {

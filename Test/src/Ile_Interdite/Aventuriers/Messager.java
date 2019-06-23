@@ -18,11 +18,6 @@ public class Messager extends Aventurier {
     public Messager(String nom, Tuile tuile) {
         super(nom, tuile);
     }
-    
-    @Override
-    public void donner(CarteTresor carte, Aventurier joueur) {
-        
-    }
     @Override
     public String getFonction() {
         return "Messager";
