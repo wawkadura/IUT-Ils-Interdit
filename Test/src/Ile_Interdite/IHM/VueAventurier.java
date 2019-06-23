@@ -16,14 +16,19 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  *
@@ -59,6 +64,7 @@ public class VueAventurier extends Observe {
     private boolean Assecher;
     private Graphics pion;
     private Pion pion1, pion2, pion3, pion4;
+    private Image image1, image2, image3, image4;
 
     public VueAventurier() {
 
@@ -296,6 +302,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 deplacer = false;
+                Assecher = false;
                 if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Pilote")) {
                     deplacer = true;
                 }
@@ -500,17 +507,50 @@ public class VueAventurier extends Observe {
                 tuile.setEnabled(false);
                 tuile.setBorder(null);
                 if (c == 0 && l == 0) {
-                    tuile.setText("Le Calice de l'onde");
-                    tuile.setBackground(Color.BLUE);
+                    try {
+                        this.image1 = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/calice.png"));
+                    } catch (IOException ex) {
+                    }
+                    Pion calice = new Pion(50, 0, Color.CYAN, true);
+                    calice.setImage(image1);
+                    calice.setWidth(70);
+                    calice.setHeight(100);
+                    tuile.add(calice);
+
                 } else if (c == 5 && l == 0) {
-                    tuile.setText("Le Cristal ardent");
-                    tuile.setBackground(Color.RED);
+                    try {
+                        this.image2 = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/cristal.png"));
+                    } catch (IOException ex) {
+                    }
+                    Pion cristal = new Pion(50, 0, Color.CYAN, true);
+                    cristal.setImage(image2);
+
+                    cristal.setWidth(70);
+                    cristal.setHeight(100);
+                    tuile.add(cristal);
                 } else if (c == 0 && l == 5) {
-                    tuile.setText("La Statue du Zéphyr");
-                    tuile.setBackground(Color.ORANGE);
+                    try {
+                        this.image3 = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/zephyr.png"));
+                    } catch (IOException ex) {
+                    }
+                    Pion statue = new Pion(50, 0, Color.CYAN, true);
+                    statue.setImage(image3);
+
+                    statue.setWidth(70);
+                    statue.setHeight(100);
+                    tuile.add(statue);
                 } else if (c == 5 && l == 5) {
-                    tuile.setText("La Pierre Sacrée");
-                    tuile.setBackground(Color.MAGENTA);
+                    try {
+                        this.image4 = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/pierre.png"));
+                    } catch (IOException ex) {
+                        System.out.println("erreur image4");
+                    }
+                    Pion pierre = new Pion(50, 0, Color.CYAN, true);
+                    pierre.setImage(image4);
+
+                    pierre.setWidth(70);
+                    pierre.setHeight(100);
+                    tuile.add(pierre);
                 }
                 grilleMilieu.add(tuile);
             } else {
@@ -519,27 +559,17 @@ public class VueAventurier extends Observe {
                 tuile.setText(nomsTuiles.get(v));
                 v += 1;
                 tuile.setEnabled(false);
-                tuile.setBackground(Color.GRAY);
                 Coordonnees C = new Coordonnees(c, l);
-                boutons.add(tuile);                                           ///la des tuiles que tu dois mettre manuellement : - les tuiles de joueurs (regarde le modele de grille sur chamilo pout t'aider)
-                tuile.addActionListener(new ActionListener() {                  ///                                              - les tuiles de tresors 
-                    @Override                                                     ///                                            - heliport 
-                    public void actionPerformed(ActionEvent e) {              ///               ces tuiles dois etre conforme a celle placer dans le controleur      
+                boutons.add(tuile);
+                tuile.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
                         if (compIng && Assecher) {
                             Message m = new Message();
                             m.type = TypesMessages.CHOIX_TUILE;
                             m.c = C;
                             m.deplacer = deplacer;
                             m.assecher = Assecher;
-//////////////////////////////////////////////////////////IMPORTANT//////////////////////////////////////////////////////////////////////////////
-
-// pour mettre les noms des tuiles faudra utiliser la procedure setText() 
-// du coup faudra remplacer le setText() qui est utiliser pour les coordonnees 
-//par setActionCommande() 
-// FAIT ATTENTION : j'ai utiliser les getText() et setText() dans tous le programme 
-//faudra les remplacer par setActionCommande et getActionCommande SAUF POUR LES CARTES /!\
-//si tu trouve des erreur dans le programme note les moi stp je vais les revoir demain matin 
-//////////////////////////////////////////////////////////IMPORTANT//////////////////////////////////////////////////////////////////////////////
                             notifierObservateur(m);
 
                             compIng = false;
@@ -680,7 +710,7 @@ public class VueAventurier extends Observe {
     public void afficher() {
         //permet d'afficher la fenetre du jeu
         fenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(1800, 900);
+        fenetre.setSize(1500, 800);
         fenetre.setVisible(false);
     }
 
@@ -814,9 +844,9 @@ public class VueAventurier extends Observe {
 
     public void setJoueurDispo(ArrayList<String> joueur) {
         if (!joueur.isEmpty()) {
-            if (joueurs.get(joueurAct - 1).getActionCommand().equals("Messager")) {
+            if (joueurs.get(joueurAct - 1).getText().equals("Messager")) {
                 for (JButton J : joueurs) {
-                    if (!J.getActionCommand().equals(joueurCourant)) {
+                    if (!J.getText().equals(joueurCourant)) {
                         J.setBackground(Color.green);
                         J.setEnabled(true);
                     }
@@ -824,7 +854,7 @@ public class VueAventurier extends Observe {
             } else {
                 for (String j : joueur) {
                     for (JButton J : joueurs) {
-                        if (!J.getActionCommand().equals(joueurCourant) && J.getActionCommand().equals(j)) {
+                        if (!J.getText().equals(joueurCourant) && J.getText().equals(j)) {
                             if (J.getForeground() == Color.GREEN) {
                                 J.setForeground(Color.black);
                             }
@@ -871,7 +901,7 @@ public class VueAventurier extends Observe {
                     } else {
                         if (t.getType() != null) {
                             if (t.getType().equalsIgnoreCase("Heliport")) {
-                                jb.setBackground(Color.LIGHT_GRAY);
+                                jb.setBackground(Color.RED);
                             } else {
                                 jb.setBackground(Color.yellow);
                             }
@@ -1089,14 +1119,14 @@ public class VueAventurier extends Observe {
 
     public void setPions(Coordonnees j1, Coordonnees j2, Coordonnees j3, Coordonnees j4) {
 
-        pion1 = new Pion(2, 7, Color.red);
-        pion2 = new Pion(95, 7, Color.GREEN);
+        pion1 = new Pion(2, 7, Color.red, false);
+        pion2 = new Pion(95, 7, Color.GREEN, false);
 
         if (nbJoueur >= 3) {
-            pion3 = new Pion(2, 70, Color.BLUE);
+            pion3 = new Pion(2, 70, Color.BLUE, false);
         }
         if (nbJoueur == 4) {
-            pion4 = new Pion(95, 70, Color.orange);
+            pion4 = new Pion(95, 70, Color.orange, false);
         }
         for (JButton jb : boutons) {
 
@@ -1142,30 +1172,43 @@ public class VueAventurier extends Observe {
     }
 
     public void setNomsTuiles() {
+        nomsTuiles.add("Le Palais de Corail");
+        nomsTuiles.add("La Caverne du Brasier");
+        
         nomsTuiles.add("Le Pont des Abimes");
         nomsTuiles.add("La Porte de Bronze");
-        nomsTuiles.add("La Caverne des Ombres");
-        nomsTuiles.add("La Porte de Fer");        ///
-        nomsTuiles.add("La Porte d’Or");            //
+        nomsTuiles.add("La Porte de Cuivre");
+        nomsTuiles.add("La Porte de Fer");  
+        
+        nomsTuiles.add("Le Palais des Marees");
+             //
+        
         nomsTuiles.add("Les Falaises de l’Oubli");
-        nomsTuiles.add("Le Palais de Corail");
-        nomsTuiles.add("La Porte d’Argent");       //   
+        nomsTuiles.add("La Porte d’Argent");     
         nomsTuiles.add("Les Dunes de l’Illusion");
-        nomsTuiles.add("Le Marais Brumeux");        //
-        nomsTuiles.add("La Porte de Cuivre");           //
+        
+        nomsTuiles.add("Le Marais Brumeux"); 
+        nomsTuiles.add("La Caverne des Ombres");
+         //
+        
         nomsTuiles.add("Le Jardin des Hurlements");
         nomsTuiles.add("La Foret Pourpre");
-        nomsTuiles.add("Le Lagon Perdu");
+        
         nomsTuiles.add("Heliport");
-        nomsTuiles.add("Observatoire");
-        nomsTuiles.add("Le Rocher Fantome");
-        nomsTuiles.add("La Caverne du Brasier");
+        nomsTuiles.add("Le Lagon Perdu");
+        
+        nomsTuiles.add("Observatoire"); //
         nomsTuiles.add("Le Temple du Soleil");
-        nomsTuiles.add("Le Temple de La Lune");
-        nomsTuiles.add("Le Palais des Marees");
-        nomsTuiles.add("Le Val du Crepuscule");
+        nomsTuiles.add("Le Rocher Fantome");
+        
+        
         nomsTuiles.add("La Tour du Guet");
+        nomsTuiles.add("La Porte d’Or"); 
+        nomsTuiles.add("Le Val du Crepuscule");
         nomsTuiles.add("Le Jardin des Murmures");
+        
+        nomsTuiles.add("Le Temple de La Lune");
+        
     }
 
     public void lock() {
@@ -1190,22 +1233,45 @@ public class VueAventurier extends Observe {
 
         private int x = 5;
         private int y = 50;
+        private int width = 20;
+        private int height = 20;
+        private boolean Image;
         private Color color;
+        private Image image;
 
-        public Pion(int x, int y, Color color) {
+        public Pion(int x, int y, Color color, boolean image) {
             this.x = x;
             this.y = y;
             this.color = color;
+            this.Image = image;
         }
 
         @Override
         public void paintComponent(Graphics g) {
             pion = (Graphics2D) g;
-            pion.setColor(Color.black);
-            pion.drawOval(x, y, 20, 20);
-            pion.setColor(color);
-            pion.fillOval(x, y, 20, 20);
+            if (Image) {
 
+                g.drawImage(this.image, x, y, width, height, null, this);
+            } else {
+
+                pion.setColor(Color.black);
+                pion.drawOval(x, y, width, height);
+                pion.setColor(color);
+                pion.fillOval(x, y, width, height);
+            }
+
+        }
+
+        public void setWidth(int width) {
+            this.width = width;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
+        }
+
+        private void setImage(Image image) {
+            this.image = image;
         }
 
     }

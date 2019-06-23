@@ -127,19 +127,38 @@ public class Controleur implements Observateur {
 
                 break;
             case CHOIX_TUILE:
-                if (message.deplacer || (message.activerCarte && getCarte(numCarte).getFonction().equals("Helicoptere"))) {
+                if (message.deplacer) {
                     Coordonnees old = joueurCourant.getTuile().getCoordonnee();
                     deplacement(message.c);
                     ihm.mettreAJourPions(old, joueurCourant.getTuile().getCoordonnee());
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                     ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
                 }
-                if (message.assecher || (message.activerCarte && getCarte(numCarte).getFonction().equals("Sac de Sable"))) {
+                if (message.assecher) {
 
                     assechement(message.c);
                     ihm.mettreAJourTuiles(grille.getTuiles().values());
                     ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
 
+                }
+                if (message.activerCarte) {
+
+                    if (getCarte(numCarte).getFonction().equals("Helicoptere")) {
+                        Coordonnees old = joueurCourant.getTuile().getCoordonnee();
+                        deplacement(message.c);
+                        ihm.mettreAJourPions(old, joueurCourant.getTuile().getCoordonnee());
+                        ihm.mettreAJourTuiles(grille.getTuiles().values());
+                        ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
+                        
+                    }
+                    if (getCarte(numCarte).getFonction().equals("Sac de Sable")) {
+                        assechement(message.c);
+                        ihm.mettreAJourTuiles(grille.getTuiles().values());
+                        ihm.mettreAJourActions(peuxGagnerTresor(), getJoueurTuile(), peuxAssecher());
+                        
+                    }
+                    pileTresor.Defausser(getCarte(numCarte), joueurCourant);
+                        ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
                 }
                 break;
             case CHOIX_CARTE:
@@ -166,8 +185,6 @@ public class Controleur implements Observateur {
                         finDePartieGagner();
                     }
                     activerCarte();
-                    pileTresor.Defausser(getCarte(numCarte), joueurCourant);
-                    ihm.mettreAJourCartes(joueurCourant.getCartesEnMain());
 
                 }
 
@@ -190,6 +207,7 @@ public class Controleur implements Observateur {
                     ihm.setNivEau(grille.getNivEau() + 1);
                     ihm.mettreAJourNivEau();
                     grille.setNivEau(grille.getNivEau() + 1);
+                    System.out.println(grille.getNivEau());
                     pileInondation.melangerLesPiles();
                 }
                 for (int i = 1; i <= carteAPiocher; i++) {
@@ -228,7 +246,7 @@ public class Controleur implements Observateur {
                 Initialisation();
 
                 break;
-                
+
             case QUITTER:
                 ihm.setQuitter();
                 break;
@@ -245,6 +263,7 @@ public class Controleur implements Observateur {
             }
         }
         if (J1.getTresors().isAllCollected() && tousAHeliport) {
+            ihm.lock();
             ihmNotif.vueGagner();
         }
 
@@ -605,6 +624,11 @@ public class Controleur implements Observateur {
         aventuriers.add(J2);
         aventuriers.add(J3);
         aventuriers.add(J4);
+        
+//        J1.getTresors().setCalice(true);
+//        J1.getTresors().setPierre(true);
+//        J1.getTresors().setStatue(true);
+//        J1.getTresors().setCristal(true);
 
 //=========================SENARIO GAGNER TRESOR================================================================================
 //        J1.addCarte(new CarteDeTresor("Calice"));
@@ -665,7 +689,8 @@ public class Controleur implements Observateur {
         cartes.add(H2);
         cartes.add(H3);
 
-        J1.addCarte(H);
+        //J1.addCarte(H);
+        //J1.addCarte(SacS);
         pileTresor = new PileTresor(cartes);// inistialiser la pile de tresor
 
         ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
