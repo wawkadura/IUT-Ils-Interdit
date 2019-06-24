@@ -58,7 +58,7 @@ public class VueAventurier extends Observe {
     private boolean competenceUtiliser, helicoptere, activerCarte, compIng, niv1, niv2, niv3, niv4, niv5, niv6, niv7, niv8, niv9, niv10 = false;
     private boolean donner = false;
     private boolean defausser = false;
-    private boolean deplacer;
+    private boolean deplacer , messager;
     private boolean Assecher;
     private Graphics pion;
     private Pion pion1, pion2, pion3, pion4;
@@ -301,15 +301,21 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent arg0) {
                 deplacer = false;
                 Assecher = false;
+                donner=false;
                 if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Pilote")) {
                     deplacer = true;
+                }
+                if (joueurs.get(joueurAct - 1).getActionCommand().equalsIgnoreCase("Messager")) {
+                    donner = true;
+                    messager=true;
                 }
                 Message m = new Message();
                 m.type = TypesMessages.COMPETENCE;
                 m.joueurCourant = joueurCourant;
                 notifierObservateur(m);
                 competenceUtiliser = true;
-
+                
+                
             }
         });
         terminerTour = new JButton("Terminer Tour");
@@ -435,12 +441,13 @@ public class VueAventurier extends Observe {
                         m.defausser = defausser;
                         m.numCarte = num;
                         notifierObservateur(m);
-                        int i = 0;
+                        
 
                         for (JButton jb : cartes) {
                             jb.setBackground(none);
-                            defausser = false;
+                            
                         }
+                        defausser = false;
 
                     } else {
                         if (carteJoueur.getText().equals("Sac de Sable")) {
@@ -836,16 +843,16 @@ public class VueAventurier extends Observe {
         }
 
     }
-
     public void setJoueurDispo(ArrayList<String> joueur) {
         if (!joueur.isEmpty()) {
-            if (joueurs.get(joueurAct - 1).getText().equals("Messager")) {
+            if (messager) {
                 for (JButton J : joueurs) {
                     if (!J.getText().equals(joueurCourant)) {
                         J.setBackground(Color.green);
                         J.setEnabled(true);
                     }
                 }
+                messager=false;
             } else {
                 for (String j : joueur) {
                     for (JButton J : joueurs) {

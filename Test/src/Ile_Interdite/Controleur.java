@@ -17,6 +17,7 @@ import Ile_Interdite.Aventuriers.Pilote;
 import Ile_Interdite.Aventuriers.Ingenieur;
 import Ile_Interdite.Aventuriers.Aventurier;
 import Ile_Interdite.Aventuriers.Explorateur;
+import Ile_Interdite.Aventuriers.Messager;
 import Ile_Interdite.IHM.VueInitialisation;
 import Ile_Interdite.IHM.VueNotifications;
 import Ile_Interdite.cartes.CarteTresor;
@@ -122,6 +123,9 @@ public class Controleur implements Observateur {
 
                 if (joueurCourant.getFonction().equals("Pilote")) {
                     tuilesVoisinesDeplacementHelicoptere(joueurCourant);
+                }
+                else if (joueurCourant.getFonction().equals("Messager")) {
+                    ihm.setCartesDispo();
                 }
 
                 break;
@@ -601,7 +605,7 @@ public class Controleur implements Observateur {
         Coordonnees C3 = new Coordonnees(2, 3);
         Coordonnees C4 = new Coordonnees(3, 3);
 
-        J1 = new Ingenieur(nom1, grille.getTuiles().get(C));
+        J1 = new Messager(nom1, grille.getTuiles().get(C));
         J2 = new Explorateur(nom2, grille.getTuiles().get(C2));
         J3 = new Pilote(nom3, grille.getTuiles().get(C3));
         J4 = new Navigateur(nom4, grille.getTuiles().get(C4));
