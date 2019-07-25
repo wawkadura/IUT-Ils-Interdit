@@ -229,9 +229,9 @@ public class Controleur implements Observateur {
                 ihm.mettreAJourTuiles(grille.getTuiles().values());
 
                 //////////////SENARIO DE DEFAITE PAR NIV EAU/////////////////////////////
-//              ihm.setNivEau(10);
-//              grille.setNivEau(10);
-//              ihm.mettreAJourNivEau();
+              ihm.setNivEau(10);
+              grille.setNivEau(10);
+              ihm.mettreAJourNivEau();
                 finDePartiePerdu();
                 break;
 
@@ -677,9 +677,13 @@ public class Controleur implements Observateur {
         cartes.add(H);
         cartes.add(H2);
         cartes.add(H3);
+//=========================SENARIO ACTIVER CARTE================================================================================
 
-        //J1.addCarte(H);
-        //J1.addCarte(SacS);
+        J2.addCarte(H);
+        J2.addCarte(SacS);
+        
+//=========================SENARIO ACTIVER CARTE================================================================================
+
         pileTresor = new PileTresor(cartes);// inistialiser la pile de tresor
 
         ArrayList<CarteInondation> cartesInondation = new ArrayList<>();
